@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")"/..
+
+bin/test # also generates a coverage report
+git stash
+git switch gh-pages
+cp -r .coverage/report .
+git add -A
+git commit -m 'update testing code coverage report'
+git push
+git switch -
+git stash apply
