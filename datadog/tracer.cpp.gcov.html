@@ -31,18 +31,18 @@
             <td class="headerValue">filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">32</td>
+            <td class="headerCovTableEntry">106</td>
             <td class="headerCovTableEntry">225</td>
-            <td class="headerCovTableEntryLo">14.2 %</td>
+            <td class="headerCovTableEntryLo">47.1 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-11 19:47:26</td>
+            <td class="headerValue">2022-09-11 22:53:31</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">14</td>
             <td class="headerCovTableEntry">22</td>
-            <td class="headerCovTableEntryLo">18.2 %</td>
+            <td class="headerCovTableEntryLo">63.6 %</td>
           </tr>
           <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -110,15 +110,15 @@
 <a name="48"><span class="lineNum">      48 </span>            : };</a>
 <a name="49"><span class="lineNum">      49 </span>            : </a>
 <a name="50"><span class="lineNum">      50 </span>            : class DatadogExtractionPolicy : public ExtractionPolicy {</a>
-<a name="51"><span class="lineNum">      51 </span><span class="lineNoCov">          0 :   Expected&lt;std::optional&lt;std::uint64_t&gt;&gt; id(const DictReader&amp; headers,</span></a>
+<a name="51"><span class="lineNum">      51 </span><span class="lineCov">          4 :   Expected&lt;std::optional&lt;std::uint64_t&gt;&gt; id(const DictReader&amp; headers,</span></a>
 <a name="52"><span class="lineNum">      52 </span>            :                                             std::string_view header,</a>
 <a name="53"><span class="lineNum">      53 </span>            :                                             std::string_view kind) {</a>
-<a name="54"><span class="lineNum">      54 </span><span class="lineNoCov">          0 :     auto found = headers.lookup(header);</span></a>
-<a name="55"><span class="lineNum">      55 </span><span class="lineNoCov">          0 :     if (!found) {</span></a>
+<a name="54"><span class="lineNum">      54 </span><span class="lineCov">          4 :     auto found = headers.lookup(header);</span></a>
+<a name="55"><span class="lineNum">      55 </span><span class="lineCov">          4 :     if (!found) {</span></a>
 <a name="56"><span class="lineNum">      56 </span><span class="lineNoCov">          0 :       return std::nullopt;</span></a>
 <a name="57"><span class="lineNum">      57 </span>            :     }</a>
-<a name="58"><span class="lineNum">      58 </span><span class="lineNoCov">          0 :     auto result = parse_uint64(*found, 10);</span></a>
-<a name="59"><span class="lineNum">      59 </span><span class="lineNoCov">          0 :     if (auto* error = result.if_error()) {</span></a>
+<a name="58"><span class="lineNum">      58 </span><span class="lineCov">          8 :     auto result = parse_uint64(*found, 10);</span></a>
+<a name="59"><span class="lineNum">      59 </span><span class="lineCov">          4 :     if (auto* error = result.if_error()) {</span></a>
 <a name="60"><span class="lineNum">      60 </span><span class="lineNoCov">          0 :       std::string prefix;</span></a>
 <a name="61"><span class="lineNum">      61 </span><span class="lineNoCov">          0 :       prefix += &quot;Could not extract Datadog-style &quot;;</span></a>
 <a name="62"><span class="lineNum">      62 </span><span class="lineNoCov">          0 :       prefix += kind;</span></a>
@@ -129,26 +129,26 @@
 <a name="67"><span class="lineNum">      67 </span><span class="lineNoCov">          0 :       prefix += ' ';</span></a>
 <a name="68"><span class="lineNum">      68 </span><span class="lineNoCov">          0 :       return error-&gt;with_prefix(prefix);</span></a>
 <a name="69"><span class="lineNum">      69 </span>            :     }</a>
-<a name="70"><span class="lineNum">      70 </span><span class="lineNoCov">          0 :     return *result;</span></a>
+<a name="70"><span class="lineNum">      70 </span><span class="lineCov">          4 :     return *result;</span></a>
 <a name="71"><span class="lineNum">      71 </span>            :   }</a>
 <a name="72"><span class="lineNum">      72 </span>            : </a>
 <a name="73"><span class="lineNum">      73 </span>            :  public:</a>
-<a name="74"><span class="lineNum">      74 </span><span class="lineNoCov">          0 :   Expected&lt;std::optional&lt;std::uint64_t&gt;&gt; trace_id(</span></a>
+<a name="74"><span class="lineNum">      74 </span><span class="lineCov">          2 :   Expected&lt;std::optional&lt;std::uint64_t&gt;&gt; trace_id(</span></a>
 <a name="75"><span class="lineNum">      75 </span>            :       const DictReader&amp; headers) override {</a>
-<a name="76"><span class="lineNum">      76 </span><span class="lineNoCov">          0 :     return id(headers, &quot;x-datadog-trace-id&quot;, &quot;trace&quot;);</span></a>
+<a name="76"><span class="lineNum">      76 </span><span class="lineCov">          2 :     return id(headers, &quot;x-datadog-trace-id&quot;, &quot;trace&quot;);</span></a>
 <a name="77"><span class="lineNum">      77 </span>            :   }</a>
 <a name="78"><span class="lineNum">      78 </span>            : </a>
-<a name="79"><span class="lineNum">      79 </span><span class="lineNoCov">          0 :   Expected&lt;std::optional&lt;std::uint64_t&gt;&gt; parent_id(</span></a>
+<a name="79"><span class="lineNum">      79 </span><span class="lineCov">          2 :   Expected&lt;std::optional&lt;std::uint64_t&gt;&gt; parent_id(</span></a>
 <a name="80"><span class="lineNum">      80 </span>            :       const DictReader&amp; headers) override {</a>
-<a name="81"><span class="lineNum">      81 </span><span class="lineNoCov">          0 :     return id(headers, &quot;x-datadog-parent-id&quot;, &quot;parent span&quot;);</span></a>
+<a name="81"><span class="lineNum">      81 </span><span class="lineCov">          2 :     return id(headers, &quot;x-datadog-parent-id&quot;, &quot;parent span&quot;);</span></a>
 <a name="82"><span class="lineNum">      82 </span>            :   }</a>
 <a name="83"><span class="lineNum">      83 </span>            : </a>
-<a name="84"><span class="lineNum">      84 </span><span class="lineNoCov">          0 :   Expected&lt;std::optional&lt;int&gt;&gt; sampling_priority(</span></a>
+<a name="84"><span class="lineNum">      84 </span><span class="lineCov">          2 :   Expected&lt;std::optional&lt;int&gt;&gt; sampling_priority(</span></a>
 <a name="85"><span class="lineNum">      85 </span>            :       const DictReader&amp; headers) override {</a>
-<a name="86"><span class="lineNum">      86 </span><span class="lineNoCov">          0 :     const std::string_view header = &quot;x-datadog-sampling-priority&quot;;</span></a>
-<a name="87"><span class="lineNum">      87 </span><span class="lineNoCov">          0 :     auto found = headers.lookup(header);</span></a>
-<a name="88"><span class="lineNum">      88 </span><span class="lineNoCov">          0 :     if (!found) {</span></a>
-<a name="89"><span class="lineNum">      89 </span><span class="lineNoCov">          0 :       return std::nullopt;</span></a>
+<a name="86"><span class="lineNum">      86 </span><span class="lineCov">          2 :     const std::string_view header = &quot;x-datadog-sampling-priority&quot;;</span></a>
+<a name="87"><span class="lineNum">      87 </span><span class="lineCov">          2 :     auto found = headers.lookup(header);</span></a>
+<a name="88"><span class="lineNum">      88 </span><span class="lineCov">          2 :     if (!found) {</span></a>
+<a name="89"><span class="lineNum">      89 </span><span class="lineCov">          2 :       return std::nullopt;</span></a>
 <a name="90"><span class="lineNum">      90 </span>            :     }</a>
 <a name="91"><span class="lineNum">      91 </span><span class="lineNoCov">          0 :     auto result = parse_int(*found, 10);</span></a>
 <a name="92"><span class="lineNum">      92 </span><span class="lineNoCov">          0 :     if (auto* error = result.if_error()) {</span></a>
@@ -163,20 +163,20 @@
 <a name="101"><span class="lineNum">     101 </span><span class="lineNoCov">          0 :     return *result;</span></a>
 <a name="102"><span class="lineNum">     102 </span>            :   }</a>
 <a name="103"><span class="lineNum">     103 </span>            : </a>
-<a name="104"><span class="lineNum">     104 </span><span class="lineNoCov">          0 :   std::optional&lt;std::string&gt; origin(const DictReader&amp; headers) override {</span></a>
-<a name="105"><span class="lineNum">     105 </span><span class="lineNoCov">          0 :     auto found = headers.lookup(&quot;x-datadog-origin&quot;);</span></a>
-<a name="106"><span class="lineNum">     106 </span><span class="lineNoCov">          0 :     if (found) {</span></a>
+<a name="104"><span class="lineNum">     104 </span><span class="lineCov">          2 :   std::optional&lt;std::string&gt; origin(const DictReader&amp; headers) override {</span></a>
+<a name="105"><span class="lineNum">     105 </span><span class="lineCov">          2 :     auto found = headers.lookup(&quot;x-datadog-origin&quot;);</span></a>
+<a name="106"><span class="lineNum">     106 </span><span class="lineCov">          2 :     if (found) {</span></a>
 <a name="107"><span class="lineNum">     107 </span><span class="lineNoCov">          0 :       return std::string(*found);</span></a>
 <a name="108"><span class="lineNum">     108 </span>            :     }</a>
-<a name="109"><span class="lineNum">     109 </span><span class="lineNoCov">          0 :     return std::nullopt;</span></a>
+<a name="109"><span class="lineNum">     109 </span><span class="lineCov">          2 :     return std::nullopt;</span></a>
 <a name="110"><span class="lineNum">     110 </span>            :   }</a>
 <a name="111"><span class="lineNum">     111 </span>            : </a>
-<a name="112"><span class="lineNum">     112 </span><span class="lineNoCov">          0 :   std::optional&lt;std::string&gt; trace_tags(const DictReader&amp; headers) override {</span></a>
-<a name="113"><span class="lineNum">     113 </span><span class="lineNoCov">          0 :     auto found = headers.lookup(&quot;x-datadog-tags&quot;);</span></a>
-<a name="114"><span class="lineNum">     114 </span><span class="lineNoCov">          0 :     if (found) {</span></a>
+<a name="112"><span class="lineNum">     112 </span><span class="lineCov">          2 :   std::optional&lt;std::string&gt; trace_tags(const DictReader&amp; headers) override {</span></a>
+<a name="113"><span class="lineNum">     113 </span><span class="lineCov">          2 :     auto found = headers.lookup(&quot;x-datadog-tags&quot;);</span></a>
+<a name="114"><span class="lineNum">     114 </span><span class="lineCov">          2 :     if (found) {</span></a>
 <a name="115"><span class="lineNum">     115 </span><span class="lineNoCov">          0 :       return std::string(*found);</span></a>
 <a name="116"><span class="lineNum">     116 </span>            :     }</a>
-<a name="117"><span class="lineNum">     117 </span><span class="lineNoCov">          0 :     return std::nullopt;</span></a>
+<a name="117"><span class="lineNum">     117 </span><span class="lineCov">          2 :     return std::nullopt;</span></a>
 <a name="118"><span class="lineNum">     118 </span>            :   }</a>
 <a name="119"><span class="lineNum">     119 </span>            : };</a>
 <a name="120"><span class="lineNum">     120 </span>            : </a>
@@ -253,119 +253,119 @@
 <a name="191"><span class="lineNum">     191 </span><span class="lineNoCov">          0 :          left.sampling_priority != right.sampling_priority;</span></a>
 <a name="192"><span class="lineNum">     192 </span>            : }</a>
 <a name="193"><span class="lineNum">     193 </span>            : </a>
-<a name="194"><span class="lineNum">     194 </span><span class="lineNoCov">          0 : Expected&lt;ExtractedData&gt; extract_data(ExtractionPolicy&amp; extract,</span></a>
+<a name="194"><span class="lineNum">     194 </span><span class="lineCov">          2 : Expected&lt;ExtractedData&gt; extract_data(ExtractionPolicy&amp; extract,</span></a>
 <a name="195"><span class="lineNum">     195 </span>            :                                      const DictReader&amp; reader) {</a>
-<a name="196"><span class="lineNum">     196 </span><span class="lineNoCov">          0 :   ExtractedData extracted_data;</span></a>
+<a name="196"><span class="lineNum">     196 </span><span class="lineCov">          2 :   ExtractedData extracted_data;</span></a>
 <a name="197"><span class="lineNum">     197 </span>            : </a>
-<a name="198"><span class="lineNum">     198 </span><span class="lineNoCov">          0 :   auto&amp; [trace_id, parent_id, origin, trace_tags, sampling_priority] = extracted_data;</span></a>
+<a name="198"><span class="lineNum">     198 </span><span class="lineCov">          2 :   auto&amp; [trace_id, parent_id, origin, trace_tags, sampling_priority] = extracted_data;</span></a>
 <a name="199"><span class="lineNum">     199 </span>            : </a>
-<a name="200"><span class="lineNum">     200 </span><span class="lineNoCov">          0 :   auto maybe_trace_id = extract.trace_id(reader);</span></a>
-<a name="201"><span class="lineNum">     201 </span><span class="lineNoCov">          0 :   if (auto* error = maybe_trace_id.if_error()) {</span></a>
+<a name="200"><span class="lineNum">     200 </span><span class="lineCov">          4 :   auto maybe_trace_id = extract.trace_id(reader);</span></a>
+<a name="201"><span class="lineNum">     201 </span><span class="lineCov">          2 :   if (auto* error = maybe_trace_id.if_error()) {</span></a>
 <a name="202"><span class="lineNum">     202 </span><span class="lineNoCov">          0 :     return std::move(*error);</span></a>
 <a name="203"><span class="lineNum">     203 </span>            :   }</a>
-<a name="204"><span class="lineNum">     204 </span><span class="lineNoCov">          0 :   trace_id = *maybe_trace_id;</span></a>
+<a name="204"><span class="lineNum">     204 </span><span class="lineCov">          2 :   trace_id = *maybe_trace_id;</span></a>
 <a name="205"><span class="lineNum">     205 </span>            : </a>
-<a name="206"><span class="lineNum">     206 </span><span class="lineNoCov">          0 :   origin = extract.origin(reader);</span></a>
+<a name="206"><span class="lineNum">     206 </span><span class="lineCov">          2 :   origin = extract.origin(reader);</span></a>
 <a name="207"><span class="lineNum">     207 </span>            : </a>
-<a name="208"><span class="lineNum">     208 </span><span class="lineNoCov">          0 :   auto maybe_parent_id = extract.parent_id(reader);</span></a>
-<a name="209"><span class="lineNum">     209 </span><span class="lineNoCov">          0 :   if (auto* error = maybe_parent_id.if_error()) {</span></a>
+<a name="208"><span class="lineNum">     208 </span><span class="lineCov">          4 :   auto maybe_parent_id = extract.parent_id(reader);</span></a>
+<a name="209"><span class="lineNum">     209 </span><span class="lineCov">          2 :   if (auto* error = maybe_parent_id.if_error()) {</span></a>
 <a name="210"><span class="lineNum">     210 </span><span class="lineNoCov">          0 :     return std::move(*error);</span></a>
 <a name="211"><span class="lineNum">     211 </span>            :   }</a>
-<a name="212"><span class="lineNum">     212 </span><span class="lineNoCov">          0 :   parent_id = *maybe_parent_id;</span></a>
+<a name="212"><span class="lineNum">     212 </span><span class="lineCov">          2 :   parent_id = *maybe_parent_id;</span></a>
 <a name="213"><span class="lineNum">     213 </span>            : </a>
-<a name="214"><span class="lineNum">     214 </span><span class="lineNoCov">          0 :   auto maybe_sampling_priority = extract.sampling_priority(reader);</span></a>
-<a name="215"><span class="lineNum">     215 </span><span class="lineNoCov">          0 :   if (auto* error = maybe_sampling_priority.if_error()) {</span></a>
+<a name="214"><span class="lineNum">     214 </span><span class="lineCov">          4 :   auto maybe_sampling_priority = extract.sampling_priority(reader);</span></a>
+<a name="215"><span class="lineNum">     215 </span><span class="lineCov">          2 :   if (auto* error = maybe_sampling_priority.if_error()) {</span></a>
 <a name="216"><span class="lineNum">     216 </span><span class="lineNoCov">          0 :     return std::move(*error);</span></a>
 <a name="217"><span class="lineNum">     217 </span>            :   }</a>
-<a name="218"><span class="lineNum">     218 </span><span class="lineNoCov">          0 :   sampling_priority = *maybe_sampling_priority;</span></a>
+<a name="218"><span class="lineNum">     218 </span><span class="lineCov">          2 :   sampling_priority = *maybe_sampling_priority;</span></a>
 <a name="219"><span class="lineNum">     219 </span>            : </a>
-<a name="220"><span class="lineNum">     220 </span><span class="lineNoCov">          0 :   trace_tags = extract.trace_tags(reader);</span></a>
+<a name="220"><span class="lineNum">     220 </span><span class="lineCov">          2 :   trace_tags = extract.trace_tags(reader);</span></a>
 <a name="221"><span class="lineNum">     221 </span>            : </a>
-<a name="222"><span class="lineNum">     222 </span><span class="lineNoCov">          0 :   return extracted_data;</span></a>
+<a name="222"><span class="lineNum">     222 </span><span class="lineCov">          2 :   return extracted_data;</span></a>
 <a name="223"><span class="lineNum">     223 </span>            : }</a>
 <a name="224"><span class="lineNum">     224 </span>            : </a>
 <a name="225"><span class="lineNum">     225 </span>            : }  // namespace</a>
 <a name="226"><span class="lineNum">     226 </span>            : </a>
-<a name="227"><span class="lineNum">     227 </span><span class="lineCov">          4 : Tracer::Tracer(const FinalizedTracerConfig&amp; config)</span></a>
-<a name="228"><span class="lineNum">     228 </span><span class="lineCov">          4 :     : Tracer(config, default_id_generator, default_clock) {}</span></a>
+<a name="227"><span class="lineNum">     227 </span><span class="lineCov">          7 : Tracer::Tracer(const FinalizedTracerConfig&amp; config)</span></a>
+<a name="228"><span class="lineNum">     228 </span><span class="lineCov">          7 :     : Tracer(config, default_id_generator, default_clock) {}</span></a>
 <a name="229"><span class="lineNum">     229 </span>            : </a>
-<a name="230"><span class="lineNum">     230 </span><span class="lineCov">          4 : Tracer::Tracer(const FinalizedTracerConfig&amp; config,</span></a>
-<a name="231"><span class="lineNum">     231 </span><span class="lineCov">          4 :                const IDGenerator&amp; generator, const Clock&amp; clock)</span></a>
-<a name="232"><span class="lineNum">     232 </span><span class="lineCov">          4 :     : logger_(config.logger),</span></a>
+<a name="230"><span class="lineNum">     230 </span><span class="lineCov">          7 : Tracer::Tracer(const FinalizedTracerConfig&amp; config,</span></a>
+<a name="231"><span class="lineNum">     231 </span><span class="lineCov">          7 :                const IDGenerator&amp; generator, const Clock&amp; clock)</span></a>
+<a name="232"><span class="lineNum">     232 </span><span class="lineCov">          7 :     : logger_(config.logger),</span></a>
 <a name="233"><span class="lineNum">     233 </span>            :       collector_(/* see constructor body */),</a>
 <a name="234"><span class="lineNum">     234 </span>            :       trace_sampler_(</a>
-<a name="235"><span class="lineNum">     235 </span><span class="lineCov">          4 :           std::make_shared&lt;TraceSampler&gt;(config.trace_sampler, clock)),</span></a>
-<a name="236"><span class="lineNum">     236 </span><span class="lineCov">          4 :       span_sampler_(std::make_shared&lt;SpanSampler&gt;(config.span_sampler, clock)),</span></a>
+<a name="235"><span class="lineNum">     235 </span><span class="lineCov">          7 :           std::make_shared&lt;TraceSampler&gt;(config.trace_sampler, clock)),</span></a>
+<a name="236"><span class="lineNum">     236 </span><span class="lineCov">          7 :       span_sampler_(std::make_shared&lt;SpanSampler&gt;(config.span_sampler, clock)),</span></a>
 <a name="237"><span class="lineNum">     237 </span>            :       generator_(generator),</a>
 <a name="238"><span class="lineNum">     238 </span>            :       clock_(clock),</a>
-<a name="239"><span class="lineNum">     239 </span><span class="lineCov">          4 :       defaults_(std::make_shared&lt;SpanDefaults&gt;(config.defaults)),</span></a>
+<a name="239"><span class="lineNum">     239 </span><span class="lineCov">          7 :       defaults_(std::make_shared&lt;SpanDefaults&gt;(config.defaults)),</span></a>
 <a name="240"><span class="lineNum">     240 </span>            :       injection_styles_(config.injection_styles),</a>
 <a name="241"><span class="lineNum">     241 </span>            :       extraction_styles_(config.extraction_styles),</a>
-<a name="242"><span class="lineNum">     242 </span><span class="lineCov">          4 :       hostname_(config.report_hostname ? get_hostname() : std::nullopt),</span></a>
-<a name="243"><span class="lineNum">     243 </span><span class="lineCov">          8 :       tags_header_max_size_(config.tags_header_size) {</span></a>
-<a name="244"><span class="lineNum">     244 </span><span class="lineCov">          4 :   if (auto* collector =</span></a>
-<a name="245"><span class="lineNum">     245 </span><span class="lineCov">          4 :           std::get_if&lt;std::shared_ptr&lt;Collector&gt;&gt;(&amp;config.collector)) {</span></a>
-<a name="246"><span class="lineNum">     246 </span><span class="lineNoCov">          0 :     collector_ = *collector;</span></a>
+<a name="242"><span class="lineNum">     242 </span><span class="lineCov">          7 :       hostname_(config.report_hostname ? get_hostname() : std::nullopt),</span></a>
+<a name="243"><span class="lineNum">     243 </span><span class="lineCov">         14 :       tags_header_max_size_(config.tags_header_size) {</span></a>
+<a name="244"><span class="lineNum">     244 </span><span class="lineCov">          7 :   if (auto* collector =</span></a>
+<a name="245"><span class="lineNum">     245 </span><span class="lineCov">          7 :           std::get_if&lt;std::shared_ptr&lt;Collector&gt;&gt;(&amp;config.collector)) {</span></a>
+<a name="246"><span class="lineNum">     246 </span><span class="lineCov">          6 :     collector_ = *collector;</span></a>
 <a name="247"><span class="lineNum">     247 </span>            :   } else {</a>
 <a name="248"><span class="lineNum">     248 </span>            :     auto&amp; agent_config =</a>
-<a name="249"><span class="lineNum">     249 </span><span class="lineCov">          4 :         std::get&lt;FinalizedDatadogAgentConfig&gt;(config.collector);</span></a>
+<a name="249"><span class="lineNum">     249 </span><span class="lineCov">          1 :         std::get&lt;FinalizedDatadogAgentConfig&gt;(config.collector);</span></a>
 <a name="250"><span class="lineNum">     250 </span>            :     collector_ =</a>
-<a name="251"><span class="lineNum">     251 </span><span class="lineCov">          4 :         std::make_shared&lt;DatadogAgent&gt;(agent_config, clock, config.logger);</span></a>
+<a name="251"><span class="lineNum">     251 </span><span class="lineCov">          1 :         std::make_shared&lt;DatadogAgent&gt;(agent_config, clock, config.logger);</span></a>
 <a name="252"><span class="lineNum">     252 </span>            :   }</a>
 <a name="253"><span class="lineNum">     253 </span>            : </a>
-<a name="254"><span class="lineNum">     254 </span><span class="lineCov">          4 :   if (config.log_on_startup) {</span></a>
-<a name="255"><span class="lineNum">     255 </span><span class="lineCov">          8 :     logger_-&gt;log_startup(</span></a>
-<a name="256"><span class="lineNum">     256 </span><span class="lineCov">          8 :         [](auto&amp; stream) { stream &lt;&lt; &quot;TODO: Here is your startup message.&quot;; });</span></a>
+<a name="254"><span class="lineNum">     254 </span><span class="lineCov">          7 :   if (config.log_on_startup) {</span></a>
+<a name="255"><span class="lineNum">     255 </span><span class="lineCov">         14 :     logger_-&gt;log_startup(</span></a>
+<a name="256"><span class="lineNum">     256 </span><span class="lineCov">         13 :         [](auto&amp; stream) { stream &lt;&lt; &quot;TODO: Here is your startup message.&quot;; });</span></a>
 <a name="257"><span class="lineNum">     257 </span>            :   }</a>
-<a name="258"><span class="lineNum">     258 </span><span class="lineCov">          4 : }</span></a>
+<a name="258"><span class="lineNum">     258 </span><span class="lineCov">          7 : }</span></a>
 <a name="259"><span class="lineNum">     259 </span>            : </a>
-<a name="260"><span class="lineNum">     260 </span><span class="lineNoCov">          0 : Span Tracer::create_span() {</span></a>
-<a name="261"><span class="lineNum">     261 </span><span class="lineNoCov">          0 :   return create_span(SpanConfig{});</span></a>
+<a name="260"><span class="lineNum">     260 </span><span class="lineCov">          3 : Span Tracer::create_span() {</span></a>
+<a name="261"><span class="lineNum">     261 </span><span class="lineCov">          6 :   return create_span(SpanConfig{});</span></a>
 <a name="262"><span class="lineNum">     262 </span>            : }</a>
 <a name="263"><span class="lineNum">     263 </span>            : </a>
-<a name="264"><span class="lineNum">     264 </span><span class="lineCov">          4 : Span Tracer::create_span(const SpanConfig&amp; config) {</span></a>
-<a name="265"><span class="lineNum">     265 </span><span class="lineCov">          8 :   auto span_data = std::make_unique&lt;SpanData&gt;();</span></a>
-<a name="266"><span class="lineNum">     266 </span><span class="lineCov">          4 :   span_data-&gt;apply_config(*defaults_, config, clock_);</span></a>
-<a name="267"><span class="lineNum">     267 </span><span class="lineCov">          4 :   span_data-&gt;span_id = generator_.generate_span_id();</span></a>
-<a name="268"><span class="lineNum">     268 </span><span class="lineCov">          4 :   span_data-&gt;trace_id = span_data-&gt;span_id;</span></a>
-<a name="269"><span class="lineNum">     269 </span><span class="lineCov">          4 :   span_data-&gt;parent_id = 0;</span></a>
+<a name="264"><span class="lineNum">     264 </span><span class="lineCov">          5 : Span Tracer::create_span(const SpanConfig&amp; config) {</span></a>
+<a name="265"><span class="lineNum">     265 </span><span class="lineCov">         10 :   auto span_data = std::make_unique&lt;SpanData&gt;();</span></a>
+<a name="266"><span class="lineNum">     266 </span><span class="lineCov">          5 :   span_data-&gt;apply_config(*defaults_, config, clock_);</span></a>
+<a name="267"><span class="lineNum">     267 </span><span class="lineCov">          5 :   span_data-&gt;span_id = generator_.generate_span_id();</span></a>
+<a name="268"><span class="lineNum">     268 </span><span class="lineCov">          5 :   span_data-&gt;trace_id = span_data-&gt;span_id;</span></a>
+<a name="269"><span class="lineNum">     269 </span><span class="lineCov">          5 :   span_data-&gt;parent_id = 0;</span></a>
 <a name="270"><span class="lineNum">     270 </span>            : </a>
-<a name="271"><span class="lineNum">     271 </span><span class="lineCov">          4 :   const auto span_data_ptr = span_data.get();</span></a>
+<a name="271"><span class="lineNum">     271 </span><span class="lineCov">          5 :   const auto span_data_ptr = span_data.get();</span></a>
 <a name="272"><span class="lineNum">     272 </span>            :   const auto segment = std::make_shared&lt;TraceSegment&gt;(</a>
-<a name="273"><span class="lineNum">     273 </span><span class="lineCov">          4 :       logger_, collector_, trace_sampler_, span_sampler_, defaults_,</span></a>
-<a name="274"><span class="lineNum">     274 </span><span class="lineCov">          4 :       injection_styles_, hostname_, std::nullopt /* origin */,</span></a>
-<a name="275"><span class="lineNum">     275 </span><span class="lineCov">          4 :       tags_header_max_size_,</span></a>
-<a name="276"><span class="lineNum">     276 </span><span class="lineCov">          4 :       std::unordered_map&lt;std::string, std::string&gt;{} /* trace_tags */,</span></a>
-<a name="277"><span class="lineNum">     277 </span><span class="lineCov">         12 :       std::nullopt /* sampling_decision */, std::move(span_data));</span></a>
-<a name="278"><span class="lineNum">     278 </span><span class="lineCov">          4 :   Span span{span_data_ptr, segment, generator_.generate_span_id, clock_};</span></a>
-<a name="279"><span class="lineNum">     279 </span><span class="lineCov">          8 :   return span;</span></a>
+<a name="273"><span class="lineNum">     273 </span><span class="lineCov">          5 :       logger_, collector_, trace_sampler_, span_sampler_, defaults_,</span></a>
+<a name="274"><span class="lineNum">     274 </span><span class="lineCov">          5 :       injection_styles_, hostname_, std::nullopt /* origin */,</span></a>
+<a name="275"><span class="lineNum">     275 </span><span class="lineCov">          5 :       tags_header_max_size_,</span></a>
+<a name="276"><span class="lineNum">     276 </span><span class="lineCov">          5 :       std::unordered_map&lt;std::string, std::string&gt;{} /* trace_tags */,</span></a>
+<a name="277"><span class="lineNum">     277 </span><span class="lineCov">         15 :       std::nullopt /* sampling_decision */, std::move(span_data));</span></a>
+<a name="278"><span class="lineNum">     278 </span><span class="lineCov">          5 :   Span span{span_data_ptr, segment, generator_.generate_span_id, clock_};</span></a>
+<a name="279"><span class="lineNum">     279 </span><span class="lineCov">         10 :   return span;</span></a>
 <a name="280"><span class="lineNum">     280 </span>            : }</a>
 <a name="281"><span class="lineNum">     281 </span>            : </a>
-<a name="282"><span class="lineNum">     282 </span><span class="lineNoCov">          0 : Expected&lt;Span&gt; Tracer::extract_span(const DictReader&amp; reader) {</span></a>
-<a name="283"><span class="lineNum">     283 </span><span class="lineNoCov">          0 :   return extract_span(reader, SpanConfig{});</span></a>
+<a name="282"><span class="lineNum">     282 </span><span class="lineCov">          1 : Expected&lt;Span&gt; Tracer::extract_span(const DictReader&amp; reader) {</span></a>
+<a name="283"><span class="lineNum">     283 </span><span class="lineCov">          2 :   return extract_span(reader, SpanConfig{});</span></a>
 <a name="284"><span class="lineNum">     284 </span>            : }</a>
 <a name="285"><span class="lineNum">     285 </span>            : </a>
-<a name="286"><span class="lineNum">     286 </span><span class="lineNoCov">          0 : Expected&lt;Span&gt; Tracer::extract_span(const DictReader&amp; reader,</span></a>
+<a name="286"><span class="lineNum">     286 </span><span class="lineCov">          2 : Expected&lt;Span&gt; Tracer::extract_span(const DictReader&amp; reader,</span></a>
 <a name="287"><span class="lineNum">     287 </span>            :                                     const SpanConfig&amp; config) {</a>
 <a name="288"><span class="lineNum">     288 </span>            :   // TODO: I can assume this because of the current config validator.</a>
 <a name="289"><span class="lineNum">     289 </span>            :   assert((extraction_styles_.datadog || extraction_styles_.b3) &amp;&amp;</a>
 <a name="290"><span class="lineNum">     290 </span>            :          !extraction_styles_.w3c);</a>
 <a name="291"><span class="lineNum">     291 </span>            :   // end TODO</a>
 <a name="292"><span class="lineNum">     292 </span>            : </a>
-<a name="293"><span class="lineNum">     293 </span><span class="lineNoCov">          0 :   std::optional&lt;ExtractedData&gt; extracted_data;</span></a>
+<a name="293"><span class="lineNum">     293 </span><span class="lineCov">          2 :   std::optional&lt;ExtractedData&gt; extracted_data;</span></a>
 <a name="294"><span class="lineNum">     294 </span>            :   const char* extracted_by;</a>
 <a name="295"><span class="lineNum">     295 </span>            : </a>
-<a name="296"><span class="lineNum">     296 </span><span class="lineNoCov">          0 :   if (extraction_styles_.datadog) {</span></a>
-<a name="297"><span class="lineNum">     297 </span><span class="lineNoCov">          0 :     DatadogExtractionPolicy extract;</span></a>
-<a name="298"><span class="lineNum">     298 </span><span class="lineNoCov">          0 :     auto data = extract_data(extract, reader);</span></a>
-<a name="299"><span class="lineNum">     299 </span><span class="lineNoCov">          0 :     if (auto* error = data.if_error()) {</span></a>
+<a name="296"><span class="lineNum">     296 </span><span class="lineCov">          2 :   if (extraction_styles_.datadog) {</span></a>
+<a name="297"><span class="lineNum">     297 </span><span class="lineCov">          2 :     DatadogExtractionPolicy extract;</span></a>
+<a name="298"><span class="lineNum">     298 </span><span class="lineCov">          2 :     auto data = extract_data(extract, reader);</span></a>
+<a name="299"><span class="lineNum">     299 </span><span class="lineCov">          2 :     if (auto* error = data.if_error()) {</span></a>
 <a name="300"><span class="lineNum">     300 </span><span class="lineNoCov">          0 :       return std::move(*error);</span></a>
 <a name="301"><span class="lineNum">     301 </span>            :     }</a>
-<a name="302"><span class="lineNum">     302 </span><span class="lineNoCov">          0 :     extracted_data = *data;</span></a>
-<a name="303"><span class="lineNum">     303 </span><span class="lineNoCov">          0 :     extracted_by = &quot;Datadog&quot;;</span></a>
+<a name="302"><span class="lineNum">     302 </span><span class="lineCov">          2 :     extracted_data = *data;</span></a>
+<a name="303"><span class="lineNum">     303 </span><span class="lineCov">          2 :     extracted_by = &quot;Datadog&quot;;</span></a>
 <a name="304"><span class="lineNum">     304 </span>            :   }</a>
 <a name="305"><span class="lineNum">     305 </span>            : </a>
-<a name="306"><span class="lineNum">     306 </span><span class="lineNoCov">          0 :   if (extraction_styles_.b3) {</span></a>
+<a name="306"><span class="lineNum">     306 </span><span class="lineCov">          2 :   if (extraction_styles_.b3) {</span></a>
 <a name="307"><span class="lineNum">     307 </span><span class="lineNoCov">          0 :     B3ExtractionPolicy extract;</span></a>
 <a name="308"><span class="lineNum">     308 </span><span class="lineNoCov">          0 :     auto data = extract_data(extract, reader);</span></a>
 <a name="309"><span class="lineNum">     309 </span><span class="lineNoCov">          0 :     if (auto* error = data.if_error()) {</span></a>
@@ -382,7 +382,7 @@
 <a name="320"><span class="lineNum">     320 </span><span class="lineNoCov">          0 :     extracted_by = &quot;B3&quot;;</span></a>
 <a name="321"><span class="lineNum">     321 </span>            :   }</a>
 <a name="322"><span class="lineNum">     322 </span>            : </a>
-<a name="323"><span class="lineNum">     323 </span><span class="lineNoCov">          0 :   if (extraction_styles_.w3c) {</span></a>
+<a name="323"><span class="lineNum">     323 </span><span class="lineCov">          2 :   if (extraction_styles_.w3c) {</span></a>
 <a name="324"><span class="lineNum">     324 </span><span class="lineNoCov">          0 :     W3CExtractionPolicy extract;</span></a>
 <a name="325"><span class="lineNum">     325 </span><span class="lineNoCov">          0 :     auto data = extract_data(extract, reader);</span></a>
 <a name="326"><span class="lineNum">     326 </span><span class="lineNoCov">          0 :     if (auto* error = data.if_error()) {</span></a>
@@ -400,7 +400,7 @@
 <a name="338"><span class="lineNum">     338 </span>            :   }</a>
 <a name="339"><span class="lineNum">     339 </span>            : </a>
 <a name="340"><span class="lineNum">     340 </span>            :   assert(extracted_data);</a>
-<a name="341"><span class="lineNum">     341 </span><span class="lineNoCov">          0 :   auto&amp; [trace_id, parent_id, origin, trace_tags, sampling_priority] = *extracted_data;</span></a>
+<a name="341"><span class="lineNum">     341 </span><span class="lineCov">          2 :   auto&amp; [trace_id, parent_id, origin, trace_tags, sampling_priority] = *extracted_data;</span></a>
 <a name="342"><span class="lineNum">     342 </span>            : </a>
 <a name="343"><span class="lineNum">     343 </span>            :   // Some information might be missing.</a>
 <a name="344"><span class="lineNum">     344 </span>            :   // Here are the combinations considered:</a>
@@ -417,18 +417,18 @@
 <a name="355"><span class="lineNum">     355 </span>            :   // - trace ID and parent ID means we're extracting a child span</a>
 <a name="356"><span class="lineNum">     356 </span>            :   // - parent ID without trace ID is an error</a>
 <a name="357"><span class="lineNum">     357 </span>            : </a>
-<a name="358"><span class="lineNum">     358 </span><span class="lineNoCov">          0 :   if (!trace_id &amp;&amp; !parent_id) {</span></a>
+<a name="358"><span class="lineNum">     358 </span><span class="lineCov">          2 :   if (!trace_id &amp;&amp; !parent_id) {</span></a>
 <a name="359"><span class="lineNum">     359 </span><span class="lineNoCov">          0 :     return Error{Error::NO_SPAN_TO_EXTRACT,</span></a>
 <a name="360"><span class="lineNum">     360 </span><span class="lineNoCov">          0 :                  &quot;There's trace ID or parent span ID to extract.&quot;};</span></a>
 <a name="361"><span class="lineNum">     361 </span>            :   }</a>
-<a name="362"><span class="lineNum">     362 </span><span class="lineNoCov">          0 :   if (!trace_id) {</span></a>
+<a name="362"><span class="lineNum">     362 </span><span class="lineCov">          2 :   if (!trace_id) {</span></a>
 <a name="363"><span class="lineNum">     363 </span><span class="lineNoCov">          0 :     std::string message;</span></a>
 <a name="364"><span class="lineNum">     364 </span>            :     message +=</a>
 <a name="365"><span class="lineNum">     365 </span><span class="lineNoCov">          0 :         &quot;There's no trace ID to extract, but there is a parent span ID: &quot;;</span></a>
 <a name="366"><span class="lineNum">     366 </span><span class="lineNoCov">          0 :     message += std::to_string(*parent_id);</span></a>
 <a name="367"><span class="lineNum">     367 </span><span class="lineNoCov">          0 :     return Error{Error::MISSING_TRACE_ID, std::move(message)};</span></a>
 <a name="368"><span class="lineNum">     368 </span>            :   }</a>
-<a name="369"><span class="lineNum">     369 </span><span class="lineNoCov">          0 :   if (!parent_id &amp;&amp; !origin) {</span></a>
+<a name="369"><span class="lineNum">     369 </span><span class="lineCov">          2 :   if (!parent_id &amp;&amp; !origin) {</span></a>
 <a name="370"><span class="lineNum">     370 </span><span class="lineNoCov">          0 :     std::string message;</span></a>
 <a name="371"><span class="lineNum">     371 </span>            :     message +=</a>
 <a name="372"><span class="lineNum">     372 </span><span class="lineNoCov">          0 :         &quot;There's no parent span ID to extract, but there is a trace ID: &quot;;</span></a>
@@ -436,7 +436,7 @@
 <a name="374"><span class="lineNum">     374 </span><span class="lineNoCov">          0 :     return Error{Error::MISSING_PARENT_SPAN_ID, std::move(message)};</span></a>
 <a name="375"><span class="lineNum">     375 </span>            :   }</a>
 <a name="376"><span class="lineNum">     376 </span>            : </a>
-<a name="377"><span class="lineNum">     377 </span><span class="lineNoCov">          0 :   if (!parent_id) {</span></a>
+<a name="377"><span class="lineNum">     377 </span><span class="lineCov">          2 :   if (!parent_id) {</span></a>
 <a name="378"><span class="lineNum">     378 </span>            :     // We have a trace ID, but not parent ID.  We're meant to be the root, and</a>
 <a name="379"><span class="lineNum">     379 </span>            :     // whoever called us already created a trace ID for us (to correlate with</a>
 <a name="380"><span class="lineNum">     380 </span>            :     // whatever they're doing).</a>
@@ -448,14 +448,14 @@
 <a name="386"><span class="lineNum">     386 </span>            :   assert(parent_id);</a>
 <a name="387"><span class="lineNum">     387 </span>            :   assert(trace_id);</a>
 <a name="388"><span class="lineNum">     388 </span>            : </a>
-<a name="389"><span class="lineNum">     389 </span><span class="lineNoCov">          0 :   auto span_data = std::make_unique&lt;SpanData&gt;();</span></a>
-<a name="390"><span class="lineNum">     390 </span><span class="lineNoCov">          0 :   span_data-&gt;apply_config(*defaults_, config, clock_);</span></a>
-<a name="391"><span class="lineNum">     391 </span><span class="lineNoCov">          0 :   span_data-&gt;span_id = generator_.generate_span_id();</span></a>
-<a name="392"><span class="lineNum">     392 </span><span class="lineNoCov">          0 :   span_data-&gt;trace_id = *trace_id;</span></a>
-<a name="393"><span class="lineNum">     393 </span><span class="lineNoCov">          0 :   span_data-&gt;parent_id = *parent_id;</span></a>
+<a name="389"><span class="lineNum">     389 </span><span class="lineCov">          4 :   auto span_data = std::make_unique&lt;SpanData&gt;();</span></a>
+<a name="390"><span class="lineNum">     390 </span><span class="lineCov">          2 :   span_data-&gt;apply_config(*defaults_, config, clock_);</span></a>
+<a name="391"><span class="lineNum">     391 </span><span class="lineCov">          2 :   span_data-&gt;span_id = generator_.generate_span_id();</span></a>
+<a name="392"><span class="lineNum">     392 </span><span class="lineCov">          2 :   span_data-&gt;trace_id = *trace_id;</span></a>
+<a name="393"><span class="lineNum">     393 </span><span class="lineCov">          2 :   span_data-&gt;parent_id = *parent_id;</span></a>
 <a name="394"><span class="lineNum">     394 </span>            : </a>
-<a name="395"><span class="lineNum">     395 </span><span class="lineNoCov">          0 :   std::optional&lt;SamplingDecision&gt; sampling_decision;</span></a>
-<a name="396"><span class="lineNum">     396 </span><span class="lineNoCov">          0 :   if (sampling_priority) {</span></a>
+<a name="395"><span class="lineNum">     395 </span><span class="lineCov">          2 :   std::optional&lt;SamplingDecision&gt; sampling_decision;</span></a>
+<a name="396"><span class="lineNum">     396 </span><span class="lineCov">          2 :   if (sampling_priority) {</span></a>
 <a name="397"><span class="lineNum">     397 </span><span class="lineNoCov">          0 :     SamplingDecision decision;</span></a>
 <a name="398"><span class="lineNum">     398 </span><span class="lineNoCov">          0 :     decision.priority = *sampling_priority;</span></a>
 <a name="399"><span class="lineNum">     399 </span>            :     // `decision.mechanism` is null.  We might be able to infer it once we</a>
@@ -465,8 +465,8 @@
 <a name="403"><span class="lineNum">     403 </span><span class="lineNoCov">          0 :     sampling_decision = decision;</span></a>
 <a name="404"><span class="lineNum">     404 </span>            :   }</a>
 <a name="405"><span class="lineNum">     405 </span>            : </a>
-<a name="406"><span class="lineNum">     406 </span><span class="lineNoCov">          0 :   std::unordered_map&lt;std::string, std::string&gt; decoded_trace_tags;</span></a>
-<a name="407"><span class="lineNum">     407 </span><span class="lineNoCov">          0 :   if (trace_tags) {</span></a>
+<a name="406"><span class="lineNum">     406 </span><span class="lineCov">          4 :   std::unordered_map&lt;std::string, std::string&gt; decoded_trace_tags;</span></a>
+<a name="407"><span class="lineNum">     407 </span><span class="lineCov">          2 :   if (trace_tags) {</span></a>
 <a name="408"><span class="lineNum">     408 </span><span class="lineNoCov">          0 :     auto maybe_trace_tags = decode_tags(*trace_tags);</span></a>
 <a name="409"><span class="lineNum">     409 </span><span class="lineNoCov">          0 :     if (auto* error = maybe_trace_tags.if_error()) {</span></a>
 <a name="410"><span class="lineNum">     410 </span><span class="lineNoCov">          0 :       logger_-&gt;log_error(*error);</span></a>
@@ -476,14 +476,14 @@
 <a name="414"><span class="lineNum">     414 </span>            :     }</a>
 <a name="415"><span class="lineNum">     415 </span>            :   }</a>
 <a name="416"><span class="lineNum">     416 </span>            : </a>
-<a name="417"><span class="lineNum">     417 </span><span class="lineNoCov">          0 :   const auto span_data_ptr = span_data.get();</span></a>
+<a name="417"><span class="lineNum">     417 </span><span class="lineCov">          2 :   const auto span_data_ptr = span_data.get();</span></a>
 <a name="418"><span class="lineNum">     418 </span>            :   const auto segment = std::make_shared&lt;TraceSegment&gt;(</a>
-<a name="419"><span class="lineNum">     419 </span><span class="lineNoCov">          0 :       logger_, collector_, trace_sampler_, span_sampler_, defaults_,</span></a>
-<a name="420"><span class="lineNum">     420 </span><span class="lineNoCov">          0 :       injection_styles_, hostname_, std::move(origin), tags_header_max_size_,</span></a>
-<a name="421"><span class="lineNum">     421 </span><span class="lineNoCov">          0 :       std::move(decoded_trace_tags), std::move(sampling_decision),</span></a>
-<a name="422"><span class="lineNum">     422 </span><span class="lineNoCov">          0 :       std::move(span_data));</span></a>
-<a name="423"><span class="lineNum">     423 </span><span class="lineNoCov">          0 :   Span span{span_data_ptr, segment, generator_.generate_span_id, clock_};</span></a>
-<a name="424"><span class="lineNum">     424 </span><span class="lineNoCov">          0 :   return span;</span></a>
+<a name="419"><span class="lineNum">     419 </span><span class="lineCov">          2 :       logger_, collector_, trace_sampler_, span_sampler_, defaults_,</span></a>
+<a name="420"><span class="lineNum">     420 </span><span class="lineCov">          2 :       injection_styles_, hostname_, std::move(origin), tags_header_max_size_,</span></a>
+<a name="421"><span class="lineNum">     421 </span><span class="lineCov">          2 :       std::move(decoded_trace_tags), std::move(sampling_decision),</span></a>
+<a name="422"><span class="lineNum">     422 </span><span class="lineCov">          6 :       std::move(span_data));</span></a>
+<a name="423"><span class="lineNum">     423 </span><span class="lineCov">          4 :   Span span{span_data_ptr, segment, generator_.generate_span_id, clock_};</span></a>
+<a name="424"><span class="lineNum">     424 </span><span class="lineCov">          2 :   return span;</span></a>
 <a name="425"><span class="lineNum">     425 </span>            : }</a>
 <a name="426"><span class="lineNum">     426 </span>            : </a>
 <a name="427"><span class="lineNum">     427 </span><span class="lineNoCov">          0 : Expected&lt;Span&gt; Tracer::extract_or_create_span(const DictReader&amp; reader) {</span></a>

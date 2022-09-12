@@ -31,18 +31,18 @@
             <td class="headerValue">filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntry">16</td>
             <td class="headerCovTableEntry">21</td>
-            <td class="headerCovTableEntryLo">71.4 %</td>
+            <td class="headerCovTableEntryMed">76.2 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-11 19:47:26</td>
+            <td class="headerValue">2022-09-11 22:53:31</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">26</td>
-            <td class="headerCovTableEntry">98</td>
-            <td class="headerCovTableEntryLo">26.5 %</td>
+            <td class="headerCovTableEntry">46</td>
+            <td class="headerCovTableEntry">100</td>
+            <td class="headerCovTableEntryLo">46.0 %</td>
           </tr>
           <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -117,7 +117,7 @@
 <a name="55"><span class="lineNum">      55 </span>            : </a>
 <a name="56"><span class="lineNum">      56 </span>            : template &lt;typename Value&gt;</a>
 <a name="57"><span class="lineNum">      57 </span>            : template &lt;typename Other&gt;</a>
-<a name="58"><span class="lineNum">      58 </span><span class="lineCov">         20 : Expected&lt;Value&gt;::Expected(Other&amp;&amp; other) : data_(std::forward&lt;Other&gt;(other)) {}</span></a>
+<a name="58"><span class="lineNum">      58 </span><span class="lineCov">         37 : Expected&lt;Value&gt;::Expected(Other&amp;&amp; other) : data_(std::forward&lt;Other&gt;(other)) {}</span></a>
 <a name="59"><span class="lineNum">      59 </span>            : </a>
 <a name="60"><span class="lineNum">      60 </span>            : template &lt;typename Value&gt;</a>
 <a name="61"><span class="lineNum">      61 </span>            : template &lt;typename Other&gt;</a>
@@ -127,17 +127,17 @@
 <a name="65"><span class="lineNum">      65 </span>            : }</a>
 <a name="66"><span class="lineNum">      66 </span>            : </a>
 <a name="67"><span class="lineNum">      67 </span>            : template &lt;typename Value&gt;</a>
-<a name="68"><span class="lineNum">      68 </span><span class="lineCov">         12 : bool Expected&lt;Value&gt;::has_value() const noexcept {</span></a>
-<a name="69"><span class="lineNum">      69 </span><span class="lineCov">         12 :   return std::holds_alternative&lt;Value&gt;(data_);</span></a>
+<a name="68"><span class="lineNum">      68 </span><span class="lineCov">         23 : bool Expected&lt;Value&gt;::has_value() const noexcept {</span></a>
+<a name="69"><span class="lineNum">      69 </span><span class="lineCov">         23 :   return std::holds_alternative&lt;Value&gt;(data_);</span></a>
 <a name="70"><span class="lineNum">      70 </span>            : }</a>
 <a name="71"><span class="lineNum">      71 </span>            : template &lt;typename Value&gt;</a>
-<a name="72"><span class="lineNum">      72 </span><span class="lineCov">         12 : Expected&lt;Value&gt;::operator bool() const noexcept {</span></a>
-<a name="73"><span class="lineNum">      73 </span><span class="lineCov">         12 :   return has_value();</span></a>
+<a name="72"><span class="lineNum">      72 </span><span class="lineCov">         23 : Expected&lt;Value&gt;::operator bool() const noexcept {</span></a>
+<a name="73"><span class="lineNum">      73 </span><span class="lineCov">         23 :   return has_value();</span></a>
 <a name="74"><span class="lineNum">      74 </span>            : }</a>
 <a name="75"><span class="lineNum">      75 </span>            : </a>
 <a name="76"><span class="lineNum">      76 </span>            : template &lt;typename Value&gt;</a>
-<a name="77"><span class="lineNum">      77 </span><span class="lineCov">         20 : Value&amp; Expected&lt;Value&gt;::value() &amp; {</span></a>
-<a name="78"><span class="lineNum">      78 </span><span class="lineCov">         20 :   return std::get&lt;0&gt;(data_);</span></a>
+<a name="77"><span class="lineNum">      77 </span><span class="lineCov">         35 : Value&amp; Expected&lt;Value&gt;::value() &amp; {</span></a>
+<a name="78"><span class="lineNum">      78 </span><span class="lineCov">         35 :   return std::get&lt;0&gt;(data_);</span></a>
 <a name="79"><span class="lineNum">      79 </span>            : }</a>
 <a name="80"><span class="lineNum">      80 </span>            : template &lt;typename Value&gt;</a>
 <a name="81"><span class="lineNum">      81 </span>            : const Value&amp; Expected&lt;Value&gt;::value() const&amp; {</a>
@@ -153,8 +153,8 @@
 <a name="91"><span class="lineNum">      91 </span>            : }</a>
 <a name="92"><span class="lineNum">      92 </span>            : </a>
 <a name="93"><span class="lineNum">      93 </span>            : template &lt;typename Value&gt;</a>
-<a name="94"><span class="lineNum">      94 </span><span class="lineCov">         20 : Value&amp; Expected&lt;Value&gt;::operator*() &amp; {</span></a>
-<a name="95"><span class="lineNum">      95 </span><span class="lineCov">         20 :   return value();</span></a>
+<a name="94"><span class="lineNum">      94 </span><span class="lineCov">         35 : Value&amp; Expected&lt;Value&gt;::operator*() &amp; {</span></a>
+<a name="95"><span class="lineNum">      95 </span><span class="lineCov">         35 :   return value();</span></a>
 <a name="96"><span class="lineNum">      96 </span>            : }</a>
 <a name="97"><span class="lineNum">      97 </span>            : template &lt;typename Value&gt;</a>
 <a name="98"><span class="lineNum">      98 </span>            : const Value&amp; Expected&lt;Value&gt;::operator*() const&amp; {</a>
@@ -196,8 +196,8 @@
 <a name="134"><span class="lineNum">     134 </span>            : }</a>
 <a name="135"><span class="lineNum">     135 </span>            : </a>
 <a name="136"><span class="lineNum">     136 </span>            : template &lt;typename Value&gt;</a>
-<a name="137"><span class="lineNum">     137 </span><span class="lineCov">          8 : Error* Expected&lt;Value&gt;::if_error() &amp; {</span></a>
-<a name="138"><span class="lineNum">     138 </span><span class="lineCov">          8 :   return std::get_if&lt;1&gt;(&amp;data_);</span></a>
+<a name="137"><span class="lineNum">     137 </span><span class="lineCov">         14 : Error* Expected&lt;Value&gt;::if_error() &amp; {</span></a>
+<a name="138"><span class="lineNum">     138 </span><span class="lineCov">         14 :   return std::get_if&lt;1&gt;(&amp;data_);</span></a>
 <a name="139"><span class="lineNum">     139 </span>            : }</a>
 <a name="140"><span class="lineNum">     140 </span>            : template &lt;typename Value&gt;</a>
 <a name="141"><span class="lineNum">     141 </span>            : const Error* Expected&lt;Value&gt;::if_error() const&amp; {</a>
@@ -209,7 +209,7 @@
 <a name="147"><span class="lineNum">     147 </span>            :   std::optional&lt;Error&gt; data_;</a>
 <a name="148"><span class="lineNum">     148 </span>            : </a>
 <a name="149"><span class="lineNum">     149 </span>            :  public:</a>
-<a name="150"><span class="lineNum">     150 </span><span class="lineNoCov">          0 :   Expected() = default;</span></a>
+<a name="150"><span class="lineNum">     150 </span><span class="lineCov">          6 :   Expected() = default;</span></a>
 <a name="151"><span class="lineNum">     151 </span>            :   Expected(const Expected&amp;) = default;</a>
 <a name="152"><span class="lineNum">     152 </span>            :   Expected(Expected&amp;) = default;</a>
 <a name="153"><span class="lineNum">     153 </span>            :   Expected(Expected&amp;&amp;) = default;</a>
@@ -239,7 +239,7 @@
 <a name="177"><span class="lineNum">     177 </span>            : };</a>
 <a name="178"><span class="lineNum">     178 </span>            : </a>
 <a name="179"><span class="lineNum">     179 </span>            : template &lt;typename Other&gt;</a>
-<a name="180"><span class="lineNum">     180 </span><span class="lineCov">         24 : Expected&lt;void&gt;::Expected(Other&amp;&amp; other) : data_(std::forward&lt;Other&gt;(other)) {}</span></a>
+<a name="180"><span class="lineNum">     180 </span><span class="lineCov">          6 : Expected&lt;void&gt;::Expected(Other&amp;&amp; other) : data_(std::forward&lt;Other&gt;(other)) {}</span></a>
 <a name="181"><span class="lineNum">     181 </span>            : </a>
 <a name="182"><span class="lineNum">     182 </span>            : template &lt;typename Other&gt;</a>
 <a name="183"><span class="lineNum">     183 </span>            : Expected&lt;void&gt;&amp; Expected&lt;void&gt;::operator=(Other&amp;&amp; other) {</a>
@@ -259,9 +259,9 @@
 <a name="197"><span class="lineNum">     197 </span>            :   return std::move(*data_);</a>
 <a name="198"><span class="lineNum">     198 </span>            : }</a>
 <a name="199"><span class="lineNum">     199 </span>            : </a>
-<a name="200"><span class="lineNum">     200 </span><span class="lineCov">         20 : inline Error* Expected&lt;void&gt;::if_error() &amp; { return data_ ? &amp;*data_ : nullptr; }</span></a>
-<a name="201"><span class="lineNum">     201 </span><span class="lineCov">          4 : inline const Error* Expected&lt;void&gt;::if_error() const&amp; {</span></a>
-<a name="202"><span class="lineNum">     202 </span><span class="lineCov">          4 :   return data_ ? &amp;*data_ : nullptr;</span></a>
+<a name="200"><span class="lineNum">     200 </span><span class="lineCov">          5 : inline Error* Expected&lt;void&gt;::if_error() &amp; { return data_ ? &amp;*data_ : nullptr; }</span></a>
+<a name="201"><span class="lineNum">     201 </span><span class="lineCov">          7 : inline const Error* Expected&lt;void&gt;::if_error() const&amp; {</span></a>
+<a name="202"><span class="lineNum">     202 </span><span class="lineCov">          7 :   return data_ ? &amp;*data_ : nullptr;</span></a>
 <a name="203"><span class="lineNum">     203 </span>            : }</a>
 <a name="204"><span class="lineNum">     204 </span>            : </a>
 <a name="205"><span class="lineNum">     205 </span>            : }  // namespace tracing</a>
