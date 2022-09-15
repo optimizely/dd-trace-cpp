@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - filtered.info - datadog/clock.cpp</title>
+  <title>LCOV - filtered.info - datadog/net_util.cpp</title>
   <link rel="stylesheet" type="text/css" href="../gcov.css">
 </head>
 
@@ -19,7 +19,7 @@
         <table cellpadding=1 border=0 width="100%">
           <tr>
             <td width="10%" class="headerItem">Current view:</td>
-            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">datadog</a> - clock.cpp<span style="font-size: 80%;"> (source / <a href="clock.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">datadog</a> - net_util.cpp<span style="font-size: 80%;"> (source / <a href="net_util.cpp.func-sort-c.html">functions</a>)</span></td>
             <td width="5%"></td>
             <td width="15%"></td>
             <td width="10%" class="headerCovTableHead">Hit</td>
@@ -32,8 +32,8 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntryHi">100.0 %</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntryMed">75.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
@@ -60,18 +60,27 @@
       <td>
 <pre class="sourceHeading">          Line data    Source code</pre>
 <pre class="source">
-<a name="1"><span class="lineNum">       1 </span>            : #include &quot;clock.h&quot;</a>
+<a name="1"><span class="lineNum">       1 </span>            : #include &quot;net_util.h&quot;</a>
 <a name="2"><span class="lineNum">       2 </span>            : </a>
-<a name="3"><span class="lineNum">       3 </span>            : namespace datadog {</a>
-<a name="4"><span class="lineNum">       4 </span>            : namespace tracing {</a>
-<a name="5"><span class="lineNum">       5 </span>            : </a>
-<a name="6"><span class="lineNum">       6 </span><span class="lineCov">        176 : const Clock default_clock = []() {</span></a>
-<a name="7"><span class="lineNum">       7 </span><span class="lineCov">        176 :   return TimePoint{std::chrono::system_clock::now(),</span></a>
-<a name="8"><span class="lineNum">       8 </span><span class="lineCov">        176 :                    std::chrono::steady_clock::now()};</span></a>
-<a name="9"><span class="lineNum">       9 </span>            : };</a>
-<a name="10"><span class="lineNum">      10 </span>            : </a>
-<a name="11"><span class="lineNum">      11 </span>            : }  // namespace tracing</a>
-<a name="12"><span class="lineNum">      12 </span>            : }  // namespace datadog</a>
+<a name="3"><span class="lineNum">       3 </span>            : #ifdef _MSC_VER</a>
+<a name="4"><span class="lineNum">       4 </span>            : #include &lt;winsock.h&gt;</a>
+<a name="5"><span class="lineNum">       5 </span>            : #else</a>
+<a name="6"><span class="lineNum">       6 </span>            : #include &lt;unistd.h&gt;</a>
+<a name="7"><span class="lineNum">       7 </span>            : #endif</a>
+<a name="8"><span class="lineNum">       8 </span>            : </a>
+<a name="9"><span class="lineNum">       9 </span>            : namespace datadog {</a>
+<a name="10"><span class="lineNum">      10 </span>            : namespace tracing {</a>
+<a name="11"><span class="lineNum">      11 </span>            : </a>
+<a name="12"><span class="lineNum">      12 </span><span class="lineCov">          2 : std::optional&lt;std::string&gt; get_hostname() {</span></a>
+<a name="13"><span class="lineNum">      13 </span>            :   char buffer[256];</a>
+<a name="14"><span class="lineNum">      14 </span><span class="lineCov">          2 :   if (::gethostname(buffer, sizeof buffer)) {</span></a>
+<a name="15"><span class="lineNum">      15 </span><span class="lineNoCov">          0 :     return std::nullopt;</span></a>
+<a name="16"><span class="lineNum">      16 </span>            :   }</a>
+<a name="17"><span class="lineNum">      17 </span><span class="lineCov">          2 :   return buffer;</span></a>
+<a name="18"><span class="lineNum">      18 </span>            : }</a>
+<a name="19"><span class="lineNum">      19 </span>            : </a>
+<a name="20"><span class="lineNum">      20 </span>            : }  // namespace tracing</a>
+<a name="21"><span class="lineNum">      21 </span>            : }  // namespace datadog</a>
 </pre>
       </td>
     </tr>
