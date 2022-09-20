@@ -31,13 +31,13 @@
             <td class="headerValue">filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">13</td>
-            <td class="headerCovTableEntry">121</td>
-            <td class="headerCovTableEntryLo">10.7 %</td>
+            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntry">137</td>
+            <td class="headerCovTableEntryLo">19.7 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-15 19:04:29</td>
+            <td class="headerValue">2022-09-20 15:08:39</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -73,13 +73,13 @@
 <a name="11"><span class="lineNum">      11 </span>            : </a>
 <a name="12"><span class="lineNum">      12 </span><span class="lineNoCov">          0 : TraceSamplerConfig::Rule::Rule(const SpanMatcher &amp;base) : SpanMatcher(base) {}</span></a>
 <a name="13"><span class="lineNum">      13 </span>            : </a>
-<a name="14"><span class="lineNum">      14 </span><span class="lineCov">         67 : Expected&lt;FinalizedTraceSamplerConfig&gt; finalize_config(</span></a>
+<a name="14"><span class="lineNum">      14 </span><span class="lineCov">         94 : Expected&lt;FinalizedTraceSamplerConfig&gt; finalize_config(</span></a>
 <a name="15"><span class="lineNum">      15 </span>            :     const TraceSamplerConfig &amp;config) {</a>
-<a name="16"><span class="lineNum">      16 </span><span class="lineCov">        134 :   FinalizedTraceSamplerConfig result;</span></a>
+<a name="16"><span class="lineNum">      16 </span><span class="lineCov">         94 :   FinalizedTraceSamplerConfig result;</span></a>
 <a name="17"><span class="lineNum">      17 </span>            : </a>
-<a name="18"><span class="lineNum">      18 </span><span class="lineCov">        134 :   std::vector&lt;TraceSamplerConfig::Rule&gt; rules = config.rules;</span></a>
+<a name="18"><span class="lineNum">      18 </span><span class="lineCov">         94 :   std::vector&lt;TraceSamplerConfig::Rule&gt; rules = config.rules;</span></a>
 <a name="19"><span class="lineNum">      19 </span>            : </a>
-<a name="20"><span class="lineNum">      20 </span><span class="lineCov">         67 :   if (auto rules_env = lookup(environment::DD_TRACE_SAMPLING_RULES)) {</span></a>
+<a name="20"><span class="lineNum">      20 </span><span class="lineCov">         94 :   if (auto rules_env = lookup(environment::DD_TRACE_SAMPLING_RULES)) {</span></a>
 <a name="21"><span class="lineNum">      21 </span><span class="lineNoCov">          0 :     rules.clear();</span></a>
 <a name="22"><span class="lineNum">      22 </span><span class="lineNoCov">          0 :     nlohmann::json json_rules;</span></a>
 <a name="23"><span class="lineNum">      23 </span>            :     try {</a>
@@ -94,7 +94,7 @@
 <a name="32"><span class="lineNum">      32 </span><span class="lineNoCov">          0 :       message += error.what();</span></a>
 <a name="33"><span class="lineNum">      33 </span><span class="lineNoCov">          0 :       return Error{Error::TRACE_SAMPLING_RULES_INVALID_JSON,</span></a>
 <a name="34"><span class="lineNum">      34 </span><span class="lineNoCov">          0 :                    std::move(message)};</span></a>
-<a name="35"><span class="lineNum">      35 </span>            :     }</a>
+<a name="35"><span class="lineNum">      35 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="36"><span class="lineNum">      36 </span>            : </a>
 <a name="37"><span class="lineNum">      37 </span><span class="lineNoCov">          0 :     std::string type = json_rules.type_name();</span></a>
 <a name="38"><span class="lineNum">      38 </span><span class="lineNoCov">          0 :     if (type != &quot;array&quot;) {</span></a>
@@ -106,7 +106,7 @@
 <a name="44"><span class="lineNum">      44 </span><span class="lineNoCov">          0 :       message += &quot;\&quot;: &quot;;</span></a>
 <a name="45"><span class="lineNum">      45 </span><span class="lineNoCov">          0 :       message += *rules_env;</span></a>
 <a name="46"><span class="lineNum">      46 </span><span class="lineNoCov">          0 :       return Error{Error::TRACE_SAMPLING_RULES_WRONG_TYPE, std::move(message)};</span></a>
-<a name="47"><span class="lineNum">      47 </span>            :     }</a>
+<a name="47"><span class="lineNum">      47 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="48"><span class="lineNum">      48 </span>            : </a>
 <a name="49"><span class="lineNum">      49 </span>            :     const std::unordered_set&lt;std::string_view&gt; allowed_properties{</a>
 <a name="50"><span class="lineNum">      50 </span><span class="lineNoCov">          0 :         &quot;service&quot;, &quot;name&quot;, &quot;resource&quot;, &quot;tags&quot;, &quot;sample_rate&quot;};</span></a>
@@ -121,7 +121,7 @@
 <a name="59"><span class="lineNum">      59 </span><span class="lineNoCov">          0 :         prefix += *rules_env;</span></a>
 <a name="60"><span class="lineNum">      60 </span><span class="lineNoCov">          0 :         prefix += &quot;: &quot;;</span></a>
 <a name="61"><span class="lineNum">      61 </span><span class="lineNoCov">          0 :         return error-&gt;with_prefix(prefix);</span></a>
-<a name="62"><span class="lineNum">      62 </span>            :       }</a>
+<a name="62"><span class="lineNum">      62 </span><span class="lineNoCov">          0 :       }</span></a>
 <a name="63"><span class="lineNum">      63 </span>            : </a>
 <a name="64"><span class="lineNum">      64 </span><span class="lineNoCov">          0 :       TraceSamplerConfig::Rule rule{*matcher};</span></a>
 <a name="65"><span class="lineNum">      65 </span>            : </a>
@@ -141,7 +141,7 @@
 <a name="79"><span class="lineNum">      79 </span><span class="lineNoCov">          0 :           message += &quot;\&quot;.&quot;;</span></a>
 <a name="80"><span class="lineNum">      80 </span><span class="lineNoCov">          0 :           return Error{Error::TRACE_SAMPLING_RULES_SAMPLE_RATE_WRONG_TYPE,</span></a>
 <a name="81"><span class="lineNum">      81 </span><span class="lineNoCov">          0 :                        std::move(message)};</span></a>
-<a name="82"><span class="lineNum">      82 </span>            :         }</a>
+<a name="82"><span class="lineNum">      82 </span><span class="lineNoCov">          0 :         }</span></a>
 <a name="83"><span class="lineNum">      83 </span><span class="lineNoCov">          0 :         rule.sample_rate = *sample_rate;</span></a>
 <a name="84"><span class="lineNum">      84 </span>            :       }</a>
 <a name="85"><span class="lineNum">      85 </span>            : </a>
@@ -163,15 +163,15 @@
 <a name="101"><span class="lineNum">     101 </span><span class="lineNoCov">          0 :         message += *rules_env;</span></a>
 <a name="102"><span class="lineNum">     102 </span><span class="lineNoCov">          0 :         return Error{Error::TRACE_SAMPLING_RULES_UNKNOWN_PROPERTY,</span></a>
 <a name="103"><span class="lineNum">     103 </span><span class="lineNoCov">          0 :                      std::move(message)};</span></a>
-<a name="104"><span class="lineNum">     104 </span>            :       }</a>
+<a name="104"><span class="lineNum">     104 </span><span class="lineNoCov">          0 :       }</span></a>
 <a name="105"><span class="lineNum">     105 </span>            : </a>
 <a name="106"><span class="lineNum">     106 </span><span class="lineNoCov">          0 :       rules.emplace_back(std::move(rule));</span></a>
-<a name="107"><span class="lineNum">     107 </span>            :     }</a>
-<a name="108"><span class="lineNum">     108 </span>            :   }</a>
+<a name="107"><span class="lineNum">     107 </span><span class="lineNoCov">          0 :     }</span></a>
+<a name="108"><span class="lineNum">     108 </span><span class="lineNoCov">          0 :   }</span></a>
 <a name="109"><span class="lineNum">     109 </span>            : </a>
-<a name="110"><span class="lineNum">     110 </span><span class="lineCov">         67 :   for (const auto &amp;rule : rules) {</span></a>
-<a name="111"><span class="lineNum">     111 </span><span class="lineNoCov">          0 :     auto maybe_rate = Rate::from(rule.sample_rate);</span></a>
-<a name="112"><span class="lineNum">     112 </span><span class="lineNoCov">          0 :     if (auto *error = maybe_rate.if_error()) {</span></a>
+<a name="110"><span class="lineNum">     110 </span><span class="lineCov">         98 :   for (const auto &amp;rule : rules) {</span></a>
+<a name="111"><span class="lineNum">     111 </span><span class="lineCov">          4 :     auto maybe_rate = Rate::from(rule.sample_rate);</span></a>
+<a name="112"><span class="lineNum">     112 </span><span class="lineCov">          4 :     if (auto *error = maybe_rate.if_error()) {</span></a>
 <a name="113"><span class="lineNum">     113 </span><span class="lineNoCov">          0 :       std::string prefix;</span></a>
 <a name="114"><span class="lineNum">     114 </span>            :       prefix +=</a>
 <a name="115"><span class="lineNum">     115 </span>            :           &quot;Unable to parse sample_rate in trace sampling rule with root span &quot;</a>
@@ -179,16 +179,16 @@
 <a name="117"><span class="lineNum">     117 </span><span class="lineNoCov">          0 :       prefix += rule.to_json();</span></a>
 <a name="118"><span class="lineNum">     118 </span><span class="lineNoCov">          0 :       prefix += &quot;: &quot;;</span></a>
 <a name="119"><span class="lineNum">     119 </span><span class="lineNoCov">          0 :       return error-&gt;with_prefix(prefix);</span></a>
-<a name="120"><span class="lineNum">     120 </span>            :     }</a>
+<a name="120"><span class="lineNum">     120 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="121"><span class="lineNum">     121 </span>            : </a>
-<a name="122"><span class="lineNum">     122 </span><span class="lineNoCov">          0 :     FinalizedTraceSamplerConfig::Rule finalized;</span></a>
-<a name="123"><span class="lineNum">     123 </span><span class="lineNoCov">          0 :     static_cast&lt;SpanMatcher &amp;&gt;(finalized) = rule;</span></a>
-<a name="124"><span class="lineNum">     124 </span><span class="lineNoCov">          0 :     finalized.sample_rate = *maybe_rate;</span></a>
-<a name="125"><span class="lineNum">     125 </span><span class="lineNoCov">          0 :     result.rules.push_back(std::move(finalized));</span></a>
-<a name="126"><span class="lineNum">     126 </span>            :   }</a>
+<a name="122"><span class="lineNum">     122 </span><span class="lineCov">          4 :     FinalizedTraceSamplerConfig::Rule finalized;</span></a>
+<a name="123"><span class="lineNum">     123 </span><span class="lineCov">          4 :     static_cast&lt;SpanMatcher &amp;&gt;(finalized) = rule;</span></a>
+<a name="124"><span class="lineNum">     124 </span><span class="lineCov">          4 :     finalized.sample_rate = *maybe_rate;</span></a>
+<a name="125"><span class="lineNum">     125 </span><span class="lineCov">          4 :     result.rules.push_back(std::move(finalized));</span></a>
+<a name="126"><span class="lineNum">     126 </span><span class="lineCov">          4 :   }</span></a>
 <a name="127"><span class="lineNum">     127 </span>            : </a>
-<a name="128"><span class="lineNum">     128 </span><span class="lineCov">         67 :   auto sample_rate = config.sample_rate;</span></a>
-<a name="129"><span class="lineNum">     129 </span><span class="lineCov">         67 :   if (auto sample_rate_env = lookup(environment::DD_TRACE_SAMPLE_RATE)) {</span></a>
+<a name="128"><span class="lineNum">     128 </span><span class="lineCov">         94 :   auto sample_rate = config.sample_rate;</span></a>
+<a name="129"><span class="lineNum">     129 </span><span class="lineCov">         94 :   if (auto sample_rate_env = lookup(environment::DD_TRACE_SAMPLE_RATE)) {</span></a>
 <a name="130"><span class="lineNum">     130 </span><span class="lineNoCov">          0 :     auto maybe_sample_rate = parse_double(*sample_rate_env);</span></a>
 <a name="131"><span class="lineNum">     131 </span><span class="lineNoCov">          0 :     if (auto *error = maybe_sample_rate.if_error()) {</span></a>
 <a name="132"><span class="lineNum">     132 </span><span class="lineNoCov">          0 :       std::string prefix;</span></a>
@@ -196,27 +196,27 @@
 <a name="134"><span class="lineNum">     134 </span><span class="lineNoCov">          0 :       prefix += name(environment::DD_TRACE_SAMPLE_RATE);</span></a>
 <a name="135"><span class="lineNum">     135 </span><span class="lineNoCov">          0 :       prefix += &quot;: &quot;;</span></a>
 <a name="136"><span class="lineNum">     136 </span><span class="lineNoCov">          0 :       return error-&gt;with_prefix(prefix);</span></a>
-<a name="137"><span class="lineNum">     137 </span>            :     }</a>
+<a name="137"><span class="lineNum">     137 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="138"><span class="lineNum">     138 </span><span class="lineNoCov">          0 :     sample_rate = *maybe_sample_rate;</span></a>
-<a name="139"><span class="lineNum">     139 </span>            :   }</a>
+<a name="139"><span class="lineNum">     139 </span><span class="lineNoCov">          0 :   }</span></a>
 <a name="140"><span class="lineNum">     140 </span>            : </a>
 <a name="141"><span class="lineNum">     141 </span>            :   // If `sample_rate` was specified, then it translates to a &quot;catch-all&quot; rule</a>
 <a name="142"><span class="lineNum">     142 </span>            :   // appended to the end of `rules`.  First, though, we have to make sure the</a>
 <a name="143"><span class="lineNum">     143 </span>            :   // sample rate is valid.</a>
-<a name="144"><span class="lineNum">     144 </span><span class="lineCov">         67 :   if (sample_rate) {</span></a>
-<a name="145"><span class="lineNum">     145 </span><span class="lineNoCov">          0 :     auto maybe_rate = Rate::from(*sample_rate);</span></a>
-<a name="146"><span class="lineNum">     146 </span><span class="lineNoCov">          0 :     if (auto *error = maybe_rate.if_error()) {</span></a>
+<a name="144"><span class="lineNum">     144 </span><span class="lineCov">         94 :   if (sample_rate) {</span></a>
+<a name="145"><span class="lineNum">     145 </span><span class="lineCov">         20 :     auto maybe_rate = Rate::from(*sample_rate);</span></a>
+<a name="146"><span class="lineNum">     146 </span><span class="lineCov">         20 :     if (auto *error = maybe_rate.if_error()) {</span></a>
 <a name="147"><span class="lineNum">     147 </span><span class="lineNoCov">          0 :       return error-&gt;with_prefix(</span></a>
 <a name="148"><span class="lineNum">     148 </span><span class="lineNoCov">          0 :           &quot;Unable to parse overall sample_rate for trace sampling: &quot;);</span></a>
 <a name="149"><span class="lineNum">     149 </span>            :     }</a>
 <a name="150"><span class="lineNum">     150 </span>            : </a>
-<a name="151"><span class="lineNum">     151 </span><span class="lineNoCov">          0 :     FinalizedTraceSamplerConfig::Rule catch_all;</span></a>
-<a name="152"><span class="lineNum">     152 </span><span class="lineNoCov">          0 :     catch_all.sample_rate = *maybe_rate;</span></a>
-<a name="153"><span class="lineNum">     153 </span><span class="lineNoCov">          0 :     result.rules.push_back(std::move(catch_all));</span></a>
-<a name="154"><span class="lineNum">     154 </span>            :   }</a>
+<a name="151"><span class="lineNum">     151 </span><span class="lineCov">         20 :     FinalizedTraceSamplerConfig::Rule catch_all;</span></a>
+<a name="152"><span class="lineNum">     152 </span><span class="lineCov">         20 :     catch_all.sample_rate = *maybe_rate;</span></a>
+<a name="153"><span class="lineNum">     153 </span><span class="lineCov">         20 :     result.rules.push_back(std::move(catch_all));</span></a>
+<a name="154"><span class="lineNum">     154 </span><span class="lineCov">         20 :   }</span></a>
 <a name="155"><span class="lineNum">     155 </span>            : </a>
-<a name="156"><span class="lineNum">     156 </span><span class="lineCov">         67 :   auto max_per_second = config.max_per_second;</span></a>
-<a name="157"><span class="lineNum">     157 </span><span class="lineCov">         67 :   if (auto limit_env = lookup(environment::DD_TRACE_RATE_LIMIT)) {</span></a>
+<a name="156"><span class="lineNum">     156 </span><span class="lineCov">         94 :   auto max_per_second = config.max_per_second;</span></a>
+<a name="157"><span class="lineNum">     157 </span><span class="lineCov">         94 :   if (auto limit_env = lookup(environment::DD_TRACE_RATE_LIMIT)) {</span></a>
 <a name="158"><span class="lineNum">     158 </span><span class="lineNoCov">          0 :     auto maybe_max_per_second = parse_double(*limit_env);</span></a>
 <a name="159"><span class="lineNum">     159 </span><span class="lineNoCov">          0 :     if (auto *error = maybe_max_per_second.if_error()) {</span></a>
 <a name="160"><span class="lineNum">     160 </span><span class="lineNoCov">          0 :       std::string prefix;</span></a>
@@ -224,22 +224,22 @@
 <a name="162"><span class="lineNum">     162 </span><span class="lineNoCov">          0 :       prefix += name(environment::DD_TRACE_RATE_LIMIT);</span></a>
 <a name="163"><span class="lineNum">     163 </span><span class="lineNoCov">          0 :       prefix += &quot;: &quot;;</span></a>
 <a name="164"><span class="lineNum">     164 </span><span class="lineNoCov">          0 :       return error-&gt;with_prefix(prefix);</span></a>
-<a name="165"><span class="lineNum">     165 </span>            :     }</a>
+<a name="165"><span class="lineNum">     165 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="166"><span class="lineNum">     166 </span><span class="lineNoCov">          0 :     max_per_second = *maybe_max_per_second;</span></a>
-<a name="167"><span class="lineNum">     167 </span>            :   }</a>
+<a name="167"><span class="lineNum">     167 </span><span class="lineNoCov">          0 :   }</span></a>
 <a name="168"><span class="lineNum">     168 </span>            : </a>
-<a name="169"><span class="lineNum">     169 </span><span class="lineCov">         67 :   if (!(max_per_second &gt; 0)) {</span></a>
+<a name="169"><span class="lineNum">     169 </span><span class="lineCov">         94 :   if (!(max_per_second &gt; 0)) {</span></a>
 <a name="170"><span class="lineNum">     170 </span><span class="lineNoCov">          0 :     std::string message;</span></a>
 <a name="171"><span class="lineNum">     171 </span>            :     message +=</a>
 <a name="172"><span class="lineNum">     172 </span>            :         &quot;Trace sampling max_per_second must be greater than zero, but the &quot;</a>
 <a name="173"><span class="lineNum">     173 </span><span class="lineNoCov">          0 :         &quot;following value was given: &quot;;</span></a>
 <a name="174"><span class="lineNum">     174 </span><span class="lineNoCov">          0 :     message += std::to_string(config.max_per_second);</span></a>
 <a name="175"><span class="lineNum">     175 </span><span class="lineNoCov">          0 :     return Error{Error::MAX_PER_SECOND_OUT_OF_RANGE, std::move(message)};</span></a>
-<a name="176"><span class="lineNum">     176 </span>            :   }</a>
-<a name="177"><span class="lineNum">     177 </span><span class="lineCov">         67 :   result.max_per_second = config.max_per_second;</span></a>
+<a name="176"><span class="lineNum">     176 </span><span class="lineNoCov">          0 :   }</span></a>
+<a name="177"><span class="lineNum">     177 </span><span class="lineCov">         94 :   result.max_per_second = config.max_per_second;</span></a>
 <a name="178"><span class="lineNum">     178 </span>            : </a>
-<a name="179"><span class="lineNum">     179 </span><span class="lineCov">         67 :   return result;</span></a>
-<a name="180"><span class="lineNum">     180 </span>            : }</a>
+<a name="179"><span class="lineNum">     179 </span><span class="lineCov">         94 :   return result;</span></a>
+<a name="180"><span class="lineNum">     180 </span><span class="lineCov">         94 : }</span></a>
 <a name="181"><span class="lineNum">     181 </span>            : </a>
 <a name="182"><span class="lineNum">     182 </span>            : }  // namespace tracing</a>
 <a name="183"><span class="lineNum">     183 </span>            : }  // namespace datadog</a>

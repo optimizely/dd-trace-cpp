@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">1996</td>
+            <td class="headerCovTableEntry">2032</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-15 19:04:29</td>
+            <td class="headerValue">2022-09-19 14:29:03</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -4342,7 +4342,7 @@
 <a name="4280"><span class="lineNum">    4280 </span><span class="lineNoCov">          0 :     str.reserve(concat_length(std::forward&lt;Args&gt;(args)...));</span></a>
 <a name="4281"><span class="lineNum">    4281 </span><span class="lineNoCov">          0 :     concat_into(str, std::forward&lt;Args&gt;(args)...);</span></a>
 <a name="4282"><span class="lineNum">    4282 </span><span class="lineNoCov">          0 :     return str;</span></a>
-<a name="4283"><span class="lineNum">    4283 </span>            : }</a>
+<a name="4283"><span class="lineNum">    4283 </span><span class="lineNoCov">          0 : }</span></a>
 <a name="4284"><span class="lineNum">    4284 </span>            : </a>
 <a name="4285"><span class="lineNum">    4285 </span>            : }  // namespace detail</a>
 <a name="4286"><span class="lineNum">    4286 </span>            : NLOHMANN_JSON_NAMESPACE_END</a>
@@ -4475,7 +4475,7 @@
 <a name="4413"><span class="lineNum">    4413 </span><span class="lineNoCov">          0 :         std::string w = concat(exception::name(&quot;parse_error&quot;, id_), &quot;parse error&quot;,</span></a>
 <a name="4414"><span class="lineNum">    4414 </span>            :                                position_string(pos), &quot;: &quot;, exception::diagnostics(context), what_arg);</a>
 <a name="4415"><span class="lineNum">    4415 </span><span class="lineNoCov">          0 :         return {id_, pos.chars_read_total, w.c_str()};</span></a>
-<a name="4416"><span class="lineNum">    4416 </span>            :     }</a>
+<a name="4416"><span class="lineNum">    4416 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="4417"><span class="lineNum">    4417 </span>            : </a>
 <a name="4418"><span class="lineNum">    4418 </span>            :     template&lt;typename BasicJsonContext, enable_if_t&lt;is_basic_json_context&lt;BasicJsonContext&gt;::value, int&gt; = 0&gt;</a>
 <a name="4419"><span class="lineNum">    4419 </span>            :     static parse_error create(int id_, std::size_t byte_, const std::string&amp; what_arg, BasicJsonContext context)</a>
@@ -4518,7 +4518,7 @@
 <a name="4456"><span class="lineNum">    4456 </span>            :     {</a>
 <a name="4457"><span class="lineNum">    4457 </span><span class="lineNoCov">          0 :         std::string w = concat(exception::name(&quot;invalid_iterator&quot;, id_), exception::diagnostics(context), what_arg);</span></a>
 <a name="4458"><span class="lineNum">    4458 </span><span class="lineNoCov">          0 :         return {id_, w.c_str()};</span></a>
-<a name="4459"><span class="lineNum">    4459 </span>            :     }</a>
+<a name="4459"><span class="lineNum">    4459 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="4460"><span class="lineNum">    4460 </span>            : </a>
 <a name="4461"><span class="lineNum">    4461 </span>            :   private:</a>
 <a name="4462"><span class="lineNum">    4462 </span>            :     JSON_HEDLEY_NON_NULL(3)</a>
@@ -4536,7 +4536,7 @@
 <a name="4474"><span class="lineNum">    4474 </span>            :     {</a>
 <a name="4475"><span class="lineNum">    4475 </span><span class="lineNoCov">          0 :         std::string w = concat(exception::name(&quot;type_error&quot;, id_), exception::diagnostics(context), what_arg);</span></a>
 <a name="4476"><span class="lineNum">    4476 </span><span class="lineNoCov">          0 :         return {id_, w.c_str()};</span></a>
-<a name="4477"><span class="lineNum">    4477 </span>            :     }</a>
+<a name="4477"><span class="lineNum">    4477 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="4478"><span class="lineNum">    4478 </span>            : </a>
 <a name="4479"><span class="lineNum">    4479 </span>            :   private:</a>
 <a name="4480"><span class="lineNum">    4480 </span>            :     JSON_HEDLEY_NON_NULL(3)</a>
@@ -4553,7 +4553,7 @@
 <a name="4491"><span class="lineNum">    4491 </span>            :     {</a>
 <a name="4492"><span class="lineNum">    4492 </span><span class="lineNoCov">          0 :         std::string w = concat(exception::name(&quot;out_of_range&quot;, id_), exception::diagnostics(context), what_arg);</span></a>
 <a name="4493"><span class="lineNum">    4493 </span><span class="lineNoCov">          0 :         return {id_, w.c_str()};</span></a>
-<a name="4494"><span class="lineNum">    4494 </span>            :     }</a>
+<a name="4494"><span class="lineNum">    4494 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="4495"><span class="lineNum">    4495 </span>            : </a>
 <a name="4496"><span class="lineNum">    4496 </span>            :   private:</a>
 <a name="4497"><span class="lineNum">    4497 </span>            :     JSON_HEDLEY_NON_NULL(3)</a>
@@ -4570,7 +4570,7 @@
 <a name="4508"><span class="lineNum">    4508 </span>            :     {</a>
 <a name="4509"><span class="lineNum">    4509 </span><span class="lineNoCov">          0 :         std::string w = concat(exception::name(&quot;other_error&quot;, id_), exception::diagnostics(context), what_arg);</span></a>
 <a name="4510"><span class="lineNum">    4510 </span><span class="lineNoCov">          0 :         return {id_, w.c_str()};</span></a>
-<a name="4511"><span class="lineNum">    4511 </span>            :     }</a>
+<a name="4511"><span class="lineNum">    4511 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="4512"><span class="lineNum">    4512 </span>            : </a>
 <a name="4513"><span class="lineNum">    4513 </span>            :   private:</a>
 <a name="4514"><span class="lineNum">    4514 </span>            :     JSON_HEDLEY_NON_NULL(3)</a>
@@ -7073,7 +7073,7 @@
 <a name="7011"><span class="lineNum">    7011 </span>            :         }</a>
 <a name="7012"><span class="lineNum">    7012 </span>            : </a>
 <a name="7013"><span class="lineNum">    7013 </span><span class="lineNoCov">          0 :         return true;</span></a>
-<a name="7014"><span class="lineNum">    7014 </span>            :     }</a>
+<a name="7014"><span class="lineNum">    7014 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="7015"><span class="lineNum">    7015 </span>            : </a>
 <a name="7016"><span class="lineNum">    7016 </span><span class="lineNoCov">          0 :     bool end_object()</span></a>
 <a name="7017"><span class="lineNum">    7017 </span>            :     {</a>
@@ -7256,7 +7256,7 @@
 <a name="7194"><span class="lineNum">    7194 </span>            :         JSON_ASSERT(object_element);</a>
 <a name="7195"><span class="lineNum">    7195 </span><span class="lineNoCov">          0 :         *object_element = std::move(value);</span></a>
 <a name="7196"><span class="lineNum">    7196 </span><span class="lineNoCov">          0 :         return {true, object_element};</span></a>
-<a name="7197"><span class="lineNum">    7197 </span>            :     }</a>
+<a name="7197"><span class="lineNum">    7197 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="7198"><span class="lineNum">    7198 </span>            : </a>
 <a name="7199"><span class="lineNum">    7199 </span>            :     /// the parsed JSON value</a>
 <a name="7200"><span class="lineNum">    7200 </span>            :     BasicJsonType&amp; root;</a>
@@ -7485,7 +7485,7 @@
 <a name="7423"><span class="lineNum">    7423 </span>            : </a>
 <a name="7424"><span class="lineNum">    7424 </span><span class="lineNoCov">          0 :     explicit lexer(InputAdapterType&amp;&amp; adapter, bool ignore_comments_ = false) noexcept</span></a>
 <a name="7425"><span class="lineNum">    7425 </span><span class="lineNoCov">          0 :         : ia(std::move(adapter))</span></a>
-<a name="7426"><span class="lineNum">    7426 </span>            :         , ignore_comments(ignore_comments_)</a>
+<a name="7426"><span class="lineNum">    7426 </span><span class="lineNoCov">          0 :         , ignore_comments(ignore_comments_)</span></a>
 <a name="7427"><span class="lineNum">    7427 </span><span class="lineNoCov">          0 :         , decimal_point_char(static_cast&lt;char_int_type&gt;(get_decimal_point()))</span></a>
 <a name="7428"><span class="lineNum">    7428 </span><span class="lineNoCov">          0 :     {}</span></a>
 <a name="7429"><span class="lineNum">    7429 </span>            : </a>
@@ -7728,8 +7728,8 @@
 <a name="7666"><span class="lineNum">    7666 </span>            :                                 {</a>
 <a name="7667"><span class="lineNum">    7667 </span><span class="lineNoCov">          0 :                                     error_message = &quot;invalid string: surrogate U+D800..U+DBFF must be followed by U+DC00..U+DFFF&quot;;</span></a>
 <a name="7668"><span class="lineNum">    7668 </span><span class="lineNoCov">          0 :                                     return token_type::parse_error;</span></a>
-<a name="7669"><span class="lineNum">    7669 </span><span class="lineNoCov">          0 :                                 }</span></a>
-<a name="7670"><span class="lineNum">    7670 </span>            :                             }</a>
+<a name="7669"><span class="lineNum">    7669 </span>            :                                 }</a>
+<a name="7670"><span class="lineNum">    7670 </span><span class="lineNoCov">          0 :                             }</span></a>
 <a name="7671"><span class="lineNum">    7671 </span>            :                             else</a>
 <a name="7672"><span class="lineNum">    7672 </span>            :                             {</a>
 <a name="7673"><span class="lineNum">    7673 </span><span class="lineNoCov">          0 :                                 if (JSON_HEDLEY_UNLIKELY(0xDC00 &lt;= codepoint1 &amp;&amp; codepoint1 &lt;= 0xDFFF))</span></a>
@@ -8829,7 +8829,7 @@
 <a name="8767"><span class="lineNum">    8767 </span>            :         }</a>
 <a name="8768"><span class="lineNum">    8768 </span>            : </a>
 <a name="8769"><span class="lineNum">    8769 </span><span class="lineNoCov">          0 :         return result;</span></a>
-<a name="8770"><span class="lineNum">    8770 </span>            :     }</a>
+<a name="8770"><span class="lineNum">    8770 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="8771"><span class="lineNum">    8771 </span>            : </a>
 <a name="8772"><span class="lineNum">    8772 </span>            :     /// return syntax error message</a>
 <a name="8773"><span class="lineNum">    8773 </span>            :     JSON_HEDLEY_RETURNS_NON_NULL</a>
@@ -8862,7 +8862,7 @@
 <a name="8800"><span class="lineNum">    8800 </span>            : </a>
 <a name="8801"><span class="lineNum">    8801 </span><span class="lineNoCov">          0 :     void skip_whitespace()</span></a>
 <a name="8802"><span class="lineNum">    8802 </span>            :     {</a>
-<a name="8803"><span class="lineNum">    8803 </span><span class="lineNoCov">          0 :         do</span></a>
+<a name="8803"><span class="lineNum">    8803 </span>            :         do</a>
 <a name="8804"><span class="lineNum">    8804 </span>            :         {</a>
 <a name="8805"><span class="lineNum">    8805 </span><span class="lineNoCov">          0 :             get();</span></a>
 <a name="8806"><span class="lineNum">    8806 </span>            :         }</a>
@@ -12232,7 +12232,7 @@
 <a name="12170"><span class="lineNum">   12170 </span>            :                     const parser_callback_t&lt;BasicJsonType&gt; cb = nullptr,</a>
 <a name="12171"><span class="lineNum">   12171 </span>            :                     const bool allow_exceptions_ = true,</a>
 <a name="12172"><span class="lineNum">   12172 </span>            :                     const bool skip_comments = false)</a>
-<a name="12173"><span class="lineNum">   12173 </span>            :         : callback(cb)</a>
+<a name="12173"><span class="lineNum">   12173 </span><span class="lineNoCov">          0 :         : callback(cb)</span></a>
 <a name="12174"><span class="lineNum">   12174 </span><span class="lineNoCov">          0 :         , m_lexer(std::move(adapter), skip_comments)</span></a>
 <a name="12175"><span class="lineNum">   12175 </span><span class="lineNoCov">          0 :         , allow_exceptions(allow_exceptions_)</span></a>
 <a name="12176"><span class="lineNum">   12176 </span>            :     {</a>
@@ -12279,7 +12279,7 @@
 <a name="12217"><span class="lineNum">   12217 </span>            :             {</a>
 <a name="12218"><span class="lineNum">   12218 </span><span class="lineNoCov">          0 :                 result = nullptr;</span></a>
 <a name="12219"><span class="lineNum">   12219 </span>            :             }</a>
-<a name="12220"><span class="lineNum">   12220 </span>            :         }</a>
+<a name="12220"><span class="lineNum">   12220 </span><span class="lineNoCov">          0 :         }</span></a>
 <a name="12221"><span class="lineNum">   12221 </span>            :         else</a>
 <a name="12222"><span class="lineNum">   12222 </span>            :         {</a>
 <a name="12223"><span class="lineNum">   12223 </span><span class="lineNoCov">          0 :             json_sax_dom_parser&lt;BasicJsonType&gt; sdp(result, allow_exceptions);</span></a>
@@ -12299,7 +12299,7 @@
 <a name="12237"><span class="lineNum">   12237 </span><span class="lineNoCov">          0 :                 result = value_t::discarded;</span></a>
 <a name="12238"><span class="lineNum">   12238 </span><span class="lineNoCov">          0 :                 return;</span></a>
 <a name="12239"><span class="lineNum">   12239 </span>            :             }</a>
-<a name="12240"><span class="lineNum">   12240 </span>            :         }</a>
+<a name="12240"><span class="lineNum">   12240 </span><span class="lineNoCov">          0 :         }</span></a>
 <a name="12241"><span class="lineNum">   12241 </span>            : </a>
 <a name="12242"><span class="lineNum">   12242 </span><span class="lineNoCov">          0 :         result.assert_invariant();</span></a>
 <a name="12243"><span class="lineNum">   12243 </span>            :     }</a>
@@ -12372,7 +12372,7 @@
 <a name="12310"><span class="lineNum">   12310 </span>            :                         // parse key</a>
 <a name="12311"><span class="lineNum">   12311 </span><span class="lineNoCov">          0 :                         if (JSON_HEDLEY_UNLIKELY(last_token != token_type::value_string))</span></a>
 <a name="12312"><span class="lineNum">   12312 </span>            :                         {</a>
-<a name="12313"><span class="lineNum">   12313 </span>            :                             return sax-&gt;parse_error(m_lexer.get_position(),</a>
+<a name="12313"><span class="lineNum">   12313 </span><span class="lineNoCov">          0 :                             return sax-&gt;parse_error(m_lexer.get_position(),</span></a>
 <a name="12314"><span class="lineNum">   12314 </span>            :                                                     m_lexer.get_token_string(),</a>
 <a name="12315"><span class="lineNum">   12315 </span><span class="lineNoCov">          0 :                                                     parse_error::create(101, m_lexer.get_position(), exception_message(token_type::value_string, &quot;object key&quot;), nullptr));</span></a>
 <a name="12316"><span class="lineNum">   12316 </span>            :                         }</a>
@@ -12384,7 +12384,7 @@
 <a name="12322"><span class="lineNum">   12322 </span>            :                         // parse separator (:)</a>
 <a name="12323"><span class="lineNum">   12323 </span><span class="lineNoCov">          0 :                         if (JSON_HEDLEY_UNLIKELY(get_token() != token_type::name_separator))</span></a>
 <a name="12324"><span class="lineNum">   12324 </span>            :                         {</a>
-<a name="12325"><span class="lineNum">   12325 </span>            :                             return sax-&gt;parse_error(m_lexer.get_position(),</a>
+<a name="12325"><span class="lineNum">   12325 </span><span class="lineNoCov">          0 :                             return sax-&gt;parse_error(m_lexer.get_position(),</span></a>
 <a name="12326"><span class="lineNum">   12326 </span>            :                                                     m_lexer.get_token_string(),</a>
 <a name="12327"><span class="lineNum">   12327 </span><span class="lineNoCov">          0 :                                                     parse_error::create(101, m_lexer.get_position(), exception_message(token_type::name_separator, &quot;object separator&quot;), nullptr));</span></a>
 <a name="12328"><span class="lineNum">   12328 </span>            :                         }</a>
@@ -12427,7 +12427,7 @@
 <a name="12365"><span class="lineNum">   12365 </span>            : </a>
 <a name="12366"><span class="lineNum">   12366 </span><span class="lineNoCov">          0 :                         if (JSON_HEDLEY_UNLIKELY(!std::isfinite(res)))</span></a>
 <a name="12367"><span class="lineNum">   12367 </span>            :                         {</a>
-<a name="12368"><span class="lineNum">   12368 </span>            :                             return sax-&gt;parse_error(m_lexer.get_position(),</a>
+<a name="12368"><span class="lineNum">   12368 </span><span class="lineNoCov">          0 :                             return sax-&gt;parse_error(m_lexer.get_position(),</span></a>
 <a name="12369"><span class="lineNum">   12369 </span>            :                                                     m_lexer.get_token_string(),</a>
 <a name="12370"><span class="lineNum">   12370 </span><span class="lineNoCov">          0 :                                                     out_of_range::create(406, concat(&quot;number overflow parsing '&quot;, m_lexer.get_token_string(), '\''), nullptr));</span></a>
 <a name="12371"><span class="lineNum">   12371 </span>            :                         }</a>
@@ -12497,7 +12497,7 @@
 <a name="12435"><span class="lineNum">   12435 </span><span class="lineNoCov">          0 :                     case token_type::parse_error:</span></a>
 <a name="12436"><span class="lineNum">   12436 </span>            :                     {</a>
 <a name="12437"><span class="lineNum">   12437 </span>            :                         // using &quot;uninitialized&quot; to avoid &quot;expected&quot; message</a>
-<a name="12438"><span class="lineNum">   12438 </span>            :                         return sax-&gt;parse_error(m_lexer.get_position(),</a>
+<a name="12438"><span class="lineNum">   12438 </span><span class="lineNoCov">          0 :                         return sax-&gt;parse_error(m_lexer.get_position(),</span></a>
 <a name="12439"><span class="lineNum">   12439 </span>            :                                                 m_lexer.get_token_string(),</a>
 <a name="12440"><span class="lineNum">   12440 </span><span class="lineNoCov">          0 :                                                 parse_error::create(101, m_lexer.get_position(), exception_message(token_type::uninitialized, &quot;value&quot;), nullptr));</span></a>
 <a name="12441"><span class="lineNum">   12441 </span>            :                     }</a>
@@ -12511,11 +12511,11 @@
 <a name="12449"><span class="lineNum">   12449 </span>            :                     case token_type::literal_or_value:</a>
 <a name="12450"><span class="lineNum">   12450 </span>            :                     default: // the last token was unexpected</a>
 <a name="12451"><span class="lineNum">   12451 </span>            :                     {</a>
-<a name="12452"><span class="lineNum">   12452 </span>            :                         return sax-&gt;parse_error(m_lexer.get_position(),</a>
+<a name="12452"><span class="lineNum">   12452 </span><span class="lineNoCov">          0 :                         return sax-&gt;parse_error(m_lexer.get_position(),</span></a>
 <a name="12453"><span class="lineNum">   12453 </span>            :                                                 m_lexer.get_token_string(),</a>
 <a name="12454"><span class="lineNum">   12454 </span><span class="lineNoCov">          0 :                                                 parse_error::create(101, m_lexer.get_position(), exception_message(token_type::literal_or_value, &quot;value&quot;), nullptr));</span></a>
-<a name="12455"><span class="lineNum">   12455 </span><span class="lineNoCov">          0 :                     }</span></a>
-<a name="12456"><span class="lineNum">   12456 </span>            :                 }</a>
+<a name="12455"><span class="lineNum">   12455 </span>            :                     }</a>
+<a name="12456"><span class="lineNum">   12456 </span><span class="lineNoCov">          0 :                 }</span></a>
 <a name="12457"><span class="lineNum">   12457 </span>            :             }</a>
 <a name="12458"><span class="lineNum">   12458 </span>            :             else</a>
 <a name="12459"><span class="lineNum">   12459 </span>            :             {</a>
@@ -12557,7 +12557,7 @@
 <a name="12495"><span class="lineNum">   12495 </span><span class="lineNoCov">          0 :                     continue;</span></a>
 <a name="12496"><span class="lineNum">   12496 </span>            :                 }</a>
 <a name="12497"><span class="lineNum">   12497 </span>            : </a>
-<a name="12498"><span class="lineNum">   12498 </span>            :                 return sax-&gt;parse_error(m_lexer.get_position(),</a>
+<a name="12498"><span class="lineNum">   12498 </span><span class="lineNoCov">          0 :                 return sax-&gt;parse_error(m_lexer.get_position(),</span></a>
 <a name="12499"><span class="lineNum">   12499 </span>            :                                         m_lexer.get_token_string(),</a>
 <a name="12500"><span class="lineNum">   12500 </span><span class="lineNoCov">          0 :                                         parse_error::create(101, m_lexer.get_position(), exception_message(token_type::end_array, &quot;array&quot;), nullptr));</span></a>
 <a name="12501"><span class="lineNum">   12501 </span>            :             }</a>
@@ -12570,7 +12570,7 @@
 <a name="12508"><span class="lineNum">   12508 </span>            :                 // parse key</a>
 <a name="12509"><span class="lineNum">   12509 </span><span class="lineNoCov">          0 :                 if (JSON_HEDLEY_UNLIKELY(get_token() != token_type::value_string))</span></a>
 <a name="12510"><span class="lineNum">   12510 </span>            :                 {</a>
-<a name="12511"><span class="lineNum">   12511 </span>            :                     return sax-&gt;parse_error(m_lexer.get_position(),</a>
+<a name="12511"><span class="lineNum">   12511 </span><span class="lineNoCov">          0 :                     return sax-&gt;parse_error(m_lexer.get_position(),</span></a>
 <a name="12512"><span class="lineNum">   12512 </span>            :                                             m_lexer.get_token_string(),</a>
 <a name="12513"><span class="lineNum">   12513 </span><span class="lineNoCov">          0 :                                             parse_error::create(101, m_lexer.get_position(), exception_message(token_type::value_string, &quot;object key&quot;), nullptr));</span></a>
 <a name="12514"><span class="lineNum">   12514 </span>            :                 }</a>
@@ -12583,7 +12583,7 @@
 <a name="12521"><span class="lineNum">   12521 </span>            :                 // parse separator (:)</a>
 <a name="12522"><span class="lineNum">   12522 </span><span class="lineNoCov">          0 :                 if (JSON_HEDLEY_UNLIKELY(get_token() != token_type::name_separator))</span></a>
 <a name="12523"><span class="lineNum">   12523 </span>            :                 {</a>
-<a name="12524"><span class="lineNum">   12524 </span>            :                     return sax-&gt;parse_error(m_lexer.get_position(),</a>
+<a name="12524"><span class="lineNum">   12524 </span><span class="lineNoCov">          0 :                     return sax-&gt;parse_error(m_lexer.get_position(),</span></a>
 <a name="12525"><span class="lineNum">   12525 </span>            :                                             m_lexer.get_token_string(),</a>
 <a name="12526"><span class="lineNum">   12526 </span><span class="lineNoCov">          0 :                                             parse_error::create(101, m_lexer.get_position(), exception_message(token_type::name_separator, &quot;object separator&quot;), nullptr));</span></a>
 <a name="12527"><span class="lineNum">   12527 </span>            :                 }</a>
@@ -12611,11 +12611,11 @@
 <a name="12549"><span class="lineNum">   12549 </span><span class="lineNoCov">          0 :                 continue;</span></a>
 <a name="12550"><span class="lineNum">   12550 </span>            :             }</a>
 <a name="12551"><span class="lineNum">   12551 </span>            : </a>
-<a name="12552"><span class="lineNum">   12552 </span>            :             return sax-&gt;parse_error(m_lexer.get_position(),</a>
+<a name="12552"><span class="lineNum">   12552 </span><span class="lineNoCov">          0 :             return sax-&gt;parse_error(m_lexer.get_position(),</span></a>
 <a name="12553"><span class="lineNum">   12553 </span>            :                                     m_lexer.get_token_string(),</a>
 <a name="12554"><span class="lineNum">   12554 </span><span class="lineNoCov">          0 :                                     parse_error::create(101, m_lexer.get_position(), exception_message(token_type::end_object, &quot;object&quot;), nullptr));</span></a>
 <a name="12555"><span class="lineNum">   12555 </span>            :         }</a>
-<a name="12556"><span class="lineNum">   12556 </span>            :     }</a>
+<a name="12556"><span class="lineNum">   12556 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="12557"><span class="lineNum">   12557 </span>            : </a>
 <a name="12558"><span class="lineNum">   12558 </span>            :     /// get next token from lexer</a>
 <a name="12559"><span class="lineNum">   12559 </span><span class="lineNoCov">          0 :     token_type get_token()</span></a>
@@ -12650,7 +12650,7 @@
 <a name="12588"><span class="lineNum">   12588 </span>            :         }</a>
 <a name="12589"><span class="lineNum">   12589 </span>            : </a>
 <a name="12590"><span class="lineNum">   12590 </span><span class="lineNoCov">          0 :         return error_msg;</span></a>
-<a name="12591"><span class="lineNum">   12591 </span>            :     }</a>
+<a name="12591"><span class="lineNum">   12591 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="12592"><span class="lineNum">   12592 </span>            : </a>
 <a name="12593"><span class="lineNum">   12593 </span>            :   private:</a>
 <a name="12594"><span class="lineNum">   12594 </span>            :     /// callback function</a>
@@ -18016,7 +18016,7 @@
 <a name="17954"><span class="lineNum">   17954 </span><span class="lineNoCov">          0 :         , loc(std::localeconv())</span></a>
 <a name="17955"><span class="lineNum">   17955 </span><span class="lineNoCov">          0 :         , thousands_sep(loc-&gt;thousands_sep == nullptr ? '\0' : std::char_traits&lt;char&gt;::to_char_type(* (loc-&gt;thousands_sep)))</span></a>
 <a name="17956"><span class="lineNum">   17956 </span><span class="lineNoCov">          0 :         , decimal_point(loc-&gt;decimal_point == nullptr ? '\0' : std::char_traits&lt;char&gt;::to_char_type(* (loc-&gt;decimal_point)))</span></a>
-<a name="17957"><span class="lineNum">   17957 </span>            :         , indent_char(ichar)</a>
+<a name="17957"><span class="lineNum">   17957 </span><span class="lineNoCov">          0 :         , indent_char(ichar)</span></a>
 <a name="17958"><span class="lineNum">   17958 </span><span class="lineNoCov">          0 :         , indent_string(512, indent_char)</span></a>
 <a name="17959"><span class="lineNum">   17959 </span><span class="lineNoCov">          0 :         , error_handler(error_handler_)</span></a>
 <a name="17960"><span class="lineNum">   17960 </span><span class="lineNoCov">          0 :     {}</span></a>
@@ -18627,7 +18627,7 @@
 <a name="18565"><span class="lineNum">   18565 </span><span class="lineNoCov">          0 :         result[0] = nibble_to_hex[byte / 16];</span></a>
 <a name="18566"><span class="lineNum">   18566 </span><span class="lineNoCov">          0 :         result[1] = nibble_to_hex[byte % 16];</span></a>
 <a name="18567"><span class="lineNum">   18567 </span><span class="lineNoCov">          0 :         return result;</span></a>
-<a name="18568"><span class="lineNum">   18568 </span>            :     }</a>
+<a name="18568"><span class="lineNum">   18568 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="18569"><span class="lineNum">   18569 </span>            : </a>
 <a name="18570"><span class="lineNum">   18570 </span>            :     // templates to avoid warnings about useless casts</a>
 <a name="18571"><span class="lineNum">   18571 </span>            :     template &lt;typename NumberType, enable_if_t&lt;std::is_signed&lt;NumberType&gt;::value, int&gt; = 0&gt;</a>
@@ -19628,7 +19628,7 @@
 <a name="19566"><span class="lineNum">   19566 </span><span class="lineNoCov">          0 :         AllocatorTraits::construct(alloc, obj.get(), std::forward&lt;Args&gt;(args)...);</span></a>
 <a name="19567"><span class="lineNum">   19567 </span>            :         JSON_ASSERT(obj != nullptr);</a>
 <a name="19568"><span class="lineNum">   19568 </span><span class="lineNoCov">          0 :         return obj.release();</span></a>
-<a name="19569"><span class="lineNum">   19569 </span>            :     }</a>
+<a name="19569"><span class="lineNum">   19569 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="19570"><span class="lineNum">   19570 </span>            : </a>
 <a name="19571"><span class="lineNum">   19571 </span>            :     ////////////////////////</a>
 <a name="19572"><span class="lineNum">   19572 </span>            :     // JSON value storage //</a>
@@ -19840,7 +19840,7 @@
 <a name="19778"><span class="lineNum">   19778 </span>            :                     // it's now safe that current_item get destructed</a>
 <a name="19779"><span class="lineNum">   19779 </span>            :                     // since it doesn't have any children</a>
 <a name="19780"><span class="lineNum">   19780 </span>            :                 }</a>
-<a name="19781"><span class="lineNum">   19781 </span>            :             }</a>
+<a name="19781"><span class="lineNum">   19781 </span><span class="lineNoCov">          0 :             }</span></a>
 <a name="19782"><span class="lineNum">   19782 </span>            : </a>
 <a name="19783"><span class="lineNum">   19783 </span><span class="lineNoCov">          0 :             switch (t)</span></a>
 <a name="19784"><span class="lineNum">   19784 </span>            :             {</a>
@@ -19850,7 +19850,7 @@
 <a name="19788"><span class="lineNum">   19788 </span><span class="lineNoCov">          0 :                     std::allocator_traits&lt;decltype(alloc)&gt;::destroy(alloc, object);</span></a>
 <a name="19789"><span class="lineNum">   19789 </span><span class="lineNoCov">          0 :                     std::allocator_traits&lt;decltype(alloc)&gt;::deallocate(alloc, object, 1);</span></a>
 <a name="19790"><span class="lineNum">   19790 </span><span class="lineNoCov">          0 :                     break;</span></a>
-<a name="19791"><span class="lineNum">   19791 </span>            :                 }</a>
+<a name="19791"><span class="lineNum">   19791 </span><span class="lineNoCov">          0 :                 }</span></a>
 <a name="19792"><span class="lineNum">   19792 </span>            : </a>
 <a name="19793"><span class="lineNum">   19793 </span><span class="lineNoCov">          0 :                 case value_t::array:</span></a>
 <a name="19794"><span class="lineNum">   19794 </span>            :                 {</a>
@@ -19858,7 +19858,7 @@
 <a name="19796"><span class="lineNum">   19796 </span><span class="lineNoCov">          0 :                     std::allocator_traits&lt;decltype(alloc)&gt;::destroy(alloc, array);</span></a>
 <a name="19797"><span class="lineNum">   19797 </span><span class="lineNoCov">          0 :                     std::allocator_traits&lt;decltype(alloc)&gt;::deallocate(alloc, array, 1);</span></a>
 <a name="19798"><span class="lineNum">   19798 </span><span class="lineNoCov">          0 :                     break;</span></a>
-<a name="19799"><span class="lineNum">   19799 </span>            :                 }</a>
+<a name="19799"><span class="lineNum">   19799 </span><span class="lineNoCov">          0 :                 }</span></a>
 <a name="19800"><span class="lineNum">   19800 </span>            : </a>
 <a name="19801"><span class="lineNum">   19801 </span><span class="lineNoCov">          0 :                 case value_t::string:</span></a>
 <a name="19802"><span class="lineNum">   19802 </span>            :                 {</a>
@@ -19866,7 +19866,7 @@
 <a name="19804"><span class="lineNum">   19804 </span><span class="lineNoCov">          0 :                     std::allocator_traits&lt;decltype(alloc)&gt;::destroy(alloc, string);</span></a>
 <a name="19805"><span class="lineNum">   19805 </span><span class="lineNoCov">          0 :                     std::allocator_traits&lt;decltype(alloc)&gt;::deallocate(alloc, string, 1);</span></a>
 <a name="19806"><span class="lineNum">   19806 </span><span class="lineNoCov">          0 :                     break;</span></a>
-<a name="19807"><span class="lineNum">   19807 </span>            :                 }</a>
+<a name="19807"><span class="lineNum">   19807 </span><span class="lineNoCov">          0 :                 }</span></a>
 <a name="19808"><span class="lineNum">   19808 </span>            : </a>
 <a name="19809"><span class="lineNum">   19809 </span><span class="lineNoCov">          0 :                 case value_t::binary:</span></a>
 <a name="19810"><span class="lineNum">   19810 </span>            :                 {</a>
@@ -19874,7 +19874,7 @@
 <a name="19812"><span class="lineNum">   19812 </span><span class="lineNoCov">          0 :                     std::allocator_traits&lt;decltype(alloc)&gt;::destroy(alloc, binary);</span></a>
 <a name="19813"><span class="lineNum">   19813 </span><span class="lineNoCov">          0 :                     std::allocator_traits&lt;decltype(alloc)&gt;::deallocate(alloc, binary, 1);</span></a>
 <a name="19814"><span class="lineNum">   19814 </span><span class="lineNoCov">          0 :                     break;</span></a>
-<a name="19815"><span class="lineNum">   19815 </span>            :                 }</a>
+<a name="19815"><span class="lineNum">   19815 </span><span class="lineNoCov">          0 :                 }</span></a>
 <a name="19816"><span class="lineNum">   19816 </span>            : </a>
 <a name="19817"><span class="lineNum">   19817 </span><span class="lineNoCov">          0 :                 case value_t::null:</span></a>
 <a name="19818"><span class="lineNum">   19818 </span>            :                 case value_t::boolean:</a>
@@ -20514,7 +20514,7 @@
 <a name="20452"><span class="lineNum">   20452 </span>            :         }</a>
 <a name="20453"><span class="lineNum">   20453 </span>            : </a>
 <a name="20454"><span class="lineNum">   20454 </span><span class="lineNoCov">          0 :         return result;</span></a>
-<a name="20455"><span class="lineNum">   20455 </span>            :     }</a>
+<a name="20455"><span class="lineNum">   20455 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="20456"><span class="lineNum">   20456 </span>            : </a>
 <a name="20457"><span class="lineNum">   20457 </span>            :     /// @brief return the type of the JSON value (explicit)</a>
 <a name="20458"><span class="lineNum">   20458 </span>            :     /// @sa https://json.nlohmann.me/api/basic_json/type/</a>
@@ -20836,7 +20836,7 @@
 <a name="20774"><span class="lineNum">   20774 </span><span class="lineNoCov">          0 :         auto ret = ValueType();</span></a>
 <a name="20775"><span class="lineNum">   20775 </span><span class="lineNoCov">          0 :         JSONSerializer&lt;ValueType&gt;::from_json(*this, ret);</span></a>
 <a name="20776"><span class="lineNum">   20776 </span><span class="lineNoCov">          0 :         return ret;</span></a>
-<a name="20777"><span class="lineNum">   20777 </span>            :     }</a>
+<a name="20777"><span class="lineNum">   20777 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="20778"><span class="lineNum">   20778 </span>            : </a>
 <a name="20779"><span class="lineNum">   20779 </span>            :     /*!</a>
 <a name="20780"><span class="lineNum">   20780 </span>            :     @brief get a value (explicit); special case</a>
@@ -21684,14 +21684,14 @@
 <a name="21622"><span class="lineNum">   21622 </span><span class="lineNoCov">          0 :                     std::allocator_traits&lt;decltype(alloc)&gt;::destroy(alloc, m_value.string);</span></a>
 <a name="21623"><span class="lineNum">   21623 </span><span class="lineNoCov">          0 :                     std::allocator_traits&lt;decltype(alloc)&gt;::deallocate(alloc, m_value.string, 1);</span></a>
 <a name="21624"><span class="lineNum">   21624 </span><span class="lineNoCov">          0 :                     m_value.string = nullptr;</span></a>
-<a name="21625"><span class="lineNum">   21625 </span>            :                 }</a>
+<a name="21625"><span class="lineNum">   21625 </span><span class="lineNoCov">          0 :                 }</span></a>
 <a name="21626"><span class="lineNum">   21626 </span><span class="lineNoCov">          0 :                 else if (is_binary())</span></a>
 <a name="21627"><span class="lineNum">   21627 </span>            :                 {</a>
 <a name="21628"><span class="lineNum">   21628 </span><span class="lineNoCov">          0 :                     AllocatorType&lt;binary_t&gt; alloc;</span></a>
 <a name="21629"><span class="lineNum">   21629 </span><span class="lineNoCov">          0 :                     std::allocator_traits&lt;decltype(alloc)&gt;::destroy(alloc, m_value.binary);</span></a>
 <a name="21630"><span class="lineNum">   21630 </span><span class="lineNoCov">          0 :                     std::allocator_traits&lt;decltype(alloc)&gt;::deallocate(alloc, m_value.binary, 1);</span></a>
 <a name="21631"><span class="lineNum">   21631 </span><span class="lineNoCov">          0 :                     m_value.binary = nullptr;</span></a>
-<a name="21632"><span class="lineNum">   21632 </span>            :                 }</a>
+<a name="21632"><span class="lineNum">   21632 </span><span class="lineNoCov">          0 :                 }</span></a>
 <a name="21633"><span class="lineNum">   21633 </span>            : </a>
 <a name="21634"><span class="lineNum">   21634 </span><span class="lineNoCov">          0 :                 m_type = value_t::null;</span></a>
 <a name="21635"><span class="lineNum">   21635 </span><span class="lineNoCov">          0 :                 assert_invariant();</span></a>
@@ -23253,7 +23253,7 @@
 <a name="23191"><span class="lineNum">   23191 </span><span class="lineNoCov">          0 :         basic_json result;</span></a>
 <a name="23192"><span class="lineNum">   23192 </span><span class="lineNoCov">          0 :         parser(detail::input_adapter(std::forward&lt;InputType&gt;(i)), cb, allow_exceptions, ignore_comments).parse(true, result);</span></a>
 <a name="23193"><span class="lineNum">   23193 </span><span class="lineNoCov">          0 :         return result;</span></a>
-<a name="23194"><span class="lineNum">   23194 </span>            :     }</a>
+<a name="23194"><span class="lineNum">   23194 </span><span class="lineNoCov">          0 :     }</span></a>
 <a name="23195"><span class="lineNum">   23195 </span>            : </a>
 <a name="23196"><span class="lineNum">   23196 </span>            :     /// @brief deserialize from a pair of character iterators</a>
 <a name="23197"><span class="lineNum">   23197 </span>            :     /// @sa https://json.nlohmann.me/api/basic_json/parse/</a>

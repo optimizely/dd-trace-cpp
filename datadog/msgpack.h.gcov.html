@@ -31,13 +31,13 @@
             <td class="headerValue">filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">50</td>
-            <td class="headerCovTableEntry">111</td>
-            <td class="headerCovTableEntryLo">45.0 %</td>
+            <td class="headerCovTableEntry">51</td>
+            <td class="headerCovTableEntry">114</td>
+            <td class="headerCovTableEntryLo">44.7 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-15 19:04:29</td>
+            <td class="headerValue">2022-09-20 15:08:39</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">14</td>
@@ -166,7 +166,7 @@
 <a name="104"><span class="lineNum">     104 </span><span class="lineNoCov">          0 :   message += max;</span></a>
 <a name="105"><span class="lineNum">     105 </span><span class="lineNoCov">          0 :   message += '.';</span></a>
 <a name="106"><span class="lineNum">     106 </span><span class="lineNoCov">          0 :   return message;</span></a>
-<a name="107"><span class="lineNum">     107 </span>            : }</a>
+<a name="107"><span class="lineNum">     107 </span><span class="lineNoCov">          0 : }</span></a>
 <a name="108"><span class="lineNum">     108 </span>            : </a>
 <a name="109"><span class="lineNum">     109 </span>            : template &lt;typename Integer&gt;</a>
 <a name="110"><span class="lineNum">     110 </span><span class="lineCov">         10 : void push_number_big_endian(std::string&amp; buffer, Integer integer) {</span></a>
@@ -289,7 +289,7 @@
 <a name="227"><span class="lineNum">     227 </span><span class="lineCov">         35 :       static_cast&lt;size_t&gt;(std::distance(std::begin(range), std::end(range)));</span></a>
 <a name="228"><span class="lineNum">     228 </span><span class="lineCov">         35 :   if (size &lt; 32) {</span></a>
 <a name="229"><span class="lineNum">     229 </span><span class="lineCov">         35 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::FIX_STR |</span></a>
-<a name="230"><span class="lineNum">     230 </span>            :                                        static_cast&lt;std::uint8_t&gt;(size)));</a>
+<a name="230"><span class="lineNum">     230 </span><span class="lineCov">         35 :                                        static_cast&lt;std::uint8_t&gt;(size)));</span></a>
 <a name="231"><span class="lineNum">     231 </span><span class="lineCov">         35 :     push(buffer, range);</span></a>
 <a name="232"><span class="lineNum">     232 </span><span class="lineNoCov">          0 :   } else if (size &lt;= std::numeric_limits&lt;std::uint8_t&gt;::max()) {</span></a>
 <a name="233"><span class="lineNum">     233 </span><span class="lineNoCov">          0 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::STR8));</span></a>
@@ -304,7 +304,7 @@
 <a name="242"><span class="lineNum">     242 </span><span class="lineNoCov">          0 :     push_number_big_endian(buffer, static_cast&lt;std::uint32_t&gt;(size));</span></a>
 <a name="243"><span class="lineNum">     243 </span><span class="lineNoCov">          0 :     push(buffer, range);</span></a>
 <a name="244"><span class="lineNum">     244 </span>            :   } else {</a>
-<a name="245"><span class="lineNum">     245 </span>            :     throw std::out_of_range(make_overflow_message(</a>
+<a name="245"><span class="lineNum">     245 </span><span class="lineNoCov">          0 :     throw std::out_of_range(make_overflow_message(</span></a>
 <a name="246"><span class="lineNum">     246 </span><span class="lineNoCov">          0 :         &quot;string&quot;, size, std::numeric_limits&lt;std::uint32_t&gt;::max()));</span></a>
 <a name="247"><span class="lineNum">     247 </span>            :   }</a>
 <a name="248"><span class="lineNum">     248 </span><span class="lineCov">         35 : }</span></a>

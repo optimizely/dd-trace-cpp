@@ -31,13 +31,13 @@
             <td class="headerValue">filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">117</td>
-            <td class="headerCovTableEntry">186</td>
-            <td class="headerCovTableEntryLo">62.9 %</td>
+            <td class="headerCovTableEntry">121</td>
+            <td class="headerCovTableEntry">192</td>
+            <td class="headerCovTableEntryLo">63.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-15 19:04:29</td>
+            <td class="headerValue">2022-09-20 15:08:39</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">15</td>
@@ -83,7 +83,7 @@
 <a name="21"><span class="lineNum">      21 </span><span class="lineCov">          1 :   if (multi_handle_ == nullptr) {</span></a>
 <a name="22"><span class="lineNum">      22 </span><span class="lineNoCov">          0 :     logger_-&gt;log_error(Error{</span></a>
 <a name="23"><span class="lineNum">      23 </span>            :         Error::CURL_HTTP_CLIENT_SETUP_FAILED,</a>
-<a name="24"><span class="lineNum">      24 </span><span class="lineNoCov">          0 :         &quot;Unable to initialize a curl multi-handle for sending requests.&quot;});</span></a>
+<a name="24"><span class="lineNum">      24 </span>            :         &quot;Unable to initialize a curl multi-handle for sending requests.&quot;});</a>
 <a name="25"><span class="lineNum">      25 </span><span class="lineNoCov">          0 :     return;</span></a>
 <a name="26"><span class="lineNum">      26 </span>            :   }</a>
 <a name="27"><span class="lineNum">      27 </span>            : </a>
@@ -100,8 +100,8 @@
 <a name="38"><span class="lineNum">      38 </span>            : </a>
 <a name="39"><span class="lineNum">      39 </span>            :     // Mark this object as not working.</a>
 <a name="40"><span class="lineNum">      40 </span><span class="lineNoCov">          0 :     multi_handle_ = nullptr;</span></a>
-<a name="41"><span class="lineNum">      41 </span>            :   }</a>
-<a name="42"><span class="lineNum">      42 </span>            : }</a>
+<a name="41"><span class="lineNum">      41 </span><span class="lineNoCov">          0 :   }</span></a>
+<a name="42"><span class="lineNum">      42 </span><span class="lineNoCov">          0 : }</span></a>
 <a name="43"><span class="lineNum">      43 </span>            : </a>
 <a name="44"><span class="lineNum">      44 </span><span class="lineCov">          1 : Curl::~Curl() {</span></a>
 <a name="45"><span class="lineNum">      45 </span><span class="lineCov">          1 :   if (multi_handle_ == nullptr) {</span></a>
@@ -112,7 +112,7 @@
 <a name="50"><span class="lineNum">      50 </span>            :   {</a>
 <a name="51"><span class="lineNum">      51 </span><span class="lineCov">          1 :     std::lock_guard&lt;std::mutex&gt; lock(mutex_);</span></a>
 <a name="52"><span class="lineNum">      52 </span><span class="lineCov">          1 :     shutting_down_ = true;</span></a>
-<a name="53"><span class="lineNum">      53 </span>            :   }</a>
+<a name="53"><span class="lineNum">      53 </span><span class="lineCov">          1 :   }</span></a>
 <a name="54"><span class="lineNum">      54 </span><span class="lineCov">          1 :   log_on_error(curl_multi_wakeup(multi_handle_));</span></a>
 <a name="55"><span class="lineNum">      55 </span><span class="lineCov">          1 :   event_loop_.join();</span></a>
 <a name="56"><span class="lineNum">      56 </span><span class="lineCov">          1 : }</span></a>
@@ -126,14 +126,14 @@
 <a name="64"><span class="lineNum">      64 </span><span class="lineNoCov">          0 :                  &quot;failed to start.&quot;};</span></a>
 <a name="65"><span class="lineNum">      65 </span>            :   }</a>
 <a name="66"><span class="lineNum">      66 </span>            : </a>
-<a name="67"><span class="lineNum">      67 </span><span class="lineCov">          2 :   auto request = std::make_unique&lt;Request&gt;();</span></a>
+<a name="67"><span class="lineNum">      67 </span><span class="lineCov">          1 :   auto request = std::make_unique&lt;Request&gt;();</span></a>
 <a name="68"><span class="lineNum">      68 </span>            : </a>
 <a name="69"><span class="lineNum">      69 </span><span class="lineCov">          1 :   request-&gt;request_body = std::move(body);</span></a>
 <a name="70"><span class="lineNum">      70 </span><span class="lineCov">          1 :   request-&gt;on_response = std::move(on_response);</span></a>
 <a name="71"><span class="lineNum">      71 </span><span class="lineCov">          1 :   request-&gt;on_error = std::move(on_error);</span></a>
 <a name="72"><span class="lineNum">      72 </span>            : </a>
 <a name="73"><span class="lineNum">      73 </span>            :   std::unique_ptr&lt;CURL, decltype(&amp;curl_easy_cleanup)&gt; handle{</a>
-<a name="74"><span class="lineNum">      74 </span><span class="lineCov">          2 :       curl_easy_init(), &amp;curl_easy_cleanup};</span></a>
+<a name="74"><span class="lineNum">      74 </span><span class="lineCov">          1 :       curl_easy_init(), &amp;curl_easy_cleanup};</span></a>
 <a name="75"><span class="lineNum">      75 </span>            : </a>
 <a name="76"><span class="lineNum">      76 </span><span class="lineCov">          1 :   if (!handle) {</span></a>
 <a name="77"><span class="lineNum">      77 </span><span class="lineNoCov">          0 :     return Error{Error::CURL_REQUEST_SETUP_FAILED,</span></a>
@@ -173,33 +173,33 @@
 <a name="111"><span class="lineNum">     111 </span>            :         (url.scheme + &quot;://&quot; + url.authority + url.path).c_str()));</a>
 <a name="112"><span class="lineNum">     112 </span>            :   }</a>
 <a name="113"><span class="lineNum">     113 </span>            : </a>
-<a name="114"><span class="lineNum">     114 </span><span class="lineCov">          2 :   HeaderWriter writer;</span></a>
+<a name="114"><span class="lineNum">     114 </span><span class="lineCov">          1 :   HeaderWriter writer;</span></a>
 <a name="115"><span class="lineNum">     115 </span><span class="lineCov">          1 :   set_headers(writer);</span></a>
 <a name="116"><span class="lineNum">     116 </span>            :   std::unique_ptr&lt;curl_slist, decltype(&amp;curl_slist_free_all)&gt; headers{</a>
-<a name="117"><span class="lineNum">     117 </span><span class="lineCov">          2 :       writer.release(), &amp;curl_slist_free_all};</span></a>
+<a name="117"><span class="lineNum">     117 </span><span class="lineCov">          1 :       writer.release(), &amp;curl_slist_free_all};</span></a>
 <a name="118"><span class="lineNum">     118 </span><span class="lineCov">          1 :   request-&gt;request_headers = headers.get();</span></a>
 <a name="119"><span class="lineNum">     119 </span><span class="lineCov">          1 :   throw_on_error(curl_easy_setopt(handle.get(), CURLOPT_HTTPHEADER,</span></a>
 <a name="120"><span class="lineNum">     120 </span>            :                                   request-&gt;request_headers));</a>
 <a name="121"><span class="lineNum">     121 </span>            : </a>
-<a name="122"><span class="lineNum">     122 </span><span class="lineCov">          2 :   std::list&lt;CURL *&gt; node;</span></a>
+<a name="122"><span class="lineNum">     122 </span><span class="lineCov">          1 :   std::list&lt;CURL *&gt; node;</span></a>
 <a name="123"><span class="lineNum">     123 </span><span class="lineCov">          1 :   node.push_back(handle.get());</span></a>
 <a name="124"><span class="lineNum">     124 </span>            :   {</a>
-<a name="125"><span class="lineNum">     125 </span><span class="lineCov">          2 :     std::lock_guard&lt;std::mutex&gt; lock(mutex_);</span></a>
+<a name="125"><span class="lineNum">     125 </span><span class="lineCov">          1 :     std::lock_guard&lt;std::mutex&gt; lock(mutex_);</span></a>
 <a name="126"><span class="lineNum">     126 </span><span class="lineCov">          1 :     new_handles_.splice(new_handles_.end(), node);</span></a>
 <a name="127"><span class="lineNum">     127 </span>            : </a>
 <a name="128"><span class="lineNum">     128 </span><span class="lineCov">          1 :     headers.release();</span></a>
 <a name="129"><span class="lineNum">     129 </span><span class="lineCov">          1 :     handle.release();</span></a>
 <a name="130"><span class="lineNum">     130 </span><span class="lineCov">          1 :     request.release();</span></a>
-<a name="131"><span class="lineNum">     131 </span>            :   }</a>
+<a name="131"><span class="lineNum">     131 </span><span class="lineCov">          1 :   }</span></a>
 <a name="132"><span class="lineNum">     132 </span><span class="lineCov">          1 :   log_on_error(curl_multi_wakeup(multi_handle_));</span></a>
 <a name="133"><span class="lineNum">     133 </span>            : </a>
 <a name="134"><span class="lineNum">     134 </span><span class="lineCov">          1 :   return std::nullopt;</span></a>
-<a name="135"><span class="lineNum">     135 </span><span class="lineNoCov">          0 : } catch (CURLcode error) {</span></a>
+<a name="135"><span class="lineNum">     135 </span><span class="lineCov">          1 : } catch (CURLcode error) {</span></a>
 <a name="136"><span class="lineNum">     136 </span><span class="lineNoCov">          0 :   return Error{Error::CURL_REQUEST_SETUP_FAILED, curl_easy_strerror(error)};</span></a>
-<a name="137"><span class="lineNum">     137 </span>            : }</a>
+<a name="137"><span class="lineNum">     137 </span><span class="lineNoCov">          0 : }</span></a>
 <a name="138"><span class="lineNum">     138 </span>            : </a>
 <a name="139"><span class="lineNum">     139 </span><span class="lineCov">          1 : void Curl::drain(std::chrono::steady_clock::time_point deadline) {</span></a>
-<a name="140"><span class="lineNum">     140 </span><span class="lineCov">          2 :   std::unique_lock&lt;std::mutex&gt; lock(mutex_);</span></a>
+<a name="140"><span class="lineNum">     140 </span><span class="lineCov">          1 :   std::unique_lock&lt;std::mutex&gt; lock(mutex_);</span></a>
 <a name="141"><span class="lineNum">     141 </span><span class="lineCov">          1 :   no_requests_.wait_until(lock, deadline, [this]() {</span></a>
 <a name="142"><span class="lineNum">     142 </span><span class="lineCov">          2 :     return num_active_handles_ == 0 &amp;&amp; new_handles_.empty();</span></a>
 <a name="143"><span class="lineNum">     143 </span>            :   });</a>
@@ -234,12 +234,12 @@
 <a name="172"><span class="lineNum">     172 </span>            : </a>
 <a name="173"><span class="lineNum">     173 </span><span class="lineNoCov">          0 :   std::string key_lower;</span></a>
 <a name="174"><span class="lineNum">     174 </span><span class="lineNoCov">          0 :   key_lower.reserve(key.size());</span></a>
-<a name="175"><span class="lineNum">     175 </span>            :   std::transform(key.begin(), key.end(), std::back_inserter(key_lower),</a>
-<a name="176"><span class="lineNum">     176 </span><span class="lineNoCov">          0 :                  &amp;to_lower);</span></a>
+<a name="175"><span class="lineNum">     175 </span><span class="lineNoCov">          0 :   std::transform(key.begin(), key.end(), std::back_inserter(key_lower),</span></a>
+<a name="176"><span class="lineNum">     176 </span>            :                  &amp;to_lower);</a>
 <a name="177"><span class="lineNum">     177 </span>            : </a>
 <a name="178"><span class="lineNum">     178 </span><span class="lineNoCov">          0 :   request-&gt;response_headers_lower.emplace(std::move(key_lower), value);</span></a>
 <a name="179"><span class="lineNum">     179 </span><span class="lineNoCov">          0 :   return length;</span></a>
-<a name="180"><span class="lineNum">     180 </span>            : }</a>
+<a name="180"><span class="lineNum">     180 </span><span class="lineNoCov">          0 : }</span></a>
 <a name="181"><span class="lineNum">     181 </span>            : </a>
 <a name="182"><span class="lineNum">     182 </span><span class="lineNoCov">          0 : bool Curl::is_non_whitespace(unsigned char ch) { return !std::isspace(ch); }</span></a>
 <a name="183"><span class="lineNum">     183 </span>            : </a>
@@ -271,7 +271,7 @@
 <a name="209"><span class="lineNum">     209 </span><span class="lineCov">          1 : void Curl::run() {</span></a>
 <a name="210"><span class="lineNum">     210 </span>            :   int num_messages_remaining;</a>
 <a name="211"><span class="lineNum">     211 </span>            :   CURLMsg *message;</a>
-<a name="212"><span class="lineNum">     212 </span><span class="lineCov">          2 :   std::unique_lock&lt;std::mutex&gt; lock(mutex_);</span></a>
+<a name="212"><span class="lineNum">     212 </span><span class="lineCov">          1 :   std::unique_lock&lt;std::mutex&gt; lock(mutex_);</span></a>
 <a name="213"><span class="lineNum">     213 </span>            : </a>
 <a name="214"><span class="lineNum">     214 </span>            :   for (;;) {</a>
 <a name="215"><span class="lineNum">     215 </span><span class="lineCov">          3 :     log_on_error(curl_multi_perform(multi_handle_, &amp;num_active_handles_));</span></a>
@@ -281,7 +281,7 @@
 <a name="219"><span class="lineNum">     219 </span>            : </a>
 <a name="220"><span class="lineNum">     220 </span>            :     // If a request is done or errored out, curl will enqueue a &quot;message&quot; for</a>
 <a name="221"><span class="lineNum">     221 </span>            :     // us to handle.  Handle any pending messages.</a>
-<a name="222"><span class="lineNum">     222 </span><span class="lineCov">          1 :     while ((message =</span></a>
+<a name="222"><span class="lineNum">     222 </span><span class="lineCov">          3 :     while ((message =</span></a>
 <a name="223"><span class="lineNum">     223 </span><span class="lineCov">          4 :                 curl_multi_info_read(multi_handle_, &amp;num_messages_remaining))) {</span></a>
 <a name="224"><span class="lineNum">     224 </span><span class="lineCov">          1 :       handle_message(*message);</span></a>
 <a name="225"><span class="lineNum">     225 </span>            :     }</a>
@@ -344,7 +344,7 @@
 <a name="282"><span class="lineNum">     282 </span><span class="lineCov">          1 :     error_message += request.error_buffer;</span></a>
 <a name="283"><span class="lineNum">     283 </span><span class="lineCov">          1 :     request.on_error(</span></a>
 <a name="284"><span class="lineNum">     284 </span><span class="lineCov">          2 :         Error{Error::CURL_REQUEST_FAILURE, std::move(error_message)});</span></a>
-<a name="285"><span class="lineNum">     285 </span>            :   } else {</a>
+<a name="285"><span class="lineNum">     285 </span><span class="lineCov">          1 :   } else {</span></a>
 <a name="286"><span class="lineNum">     286 </span>            :     long status;</a>
 <a name="287"><span class="lineNum">     287 </span><span class="lineNoCov">          0 :     if (log_on_error(curl_easy_getinfo(request_handle, CURLINFO_RESPONSE_CODE,</span></a>
 <a name="288"><span class="lineNum">     288 </span><span class="lineNoCov">          0 :                                        &amp;status)) != CURLE_OK) {</span></a>
@@ -353,7 +353,7 @@
 <a name="291"><span class="lineNum">     291 </span><span class="lineNoCov">          0 :     HeaderReader reader(&amp;request.response_headers_lower);</span></a>
 <a name="292"><span class="lineNum">     292 </span><span class="lineNoCov">          0 :     request.on_response(static_cast&lt;int&gt;(status), reader,</span></a>
 <a name="293"><span class="lineNum">     293 </span><span class="lineNoCov">          0 :                         std::move(request.response_body));</span></a>
-<a name="294"><span class="lineNum">     294 </span>            :   }</a>
+<a name="294"><span class="lineNum">     294 </span><span class="lineNoCov">          0 :   }</span></a>
 <a name="295"><span class="lineNum">     295 </span>            : </a>
 <a name="296"><span class="lineNum">     296 </span><span class="lineCov">          1 :   log_on_error(curl_multi_remove_handle(multi_handle_, request_handle));</span></a>
 <a name="297"><span class="lineNum">     297 </span><span class="lineCov">          1 :   curl_easy_cleanup(request_handle);</span></a>
@@ -388,7 +388,7 @@
 <a name="326"><span class="lineNum">     326 </span>            :     std::string_view key) const {</a>
 <a name="327"><span class="lineNum">     327 </span><span class="lineNoCov">          0 :   buffer_.clear();</span></a>
 <a name="328"><span class="lineNum">     328 </span><span class="lineNoCov">          0 :   std::transform(key.begin(), key.end(), std::back_inserter(buffer_),</span></a>
-<a name="329"><span class="lineNum">     329 </span><span class="lineNoCov">          0 :                  &amp;to_lower);</span></a>
+<a name="329"><span class="lineNum">     329 </span>            :                  &amp;to_lower);</a>
 <a name="330"><span class="lineNum">     330 </span>            : </a>
 <a name="331"><span class="lineNum">     331 </span><span class="lineNoCov">          0 :   const auto found = response_headers_lower_-&gt;find(buffer_);</span></a>
 <a name="332"><span class="lineNum">     332 </span><span class="lineNoCov">          0 :   if (found == response_headers_lower_-&gt;end()) {</span></a>
