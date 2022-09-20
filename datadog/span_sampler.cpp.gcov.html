@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-20 19:44:28</td>
+            <td class="headerValue">2022-09-20 19:50:18</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">6</td>
@@ -118,13 +118,13 @@
 <a name="56"><span class="lineNum">      56 </span>            :   }</a>
 <a name="57"><span class="lineNum">      57 </span><span class="lineCov">        404 : }</span></a>
 <a name="58"><span class="lineNum">      58 </span>            : </a>
-<a name="59"><span class="lineNum">      59 </span><span class="lineCov">      37244 : SpanSampler::Rule* SpanSampler::match(const SpanData&amp; span) {</span></a>
-<a name="60"><span class="lineNum">      60 </span><span class="lineCov">      37244 :   const auto found = std::find_if(rules_.begin(), rules_.end(),</span></a>
+<a name="59"><span class="lineNum">      59 </span><span class="lineCov">      37250 : SpanSampler::Rule* SpanSampler::match(const SpanData&amp; span) {</span></a>
+<a name="60"><span class="lineNum">      60 </span><span class="lineCov">      37250 :   const auto found = std::find_if(rules_.begin(), rules_.end(),</span></a>
 <a name="61"><span class="lineNum">      61 </span><span class="lineCov">       2023 :                                   [&amp;](Rule&amp; rule) { return rule.match(span); });</span></a>
-<a name="62"><span class="lineNum">      62 </span><span class="lineCov">      37244 :   if (found != rules_.end()) {</span></a>
+<a name="62"><span class="lineNum">      62 </span><span class="lineCov">      37250 :   if (found != rules_.end()) {</span></a>
 <a name="63"><span class="lineNum">      63 </span><span class="lineCov">       2012 :     return &amp;*found;</span></a>
 <a name="64"><span class="lineNum">      64 </span>            :   }</a>
-<a name="65"><span class="lineNum">      65 </span><span class="lineCov">      35232 :   return nullptr;</span></a>
+<a name="65"><span class="lineNum">      65 </span><span class="lineCov">      35238 :   return nullptr;</span></a>
 <a name="66"><span class="lineNum">      66 </span>            : }</a>
 <a name="67"><span class="lineNum">      67 </span>            : </a>
 <a name="68"><span class="lineNum">      68 </span>            : }  // namespace tracing</a>

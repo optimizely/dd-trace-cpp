@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-20 19:44:28</td>
+            <td class="headerValue">2022-09-20 19:50:18</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">11</td>
@@ -177,11 +177,11 @@
 <a name="115"><span class="lineNum">     115 </span>            :   // and then send the spans to the collector.</a>
 <a name="116"><span class="lineNum">     116 </span><span class="lineCov">      82675 :   if (sampling_decision_-&gt;priority &lt;= 0) {</span></a>
 <a name="117"><span class="lineNum">     117 </span>            :     // Span sampling happens when the trace is dropped.</a>
-<a name="118"><span class="lineNum">     118 </span><span class="lineCov">      74470 :     for (const auto&amp; span_ptr : spans_) {</span></a>
-<a name="119"><span class="lineNum">     119 </span><span class="lineCov">      37244 :       SpanData&amp; span = *span_ptr;</span></a>
-<a name="120"><span class="lineNum">     120 </span><span class="lineCov">      37244 :       auto* rule = span_sampler_-&gt;match(span);</span></a>
-<a name="121"><span class="lineNum">     121 </span><span class="lineCov">      37244 :       if (!rule) {</span></a>
-<a name="122"><span class="lineNum">     122 </span><span class="lineCov">      36133 :         continue;</span></a>
+<a name="118"><span class="lineNum">     118 </span><span class="lineCov">      74482 :     for (const auto&amp; span_ptr : spans_) {</span></a>
+<a name="119"><span class="lineNum">     119 </span><span class="lineCov">      37250 :       SpanData&amp; span = *span_ptr;</span></a>
+<a name="120"><span class="lineNum">     120 </span><span class="lineCov">      37250 :       auto* rule = span_sampler_-&gt;match(span);</span></a>
+<a name="121"><span class="lineNum">     121 </span><span class="lineCov">      37250 :       if (!rule) {</span></a>
+<a name="122"><span class="lineNum">     122 </span><span class="lineCov">      36139 :         continue;</span></a>
 <a name="123"><span class="lineNum">     123 </span>            :       }</a>
 <a name="124"><span class="lineNum">     124 </span><span class="lineCov">       2012 :       const SamplingDecision decision = rule-&gt;decide(span);</span></a>
 <a name="125"><span class="lineNum">     125 </span><span class="lineCov">       2012 :       if (decision.priority &lt;= 0) {</span></a>
@@ -215,8 +215,8 @@
 <a name="153"><span class="lineNum">     153 </span><span class="lineCov">      52315 :       local_root.numeric_tags[tags::internal::rule_sample_rate] =</span></a>
 <a name="154"><span class="lineNum">     154 </span><span class="lineCov">      52315 :           *decision.configured_rate;</span></a>
 <a name="155"><span class="lineNum">     155 </span><span class="lineCov">      52315 :       if (decision.limiter_effective_rate) {</span></a>
-<a name="156"><span class="lineNum">     156 </span><span class="lineCov">      25312 :         local_root.numeric_tags[tags::internal::rule_limiter_sample_rate] =</span></a>
-<a name="157"><span class="lineNum">     157 </span><span class="lineCov">      25312 :             *decision.limiter_effective_rate;</span></a>
+<a name="156"><span class="lineNum">     156 </span><span class="lineCov">      25351 :         local_root.numeric_tags[tags::internal::rule_limiter_sample_rate] =</span></a>
+<a name="157"><span class="lineNum">     157 </span><span class="lineCov">      25351 :             *decision.limiter_effective_rate;</span></a>
 <a name="158"><span class="lineNum">     158 </span>            :       }</a>
 <a name="159"><span class="lineNum">     159 </span>            :     }</a>
 <a name="160"><span class="lineNum">     160 </span>            :   }</a>
@@ -266,10 +266,10 @@
 <a name="204"><span class="lineNum">     204 </span>            :   assert(sampling_decision_);</a>
 <a name="205"><span class="lineNum">     205 </span>            : </a>
 <a name="206"><span class="lineNum">     206 </span><span class="lineCov">      82670 :   if (sampling_decision_-&gt;priority &lt;= 0) {</span></a>
-<a name="207"><span class="lineNum">     207 </span><span class="lineCov">      37222 :     trace_tags_.erase(tags::internal::decision_maker);</span></a>
+<a name="207"><span class="lineNum">     207 </span><span class="lineCov">      37228 :     trace_tags_.erase(tags::internal::decision_maker);</span></a>
 <a name="208"><span class="lineNum">     208 </span>            :   } else {</a>
-<a name="209"><span class="lineNum">     209 </span><span class="lineCov">      45448 :     trace_tags_[tags::internal::decision_maker] =</span></a>
-<a name="210"><span class="lineNum">     210 </span><span class="lineCov">      90896 :         &quot;-&quot; + std::to_string(*sampling_decision_-&gt;mechanism);</span></a>
+<a name="209"><span class="lineNum">     209 </span><span class="lineCov">      45442 :     trace_tags_[tags::internal::decision_maker] =</span></a>
+<a name="210"><span class="lineNum">     210 </span><span class="lineCov">      90884 :         &quot;-&quot; + std::to_string(*sampling_decision_-&gt;mechanism);</span></a>
 <a name="211"><span class="lineNum">     211 </span>            :   }</a>
 <a name="212"><span class="lineNum">     212 </span><span class="lineCov">      82670 : }</span></a>
 <a name="213"><span class="lineNum">     213 </span>            : </a>
