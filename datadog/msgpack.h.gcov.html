@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-20 15:14:48</td>
+            <td class="headerValue">2022-09-20 19:44:28</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">14</td>
@@ -169,9 +169,9 @@
 <a name="107"><span class="lineNum">     107 </span><span class="lineNoCov">          0 : }</span></a>
 <a name="108"><span class="lineNum">     108 </span>            : </a>
 <a name="109"><span class="lineNum">     109 </span>            : template &lt;typename Integer&gt;</a>
-<a name="110"><span class="lineNum">     110 </span><span class="lineCov">         10 : void push_number_big_endian(std::string&amp; buffer, Integer integer) {</span></a>
+<a name="110"><span class="lineNum">     110 </span><span class="lineCov">       1560 : void push_number_big_endian(std::string&amp; buffer, Integer integer) {</span></a>
 <a name="111"><span class="lineNum">     111 </span>            :   // Assume two's complement.</a>
-<a name="112"><span class="lineNum">     112 </span><span class="lineCov">         10 :   const std::make_unsigned_t&lt;Integer&gt; value = integer;</span></a>
+<a name="112"><span class="lineNum">     112 </span><span class="lineCov">       1560 :   const std::make_unsigned_t&lt;Integer&gt; value = integer;</span></a>
 <a name="113"><span class="lineNum">     113 </span>            : </a>
 <a name="114"><span class="lineNum">     114 </span>            :   // The loop below is more likely to unroll if we don't call any functions</a>
 <a name="115"><span class="lineNum">     115 </span>            :   // within it.</a>
@@ -183,19 +183,19 @@
 <a name="121"><span class="lineNum">     121 </span>            :   // On a big endian architecture, this is just a complicated way to copy</a>
 <a name="122"><span class="lineNum">     122 </span>            :   // `value`. On a little endian architecture, which is much more common, this</a>
 <a name="123"><span class="lineNum">     123 </span>            :   // effectively copies the bytes of `value` backwards.</a>
-<a name="124"><span class="lineNum">     124 </span><span class="lineCov">         10 :   const int size = sizeof value;</span></a>
-<a name="125"><span class="lineNum">     125 </span><span class="lineCov">         78 :   for (int i = 0; i &lt; size; ++i) {</span></a>
-<a name="126"><span class="lineNum">     126 </span><span class="lineCov">         68 :     const char byte = (value &gt;&gt; (8 * ((size - 1) - i))) &amp; 0xFF;</span></a>
-<a name="127"><span class="lineNum">     127 </span><span class="lineCov">         68 :     buf[i] = byte;</span></a>
+<a name="124"><span class="lineNum">     124 </span><span class="lineCov">       1560 :   const int size = sizeof value;</span></a>
+<a name="125"><span class="lineNum">     125 </span><span class="lineCov">      12168 :   for (int i = 0; i &lt; size; ++i) {</span></a>
+<a name="126"><span class="lineNum">     126 </span><span class="lineCov">      10608 :     const char byte = (value &gt;&gt; (8 * ((size - 1) - i))) &amp; 0xFF;</span></a>
+<a name="127"><span class="lineNum">     127 </span><span class="lineCov">      10608 :     buf[i] = byte;</span></a>
 <a name="128"><span class="lineNum">     128 </span>            :   }</a>
 <a name="129"><span class="lineNum">     129 </span>            : </a>
-<a name="130"><span class="lineNum">     130 </span><span class="lineCov">         10 :   buffer.append(buf, sizeof buf);</span></a>
-<a name="131"><span class="lineNum">     131 </span><span class="lineCov">         10 : }</span></a>
+<a name="130"><span class="lineNum">     130 </span><span class="lineCov">       1560 :   buffer.append(buf, sizeof buf);</span></a>
+<a name="131"><span class="lineNum">     131 </span><span class="lineCov">       1560 : }</span></a>
 <a name="132"><span class="lineNum">     132 </span>            : </a>
 <a name="133"><span class="lineNum">     133 </span>            : template &lt;typename Range&gt;</a>
-<a name="134"><span class="lineNum">     134 </span><span class="lineCov">         35 : void push(std::string&amp; buffer, const Range&amp; range) {</span></a>
-<a name="135"><span class="lineNum">     135 </span><span class="lineCov">         35 :   buffer.insert(buffer.end(), std::begin(range), std::end(range));</span></a>
-<a name="136"><span class="lineNum">     136 </span><span class="lineCov">         35 : }</span></a>
+<a name="134"><span class="lineNum">     134 </span><span class="lineCov">       5925 : void push(std::string&amp; buffer, const Range&amp; range) {</span></a>
+<a name="135"><span class="lineNum">     135 </span><span class="lineCov">       5925 :   buffer.insert(buffer.end(), std::begin(range), std::end(range));</span></a>
+<a name="136"><span class="lineNum">     136 </span><span class="lineCov">       5925 : }</span></a>
 <a name="137"><span class="lineNum">     137 </span>            : </a>
 <a name="138"><span class="lineNum">     138 </span>            : inline void pack_nil(std::string&amp; buffer) {</a>
 <a name="139"><span class="lineNum">     139 </span>            :   buffer.push_back(static_cast&lt;char&gt;(pack_type::NIL));</a>
@@ -220,35 +220,35 @@
 <a name="158"><span class="lineNum">     158 </span>            :   }</a>
 <a name="159"><span class="lineNum">     159 </span><span class="lineNoCov">          0 : }</span></a>
 <a name="160"><span class="lineNum">     160 </span>            : </a>
-<a name="161"><span class="lineNum">     161 </span><span class="lineCov">         12 : inline void pack_nonnegative(std::string&amp; buffer, std::uint64_t value) {</span></a>
-<a name="162"><span class="lineNum">     162 </span><span class="lineCov">         12 :   if (value &lt;= 0x7F) {</span></a>
-<a name="163"><span class="lineNum">     163 </span><span class="lineCov">          3 :     buffer.push_back(static_cast&lt;char&gt;(static_cast&lt;std::uint8_t&gt;(value)));</span></a>
-<a name="164"><span class="lineNum">     164 </span><span class="lineCov">          9 :   } else if (value &lt;= std::numeric_limits&lt;std::uint8_t&gt;::max()) {</span></a>
+<a name="161"><span class="lineNum">     161 </span><span class="lineCov">       1872 : inline void pack_nonnegative(std::string&amp; buffer, std::uint64_t value) {</span></a>
+<a name="162"><span class="lineNum">     162 </span><span class="lineCov">       1872 :   if (value &lt;= 0x7F) {</span></a>
+<a name="163"><span class="lineNum">     163 </span><span class="lineCov">        623 :     buffer.push_back(static_cast&lt;char&gt;(static_cast&lt;std::uint8_t&gt;(value)));</span></a>
+<a name="164"><span class="lineNum">     164 </span><span class="lineCov">       1249 :   } else if (value &lt;= std::numeric_limits&lt;std::uint8_t&gt;::max()) {</span></a>
 <a name="165"><span class="lineNum">     165 </span><span class="lineNoCov">          0 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::UINT8));</span></a>
 <a name="166"><span class="lineNum">     166 </span><span class="lineNoCov">          0 :     buffer.push_back(static_cast&lt;char&gt;(static_cast&lt;std::uint8_t&gt;(value)));</span></a>
-<a name="167"><span class="lineNum">     167 </span><span class="lineCov">          9 :   } else if (value &lt;= std::numeric_limits&lt;std::uint16_t&gt;::max()) {</span></a>
-<a name="168"><span class="lineNum">     168 </span><span class="lineCov">          2 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::UINT16));</span></a>
-<a name="169"><span class="lineNum">     169 </span><span class="lineCov">          2 :     push_number_big_endian(buffer, static_cast&lt;std::uint16_t&gt;(value));</span></a>
-<a name="170"><span class="lineNum">     170 </span><span class="lineCov">          7 :   } else if (value &lt;= std::numeric_limits&lt;std::uint32_t&gt;::max()) {</span></a>
+<a name="167"><span class="lineNum">     167 </span><span class="lineCov">       1249 :   } else if (value &lt;= std::numeric_limits&lt;std::uint16_t&gt;::max()) {</span></a>
+<a name="168"><span class="lineNum">     168 </span><span class="lineCov">        312 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::UINT16));</span></a>
+<a name="169"><span class="lineNum">     169 </span><span class="lineCov">        312 :     push_number_big_endian(buffer, static_cast&lt;std::uint16_t&gt;(value));</span></a>
+<a name="170"><span class="lineNum">     170 </span><span class="lineCov">        937 :   } else if (value &lt;= std::numeric_limits&lt;std::uint32_t&gt;::max()) {</span></a>
 <a name="171"><span class="lineNum">     171 </span><span class="lineNoCov">          0 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::UINT32));</span></a>
 <a name="172"><span class="lineNum">     172 </span><span class="lineNoCov">          0 :     push_number_big_endian(buffer, static_cast&lt;std::uint32_t&gt;(value));</span></a>
-<a name="173"><span class="lineNum">     173 </span><span class="lineCov">          7 :   } else if (value &lt;= std::numeric_limits&lt;std::uint64_t&gt;::max()) {</span></a>
-<a name="174"><span class="lineNum">     174 </span><span class="lineCov">          7 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::UINT64));</span></a>
-<a name="175"><span class="lineNum">     175 </span><span class="lineCov">          7 :     push_number_big_endian(buffer, static_cast&lt;std::uint64_t&gt;(value));</span></a>
+<a name="173"><span class="lineNum">     173 </span><span class="lineCov">        937 :   } else if (value &lt;= std::numeric_limits&lt;std::uint64_t&gt;::max()) {</span></a>
+<a name="174"><span class="lineNum">     174 </span><span class="lineCov">        937 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::UINT64));</span></a>
+<a name="175"><span class="lineNum">     175 </span><span class="lineCov">        937 :     push_number_big_endian(buffer, static_cast&lt;std::uint64_t&gt;(value));</span></a>
 <a name="176"><span class="lineNum">     176 </span>            :   }</a>
-<a name="177"><span class="lineNum">     177 </span><span class="lineCov">         12 : }</span></a>
+<a name="177"><span class="lineNum">     177 </span><span class="lineCov">       1872 : }</span></a>
 <a name="178"><span class="lineNum">     178 </span>            : </a>
 <a name="179"><span class="lineNum">     179 </span>            : template &lt;typename Integer&gt;</a>
-<a name="180"><span class="lineNum">     180 </span><span class="lineCov">         12 : void pack_integer(std::string&amp; buffer, Integer value) {</span></a>
-<a name="181"><span class="lineNum">     181 </span><span class="lineCov">          6 :   if (value &lt; 0) {</span></a>
+<a name="180"><span class="lineNum">     180 </span><span class="lineCov">       1872 : void pack_integer(std::string&amp; buffer, Integer value) {</span></a>
+<a name="181"><span class="lineNum">     181 </span><span class="lineCov">        936 :   if (value &lt; 0) {</span></a>
 <a name="182"><span class="lineNum">     182 </span><span class="lineNoCov">          0 :     return pack_negative(buffer, value);</span></a>
 <a name="183"><span class="lineNum">     183 </span>            :   } else {</a>
-<a name="184"><span class="lineNum">     184 </span><span class="lineCov">         12 :     return pack_nonnegative(buffer, value);</span></a>
+<a name="184"><span class="lineNum">     184 </span><span class="lineCov">       1872 :     return pack_nonnegative(buffer, value);</span></a>
 <a name="185"><span class="lineNum">     185 </span>            :   }</a>
 <a name="186"><span class="lineNum">     186 </span>            : }</a>
 <a name="187"><span class="lineNum">     187 </span>            : </a>
-<a name="188"><span class="lineNum">     188 </span><span class="lineCov">          1 : inline void pack_double(std::string&amp; buffer, double value) {</span></a>
-<a name="189"><span class="lineNum">     189 </span><span class="lineCov">          1 :   buffer.push_back(static_cast&lt;char&gt;(pack_type::DOUBLE));</span></a>
+<a name="188"><span class="lineNum">     188 </span><span class="lineCov">        311 : inline void pack_double(std::string&amp; buffer, double value) {</span></a>
+<a name="189"><span class="lineNum">     189 </span><span class="lineCov">        311 :   buffer.push_back(static_cast&lt;char&gt;(pack_type::DOUBLE));</span></a>
 <a name="190"><span class="lineNum">     190 </span>            : </a>
 <a name="191"><span class="lineNum">     191 </span>            :   // The following is lifted from the &quot;msgpack-c&quot; project.</a>
 <a name="192"><span class="lineNum">     192 </span>            :   // See &quot;pack_double&quot; in</a>
@@ -258,7 +258,7 @@
 <a name="196"><span class="lineNum">     196 </span>            :     double as_double;</a>
 <a name="197"><span class="lineNum">     197 </span>            :     uint64_t as_integer;</a>
 <a name="198"><span class="lineNum">     198 </span>            :   } memory;</a>
-<a name="199"><span class="lineNum">     199 </span><span class="lineCov">          1 :   memory.as_double = value;</span></a>
+<a name="199"><span class="lineNum">     199 </span><span class="lineCov">        311 :   memory.as_double = value;</span></a>
 <a name="200"><span class="lineNum">     200 </span>            : </a>
 <a name="201"><span class="lineNum">     201 </span>            : #if defined(TARGET_OS_IPHONE)</a>
 <a name="202"><span class="lineNum">     202 </span>            :   // ok</a>
@@ -268,8 +268,8 @@
 <a name="206"><span class="lineNum">     206 </span>            :       (memory.as_integer &amp; 0xFFFFFFFFUL) &lt;&lt; 32UL | (memory.as_integer &gt;&gt; 32UL);</a>
 <a name="207"><span class="lineNum">     207 </span>            : #endif</a>
 <a name="208"><span class="lineNum">     208 </span>            : </a>
-<a name="209"><span class="lineNum">     209 </span><span class="lineCov">          1 :   push_number_big_endian(buffer, memory.as_integer);</span></a>
-<a name="210"><span class="lineNum">     210 </span><span class="lineCov">          1 : }</span></a>
+<a name="209"><span class="lineNum">     209 </span><span class="lineCov">        311 :   push_number_big_endian(buffer, memory.as_integer);</span></a>
+<a name="210"><span class="lineNum">     210 </span><span class="lineCov">        311 : }</span></a>
 <a name="211"><span class="lineNum">     211 </span>            : </a>
 <a name="212"><span class="lineNum">     212 </span>            : inline void pack_bool(std::string&amp; buffer, bool value) {</a>
 <a name="213"><span class="lineNum">     213 </span>            :   if (value) {</a>
@@ -279,18 +279,18 @@
 <a name="217"><span class="lineNum">     217 </span>            :   }</a>
 <a name="218"><span class="lineNum">     218 </span>            : }</a>
 <a name="219"><span class="lineNum">     219 </span>            : </a>
-<a name="220"><span class="lineNum">     220 </span><span class="lineCov">         24 : inline void pack_str(std::string&amp; buffer, const char* cstr) {</span></a>
-<a name="221"><span class="lineNum">     221 </span><span class="lineCov">         24 :   return pack_str(buffer, std::string_view(cstr));</span></a>
+<a name="220"><span class="lineNum">     220 </span><span class="lineCov">       3744 : inline void pack_str(std::string&amp; buffer, const char* cstr) {</span></a>
+<a name="221"><span class="lineNum">     221 </span><span class="lineCov">       3744 :   return pack_str(buffer, std::string_view(cstr));</span></a>
 <a name="222"><span class="lineNum">     222 </span>            : }</a>
 <a name="223"><span class="lineNum">     223 </span>            : </a>
 <a name="224"><span class="lineNum">     224 </span>            : template &lt;typename Range&gt;</a>
-<a name="225"><span class="lineNum">     225 </span><span class="lineCov">         35 : void pack_str(std::string&amp; buffer, const Range&amp; range) {</span></a>
-<a name="226"><span class="lineNum">     226 </span><span class="lineCov">         35 :   auto size =</span></a>
-<a name="227"><span class="lineNum">     227 </span><span class="lineCov">         35 :       static_cast&lt;size_t&gt;(std::distance(std::begin(range), std::end(range)));</span></a>
-<a name="228"><span class="lineNum">     228 </span><span class="lineCov">         35 :   if (size &lt; 32) {</span></a>
-<a name="229"><span class="lineNum">     229 </span><span class="lineCov">         35 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::FIX_STR |</span></a>
-<a name="230"><span class="lineNum">     230 </span><span class="lineCov">         35 :                                        static_cast&lt;std::uint8_t&gt;(size)));</span></a>
-<a name="231"><span class="lineNum">     231 </span><span class="lineCov">         35 :     push(buffer, range);</span></a>
+<a name="225"><span class="lineNum">     225 </span><span class="lineCov">       5925 : void pack_str(std::string&amp; buffer, const Range&amp; range) {</span></a>
+<a name="226"><span class="lineNum">     226 </span><span class="lineCov">       5925 :   auto size =</span></a>
+<a name="227"><span class="lineNum">     227 </span><span class="lineCov">       5925 :       static_cast&lt;size_t&gt;(std::distance(std::begin(range), std::end(range)));</span></a>
+<a name="228"><span class="lineNum">     228 </span><span class="lineCov">       5925 :   if (size &lt; 32) {</span></a>
+<a name="229"><span class="lineNum">     229 </span><span class="lineCov">       5925 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::FIX_STR |</span></a>
+<a name="230"><span class="lineNum">     230 </span><span class="lineCov">       5925 :                                        static_cast&lt;std::uint8_t&gt;(size)));</span></a>
+<a name="231"><span class="lineNum">     231 </span><span class="lineCov">       5925 :     push(buffer, range);</span></a>
 <a name="232"><span class="lineNum">     232 </span><span class="lineNoCov">          0 :   } else if (size &lt;= std::numeric_limits&lt;std::uint8_t&gt;::max()) {</span></a>
 <a name="233"><span class="lineNum">     233 </span><span class="lineNoCov">          0 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::STR8));</span></a>
 <a name="234"><span class="lineNum">     234 </span><span class="lineNoCov">          0 :     buffer.push_back(static_cast&lt;char&gt;(static_cast&lt;std::uint8_t&gt;(size)));</span></a>
@@ -307,7 +307,7 @@
 <a name="245"><span class="lineNum">     245 </span><span class="lineNoCov">          0 :     throw std::out_of_range(make_overflow_message(</span></a>
 <a name="246"><span class="lineNum">     246 </span><span class="lineNoCov">          0 :         &quot;string&quot;, size, std::numeric_limits&lt;std::uint32_t&gt;::max()));</span></a>
 <a name="247"><span class="lineNum">     247 </span>            :   }</a>
-<a name="248"><span class="lineNum">     248 </span><span class="lineCov">         35 : }</span></a>
+<a name="248"><span class="lineNum">     248 </span><span class="lineCov">       5925 : }</span></a>
 <a name="249"><span class="lineNum">     249 </span>            : </a>
 <a name="250"><span class="lineNum">     250 </span>            : template &lt;typename Range&gt;</a>
 <a name="251"><span class="lineNum">     251 </span>            : void pack_bin(std::string&amp; buffer, const Range&amp; range) {</a>
@@ -331,10 +331,10 @@
 <a name="269"><span class="lineNum">     269 </span>            :   }</a>
 <a name="270"><span class="lineNum">     270 </span>            : }</a>
 <a name="271"><span class="lineNum">     271 </span>            : </a>
-<a name="272"><span class="lineNum">     272 </span><span class="lineCov">          2 : inline void pack_array(std::string&amp; buffer, size_t size) {</span></a>
-<a name="273"><span class="lineNum">     273 </span><span class="lineCov">          2 :   if (size &lt;= 15) {</span></a>
-<a name="274"><span class="lineNum">     274 </span><span class="lineCov">          2 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::FIX_ARRAY |</span></a>
-<a name="275"><span class="lineNum">     275 </span><span class="lineCov">          2 :                                        static_cast&lt;std::uint8_t&gt;(size)));</span></a>
+<a name="272"><span class="lineNum">     272 </span><span class="lineCov">        622 : inline void pack_array(std::string&amp; buffer, size_t size) {</span></a>
+<a name="273"><span class="lineNum">     273 </span><span class="lineCov">        622 :   if (size &lt;= 15) {</span></a>
+<a name="274"><span class="lineNum">     274 </span><span class="lineCov">        622 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::FIX_ARRAY |</span></a>
+<a name="275"><span class="lineNum">     275 </span><span class="lineCov">        622 :                                        static_cast&lt;std::uint8_t&gt;(size)));</span></a>
 <a name="276"><span class="lineNum">     276 </span><span class="lineNoCov">          0 :   } else if (size &lt;= std::numeric_limits&lt;std::uint16_t&gt;::max()) {</span></a>
 <a name="277"><span class="lineNum">     277 </span><span class="lineNoCov">          0 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::ARRAY16));</span></a>
 <a name="278"><span class="lineNum">     278 </span><span class="lineNoCov">          0 :     push_number_big_endian(buffer, static_cast&lt;std::uint16_t&gt;(size));</span></a>
@@ -345,12 +345,12 @@
 <a name="283"><span class="lineNum">     283 </span><span class="lineNoCov">          0 :     throw std::out_of_range(make_overflow_message(</span></a>
 <a name="284"><span class="lineNum">     284 </span><span class="lineNoCov">          0 :         &quot;array&quot;, size, std::numeric_limits&lt;std::uint32_t&gt;::max()));</span></a>
 <a name="285"><span class="lineNum">     285 </span>            :   }</a>
-<a name="286"><span class="lineNum">     286 </span><span class="lineCov">          2 : }</span></a>
+<a name="286"><span class="lineNum">     286 </span><span class="lineCov">        622 : }</span></a>
 <a name="287"><span class="lineNum">     287 </span>            : </a>
-<a name="288"><span class="lineNum">     288 </span><span class="lineCov">          6 : inline void pack_map(std::string&amp; buffer, size_t size) {</span></a>
-<a name="289"><span class="lineNum">     289 </span><span class="lineCov">          6 :   if (size &lt;= 15) {</span></a>
-<a name="290"><span class="lineNum">     290 </span><span class="lineCov">          6 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::FIX_MAP |</span></a>
-<a name="291"><span class="lineNum">     291 </span><span class="lineCov">          6 :                                        static_cast&lt;std::uint8_t&gt;(size)));</span></a>
+<a name="288"><span class="lineNum">     288 </span><span class="lineCov">        936 : inline void pack_map(std::string&amp; buffer, size_t size) {</span></a>
+<a name="289"><span class="lineNum">     289 </span><span class="lineCov">        936 :   if (size &lt;= 15) {</span></a>
+<a name="290"><span class="lineNum">     290 </span><span class="lineCov">        936 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::FIX_MAP |</span></a>
+<a name="291"><span class="lineNum">     291 </span><span class="lineCov">        936 :                                        static_cast&lt;std::uint8_t&gt;(size)));</span></a>
 <a name="292"><span class="lineNum">     292 </span><span class="lineNoCov">          0 :   } else if (size &lt;= std::numeric_limits&lt;std::uint16_t&gt;::max()) {</span></a>
 <a name="293"><span class="lineNum">     293 </span><span class="lineNoCov">          0 :     buffer.push_back(static_cast&lt;char&gt;(pack_type::MAP16));</span></a>
 <a name="294"><span class="lineNum">     294 </span><span class="lineNoCov">          0 :     push_number_big_endian(buffer, static_cast&lt;std::uint16_t&gt;(size));</span></a>
@@ -361,7 +361,7 @@
 <a name="299"><span class="lineNum">     299 </span><span class="lineNoCov">          0 :     throw std::out_of_range(make_overflow_message(</span></a>
 <a name="300"><span class="lineNum">     300 </span><span class="lineNoCov">          0 :         &quot;map&quot;, size, std::numeric_limits&lt;std::uint32_t&gt;::max()));</span></a>
 <a name="301"><span class="lineNum">     301 </span>            :   }</a>
-<a name="302"><span class="lineNum">     302 </span><span class="lineCov">          6 : }</span></a>
+<a name="302"><span class="lineNum">     302 </span><span class="lineCov">        936 : }</span></a>
 <a name="303"><span class="lineNum">     303 </span>            : </a>
 <a name="304"><span class="lineNum">     304 </span>            : }  // namespace msgpack</a>
 <a name="305"><span class="lineNum">     305 </span>            : }  // namespace tracing</a>

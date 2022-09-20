@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-20 15:14:48</td>
+            <td class="headerValue">2022-09-20 19:44:28</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -78,11 +78,11 @@
 <a name="16"><span class="lineNum">      16 </span><span class="lineNoCov">          0 :   return stream.str();</span></a>
 <a name="17"><span class="lineNum">      17 </span><span class="lineNoCov">          0 : }</span></a>
 <a name="18"><span class="lineNum">      18 </span>            : </a>
-<a name="19"><span class="lineNum">      19 </span><span class="lineCov">         26 : Error Error::with_prefix(std::string_view prefix) const {</span></a>
-<a name="20"><span class="lineNum">      20 </span><span class="lineCov">         26 :   std::string new_message{prefix.begin(), prefix.end()};</span></a>
-<a name="21"><span class="lineNum">      21 </span><span class="lineCov">         26 :   new_message += message;</span></a>
-<a name="22"><span class="lineNum">      22 </span><span class="lineCov">         52 :   return Error{code, std::move(new_message)};</span></a>
-<a name="23"><span class="lineNum">      23 </span><span class="lineCov">         26 : }</span></a>
+<a name="19"><span class="lineNum">      19 </span><span class="lineCov">         28 : Error Error::with_prefix(std::string_view prefix) const {</span></a>
+<a name="20"><span class="lineNum">      20 </span><span class="lineCov">         28 :   std::string new_message{prefix.begin(), prefix.end()};</span></a>
+<a name="21"><span class="lineNum">      21 </span><span class="lineCov">         28 :   new_message += message;</span></a>
+<a name="22"><span class="lineNum">      22 </span><span class="lineCov">         56 :   return Error{code, std::move(new_message)};</span></a>
+<a name="23"><span class="lineNum">      23 </span><span class="lineCov">         28 : }</span></a>
 <a name="24"><span class="lineNum">      24 </span>            : </a>
 <a name="25"><span class="lineNum">      25 </span>            : }  // namespace tracing</a>
 <a name="26"><span class="lineNum">      26 </span>            : }  // namespace datadog</a>

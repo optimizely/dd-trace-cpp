@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-20 15:14:48</td>
+            <td class="headerValue">2022-09-20 19:44:28</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">2</td>
@@ -70,18 +70,18 @@
 <a name="8"><span class="lineNum">       8 </span>            : namespace datadog {</a>
 <a name="9"><span class="lineNum">       9 </span>            : namespace tracing {</a>
 <a name="10"><span class="lineNum">      10 </span>            : </a>
-<a name="11"><span class="lineNum">      11 </span><span class="lineCov">      84371 : inline std::uint64_t knuth_hash(std::uint64_t value) {</span></a>
-<a name="12"><span class="lineNum">      12 </span><span class="lineCov">      84371 :   return value * UINT64_C(1111111111111111111);</span></a>
+<a name="11"><span class="lineNum">      11 </span><span class="lineCov">      84681 : inline std::uint64_t knuth_hash(std::uint64_t value) {</span></a>
+<a name="12"><span class="lineNum">      12 </span><span class="lineCov">      84681 :   return value * UINT64_C(1111111111111111111);</span></a>
 <a name="13"><span class="lineNum">      13 </span>            : }</a>
 <a name="14"><span class="lineNum">      14 </span>            : </a>
-<a name="15"><span class="lineNum">      15 </span><span class="lineCov">      84371 : inline std::uint64_t max_id_from_rate(Rate rate) {</span></a>
+<a name="15"><span class="lineNum">      15 </span><span class="lineCov">      84681 : inline std::uint64_t max_id_from_rate(Rate rate) {</span></a>
 <a name="16"><span class="lineNum">      16 </span>            :   // `double(std::numeric_limits&lt;uint64_t&gt;::max())` is slightly larger than the</a>
 <a name="17"><span class="lineNum">      17 </span>            :   // largest `uint64_t`, but consider it a fun fact that the largest `double`</a>
 <a name="18"><span class="lineNum">      18 </span>            :   // less than 1.0 (i.e. the &quot;previous value&quot; to 1.0), when multiplied by the</a>
 <a name="19"><span class="lineNum">      19 </span>            :   // max `uint64_t`, results in a number not greater than the max `uint64_t`.</a>
 <a name="20"><span class="lineNum">      20 </span>            :   // So, the only special case to consider is 1.0.</a>
-<a name="21"><span class="lineNum">      21 </span><span class="lineCov">      84371 :   if (rate == 1.0) {</span></a>
-<a name="22"><span class="lineNum">      22 </span><span class="lineCov">      22362 :     return std::numeric_limits&lt;uint64_t&gt;::max();</span></a>
+<a name="21"><span class="lineNum">      21 </span><span class="lineCov">      84681 :   if (rate == 1.0) {</span></a>
+<a name="22"><span class="lineNum">      22 </span><span class="lineCov">      22672 :     return std::numeric_limits&lt;uint64_t&gt;::max();</span></a>
 <a name="23"><span class="lineNum">      23 </span>            :   }</a>
 <a name="24"><span class="lineNum">      24 </span>            : </a>
 <a name="25"><span class="lineNum">      25 </span><span class="lineCov">      62009 :   return rate * static_cast&lt;double&gt;(std::numeric_limits&lt;std::uint64_t&gt;::max());</span></a>
