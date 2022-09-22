@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-20 19:50:18</td>
+            <td class="headerValue">2022-09-22 16:43:30</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">15</td>
@@ -76,11 +76,11 @@
 <a name="14"><span class="lineNum">      14 </span>            : </a>
 <a name="15"><span class="lineNum">      15 </span>            : }  // namespace</a>
 <a name="16"><span class="lineNum">      16 </span>            : </a>
-<a name="17"><span class="lineNum">      17 </span><span class="lineCov">          1 : Curl::Curl(const std::shared_ptr&lt;Logger&gt; &amp;logger)</span></a>
-<a name="18"><span class="lineNum">      18 </span><span class="lineCov">          1 :     : logger_(logger), shutting_down_(false), num_active_handles_(0) {</span></a>
-<a name="19"><span class="lineNum">      19 </span><span class="lineCov">          1 :   curl_global_init(CURL_GLOBAL_ALL);</span></a>
-<a name="20"><span class="lineNum">      20 </span><span class="lineCov">          1 :   multi_handle_ = curl_multi_init();</span></a>
-<a name="21"><span class="lineNum">      21 </span><span class="lineCov">          1 :   if (multi_handle_ == nullptr) {</span></a>
+<a name="17"><span class="lineNum">      17 </span><span class="lineCov">         21 : Curl::Curl(const std::shared_ptr&lt;Logger&gt; &amp;logger)</span></a>
+<a name="18"><span class="lineNum">      18 </span><span class="lineCov">         21 :     : logger_(logger), shutting_down_(false), num_active_handles_(0) {</span></a>
+<a name="19"><span class="lineNum">      19 </span><span class="lineCov">         21 :   curl_global_init(CURL_GLOBAL_ALL);</span></a>
+<a name="20"><span class="lineNum">      20 </span><span class="lineCov">         21 :   multi_handle_ = curl_multi_init();</span></a>
+<a name="21"><span class="lineNum">      21 </span><span class="lineCov">         21 :   if (multi_handle_ == nullptr) {</span></a>
 <a name="22"><span class="lineNum">      22 </span><span class="lineNoCov">          0 :     logger_-&gt;log_error(Error{</span></a>
 <a name="23"><span class="lineNum">      23 </span>            :         Error::CURL_HTTP_CLIENT_SETUP_FAILED,</a>
 <a name="24"><span class="lineNum">      24 </span>            :         &quot;Unable to initialize a curl multi-handle for sending requests.&quot;});</a>
@@ -88,7 +88,7 @@
 <a name="26"><span class="lineNum">      26 </span>            :   }</a>
 <a name="27"><span class="lineNum">      27 </span>            : </a>
 <a name="28"><span class="lineNum">      28 </span>            :   try {</a>
-<a name="29"><span class="lineNum">      29 </span><span class="lineCov">          2 :     event_loop_ = std::thread([this]() { run(); });</span></a>
+<a name="29"><span class="lineNum">      29 </span><span class="lineCov">         42 :     event_loop_ = std::thread([this]() { run(); });</span></a>
 <a name="30"><span class="lineNum">      30 </span><span class="lineNoCov">          0 :   } catch (const std::system_error &amp;error) {</span></a>
 <a name="31"><span class="lineNum">      31 </span><span class="lineNoCov">          0 :     logger_-&gt;log_error(</span></a>
 <a name="32"><span class="lineNum">      32 </span><span class="lineNoCov">          0 :         Error{Error::CURL_HTTP_CLIENT_SETUP_FAILED, error.what()});</span></a>
@@ -103,19 +103,19 @@
 <a name="41"><span class="lineNum">      41 </span><span class="lineNoCov">          0 :   }</span></a>
 <a name="42"><span class="lineNum">      42 </span><span class="lineNoCov">          0 : }</span></a>
 <a name="43"><span class="lineNum">      43 </span>            : </a>
-<a name="44"><span class="lineNum">      44 </span><span class="lineCov">          1 : Curl::~Curl() {</span></a>
-<a name="45"><span class="lineNum">      45 </span><span class="lineCov">          1 :   if (multi_handle_ == nullptr) {</span></a>
+<a name="44"><span class="lineNum">      44 </span><span class="lineCov">         21 : Curl::~Curl() {</span></a>
+<a name="45"><span class="lineNum">      45 </span><span class="lineCov">         21 :   if (multi_handle_ == nullptr) {</span></a>
 <a name="46"><span class="lineNum">      46 </span>            :     // We're not running; nothing to shut down.</a>
 <a name="47"><span class="lineNum">      47 </span><span class="lineNoCov">          0 :     return;</span></a>
 <a name="48"><span class="lineNum">      48 </span>            :   }</a>
 <a name="49"><span class="lineNum">      49 </span>            : </a>
 <a name="50"><span class="lineNum">      50 </span>            :   {</a>
-<a name="51"><span class="lineNum">      51 </span><span class="lineCov">          1 :     std::lock_guard&lt;std::mutex&gt; lock(mutex_);</span></a>
-<a name="52"><span class="lineNum">      52 </span><span class="lineCov">          1 :     shutting_down_ = true;</span></a>
-<a name="53"><span class="lineNum">      53 </span><span class="lineCov">          1 :   }</span></a>
-<a name="54"><span class="lineNum">      54 </span><span class="lineCov">          1 :   log_on_error(curl_multi_wakeup(multi_handle_));</span></a>
-<a name="55"><span class="lineNum">      55 </span><span class="lineCov">          1 :   event_loop_.join();</span></a>
-<a name="56"><span class="lineNum">      56 </span><span class="lineCov">          1 : }</span></a>
+<a name="51"><span class="lineNum">      51 </span><span class="lineCov">         21 :     std::lock_guard&lt;std::mutex&gt; lock(mutex_);</span></a>
+<a name="52"><span class="lineNum">      52 </span><span class="lineCov">         21 :     shutting_down_ = true;</span></a>
+<a name="53"><span class="lineNum">      53 </span><span class="lineCov">         21 :   }</span></a>
+<a name="54"><span class="lineNum">      54 </span><span class="lineCov">         21 :   log_on_error(curl_multi_wakeup(multi_handle_));</span></a>
+<a name="55"><span class="lineNum">      55 </span><span class="lineCov">         21 :   event_loop_.join();</span></a>
+<a name="56"><span class="lineNum">      56 </span><span class="lineCov">         21 : }</span></a>
 <a name="57"><span class="lineNum">      57 </span>            : </a>
 <a name="58"><span class="lineNum">      58 </span><span class="lineCov">          1 : Expected&lt;void&gt; Curl::post(const HTTPClient::URL &amp;url, HeadersSetter set_headers,</span></a>
 <a name="59"><span class="lineNum">      59 </span>            :                           std::string body, ResponseHandler on_response,</a>
@@ -198,12 +198,12 @@
 <a name="136"><span class="lineNum">     136 </span><span class="lineNoCov">          0 :   return Error{Error::CURL_REQUEST_SETUP_FAILED, curl_easy_strerror(error)};</span></a>
 <a name="137"><span class="lineNum">     137 </span><span class="lineNoCov">          0 : }</span></a>
 <a name="138"><span class="lineNum">     138 </span>            : </a>
-<a name="139"><span class="lineNum">     139 </span><span class="lineCov">          1 : void Curl::drain(std::chrono::steady_clock::time_point deadline) {</span></a>
-<a name="140"><span class="lineNum">     140 </span><span class="lineCov">          1 :   std::unique_lock&lt;std::mutex&gt; lock(mutex_);</span></a>
-<a name="141"><span class="lineNum">     141 </span><span class="lineCov">          1 :   no_requests_.wait_until(lock, deadline, [this]() {</span></a>
-<a name="142"><span class="lineNum">     142 </span><span class="lineCov">          2 :     return num_active_handles_ == 0 &amp;&amp; new_handles_.empty();</span></a>
+<a name="139"><span class="lineNum">     139 </span><span class="lineCov">         12 : void Curl::drain(std::chrono::steady_clock::time_point deadline) {</span></a>
+<a name="140"><span class="lineNum">     140 </span><span class="lineCov">         12 :   std::unique_lock&lt;std::mutex&gt; lock(mutex_);</span></a>
+<a name="141"><span class="lineNum">     141 </span><span class="lineCov">         12 :   no_requests_.wait_until(lock, deadline, [this]() {</span></a>
+<a name="142"><span class="lineNum">     142 </span><span class="lineCov">         13 :     return num_active_handles_ == 0 &amp;&amp; new_handles_.empty();</span></a>
 <a name="143"><span class="lineNum">     143 </span>            :   });</a>
-<a name="144"><span class="lineNum">     144 </span><span class="lineCov">          1 : }</span></a>
+<a name="144"><span class="lineNum">     144 </span><span class="lineCov">         12 : }</span></a>
 <a name="145"><span class="lineNum">     145 </span>            : </a>
 <a name="146"><span class="lineNum">     146 </span><span class="lineNoCov">          0 : std::size_t Curl::on_read_header(char *data, std::size_t, std::size_t length,</span></a>
 <a name="147"><span class="lineNum">     147 </span>            :                                  void *user_data) {</a>
@@ -260,52 +260,52 @@
 <a name="198"><span class="lineNum">     198 </span><span class="lineCov">          1 :   return result;</span></a>
 <a name="199"><span class="lineNum">     199 </span>            : }</a>
 <a name="200"><span class="lineNum">     200 </span>            : </a>
-<a name="201"><span class="lineNum">     201 </span><span class="lineCov">         11 : CURLMcode Curl::log_on_error(CURLMcode result) {</span></a>
-<a name="202"><span class="lineNum">     202 </span><span class="lineCov">         11 :   if (result != CURLM_OK) {</span></a>
+<a name="201"><span class="lineNum">     201 </span><span class="lineCov">         91 : CURLMcode Curl::log_on_error(CURLMcode result) {</span></a>
+<a name="202"><span class="lineNum">     202 </span><span class="lineCov">         91 :   if (result != CURLM_OK) {</span></a>
 <a name="203"><span class="lineNum">     203 </span><span class="lineNoCov">          0 :     logger_-&gt;log_error(</span></a>
 <a name="204"><span class="lineNum">     204 </span><span class="lineNoCov">          0 :         Error{Error::CURL_HTTP_CLIENT_ERROR, curl_multi_strerror(result)});</span></a>
 <a name="205"><span class="lineNum">     205 </span>            :   }</a>
-<a name="206"><span class="lineNum">     206 </span><span class="lineCov">         11 :   return result;</span></a>
+<a name="206"><span class="lineNum">     206 </span><span class="lineCov">         91 :   return result;</span></a>
 <a name="207"><span class="lineNum">     207 </span>            : }</a>
 <a name="208"><span class="lineNum">     208 </span>            : </a>
-<a name="209"><span class="lineNum">     209 </span><span class="lineCov">          1 : void Curl::run() {</span></a>
+<a name="209"><span class="lineNum">     209 </span><span class="lineCov">         21 : void Curl::run() {</span></a>
 <a name="210"><span class="lineNum">     210 </span>            :   int num_messages_remaining;</a>
 <a name="211"><span class="lineNum">     211 </span>            :   CURLMsg *message;</a>
-<a name="212"><span class="lineNum">     212 </span><span class="lineCov">          1 :   std::unique_lock&lt;std::mutex&gt; lock(mutex_);</span></a>
+<a name="212"><span class="lineNum">     212 </span><span class="lineCov">         21 :   std::unique_lock&lt;std::mutex&gt; lock(mutex_);</span></a>
 <a name="213"><span class="lineNum">     213 </span>            : </a>
 <a name="214"><span class="lineNum">     214 </span>            :   for (;;) {</a>
-<a name="215"><span class="lineNum">     215 </span><span class="lineCov">          3 :     log_on_error(curl_multi_perform(multi_handle_, &amp;num_active_handles_));</span></a>
-<a name="216"><span class="lineNum">     216 </span><span class="lineCov">          3 :     if (num_active_handles_ == 0) {</span></a>
-<a name="217"><span class="lineNum">     217 </span><span class="lineCov">          2 :       no_requests_.notify_all();</span></a>
+<a name="215"><span class="lineNum">     215 </span><span class="lineCov">         23 :     log_on_error(curl_multi_perform(multi_handle_, &amp;num_active_handles_));</span></a>
+<a name="216"><span class="lineNum">     216 </span><span class="lineCov">         23 :     if (num_active_handles_ == 0) {</span></a>
+<a name="217"><span class="lineNum">     217 </span><span class="lineCov">         22 :       no_requests_.notify_all();</span></a>
 <a name="218"><span class="lineNum">     218 </span>            :     }</a>
 <a name="219"><span class="lineNum">     219 </span>            : </a>
 <a name="220"><span class="lineNum">     220 </span>            :     // If a request is done or errored out, curl will enqueue a &quot;message&quot; for</a>
 <a name="221"><span class="lineNum">     221 </span>            :     // us to handle.  Handle any pending messages.</a>
-<a name="222"><span class="lineNum">     222 </span><span class="lineCov">          3 :     while ((message =</span></a>
-<a name="223"><span class="lineNum">     223 </span><span class="lineCov">          4 :                 curl_multi_info_read(multi_handle_, &amp;num_messages_remaining))) {</span></a>
+<a name="222"><span class="lineNum">     222 </span><span class="lineCov">         23 :     while ((message =</span></a>
+<a name="223"><span class="lineNum">     223 </span><span class="lineCov">         24 :                 curl_multi_info_read(multi_handle_, &amp;num_messages_remaining))) {</span></a>
 <a name="224"><span class="lineNum">     224 </span><span class="lineCov">          1 :       handle_message(*message);</span></a>
 <a name="225"><span class="lineNum">     225 </span>            :     }</a>
 <a name="226"><span class="lineNum">     226 </span>            : </a>
-<a name="227"><span class="lineNum">     227 </span><span class="lineCov">          3 :     const int max_wait_milliseconds = 10 * 1000;</span></a>
-<a name="228"><span class="lineNum">     228 </span><span class="lineCov">          3 :     lock.unlock();</span></a>
-<a name="229"><span class="lineNum">     229 </span><span class="lineCov">          3 :     log_on_error(curl_multi_poll(multi_handle_, nullptr, 0,</span></a>
+<a name="227"><span class="lineNum">     227 </span><span class="lineCov">         23 :     const int max_wait_milliseconds = 10 * 1000;</span></a>
+<a name="228"><span class="lineNum">     228 </span><span class="lineCov">         23 :     lock.unlock();</span></a>
+<a name="229"><span class="lineNum">     229 </span><span class="lineCov">         23 :     log_on_error(curl_multi_poll(multi_handle_, nullptr, 0,</span></a>
 <a name="230"><span class="lineNum">     230 </span>            :                                  max_wait_milliseconds, nullptr));</a>
-<a name="231"><span class="lineNum">     231 </span><span class="lineCov">          3 :     lock.lock();</span></a>
+<a name="231"><span class="lineNum">     231 </span><span class="lineCov">         23 :     lock.lock();</span></a>
 <a name="232"><span class="lineNum">     232 </span>            : </a>
 <a name="233"><span class="lineNum">     233 </span>            :     // New requests might have been added while we were sleeping.</a>
-<a name="234"><span class="lineNum">     234 </span><span class="lineCov">          4 :     for (; !new_handles_.empty(); new_handles_.pop_front()) {</span></a>
+<a name="234"><span class="lineNum">     234 </span><span class="lineCov">         24 :     for (; !new_handles_.empty(); new_handles_.pop_front()) {</span></a>
 <a name="235"><span class="lineNum">     235 </span><span class="lineCov">          1 :       CURL *const handle = new_handles_.front();</span></a>
 <a name="236"><span class="lineNum">     236 </span><span class="lineCov">          1 :       log_on_error(curl_multi_add_handle(multi_handle_, handle));</span></a>
 <a name="237"><span class="lineNum">     237 </span><span class="lineCov">          1 :       request_handles_.insert(handle);</span></a>
 <a name="238"><span class="lineNum">     238 </span>            :     }</a>
 <a name="239"><span class="lineNum">     239 </span>            : </a>
-<a name="240"><span class="lineNum">     240 </span><span class="lineCov">          3 :     if (shutting_down_) {</span></a>
-<a name="241"><span class="lineNum">     241 </span><span class="lineCov">          1 :       break;</span></a>
+<a name="240"><span class="lineNum">     240 </span><span class="lineCov">         23 :     if (shutting_down_) {</span></a>
+<a name="241"><span class="lineNum">     241 </span><span class="lineCov">         21 :       break;</span></a>
 <a name="242"><span class="lineNum">     242 </span>            :     }</a>
 <a name="243"><span class="lineNum">     243 </span><span class="lineCov">          2 :   }</span></a>
 <a name="244"><span class="lineNum">     244 </span>            : </a>
 <a name="245"><span class="lineNum">     245 </span>            :   // We're shutting down.  Clean up any remaining request handles.</a>
-<a name="246"><span class="lineNum">     246 </span><span class="lineCov">          1 :   for (const auto &amp;handle : request_handles_) {</span></a>
+<a name="246"><span class="lineNum">     246 </span><span class="lineCov">         21 :   for (const auto &amp;handle : request_handles_) {</span></a>
 <a name="247"><span class="lineNum">     247 </span>            :     char *user_data;</a>
 <a name="248"><span class="lineNum">     248 </span><span class="lineNoCov">          0 :     if (log_on_error(curl_easy_getinfo(handle, CURLINFO_PRIVATE, &amp;user_data)) ==</span></a>
 <a name="249"><span class="lineNum">     249 </span>            :         CURLE_OK) {</a>
@@ -315,10 +315,10 @@
 <a name="253"><span class="lineNum">     253 </span><span class="lineNoCov">          0 :     log_on_error(curl_multi_remove_handle(multi_handle_, handle));</span></a>
 <a name="254"><span class="lineNum">     254 </span>            :   }</a>
 <a name="255"><span class="lineNum">     255 </span>            : </a>
-<a name="256"><span class="lineNum">     256 </span><span class="lineCov">          1 :   request_handles_.clear();</span></a>
-<a name="257"><span class="lineNum">     257 </span><span class="lineCov">          1 :   log_on_error(curl_multi_cleanup(multi_handle_));</span></a>
-<a name="258"><span class="lineNum">     258 </span><span class="lineCov">          1 :   curl_global_cleanup();</span></a>
-<a name="259"><span class="lineNum">     259 </span><span class="lineCov">          1 : }</span></a>
+<a name="256"><span class="lineNum">     256 </span><span class="lineCov">         21 :   request_handles_.clear();</span></a>
+<a name="257"><span class="lineNum">     257 </span><span class="lineCov">         21 :   log_on_error(curl_multi_cleanup(multi_handle_));</span></a>
+<a name="258"><span class="lineNum">     258 </span><span class="lineCov">         21 :   curl_global_cleanup();</span></a>
+<a name="259"><span class="lineNum">     259 </span><span class="lineCov">         21 : }</span></a>
 <a name="260"><span class="lineNum">     260 </span>            : </a>
 <a name="261"><span class="lineNum">     261 </span><span class="lineCov">          1 : void Curl::handle_message(const CURLMsg &amp;message) {</span></a>
 <a name="262"><span class="lineNum">     262 </span><span class="lineCov">          1 :   if (message.msg != CURLMSG_DONE) {</span></a>

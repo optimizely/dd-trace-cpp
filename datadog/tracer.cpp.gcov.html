@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-20 19:50:18</td>
+            <td class="headerValue">2022-09-22 16:43:30</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">21</td>
@@ -269,58 +269,58 @@
 <a name="207"><span class="lineNum">     207 </span>            : </a>
 <a name="208"><span class="lineNum">     208 </span>            : }  // namespace</a>
 <a name="209"><span class="lineNum">     209 </span>            : </a>
-<a name="210"><span class="lineNum">     210 </span><span class="lineCov">        398 : Tracer::Tracer(const FinalizedTracerConfig&amp; config)</span></a>
-<a name="211"><span class="lineNum">     211 </span><span class="lineCov">        398 :     : Tracer(config, default_id_generator, default_clock) {}</span></a>
+<a name="210"><span class="lineNum">     210 </span><span class="lineCov">        419 : Tracer::Tracer(const FinalizedTracerConfig&amp; config)</span></a>
+<a name="211"><span class="lineNum">     211 </span><span class="lineCov">        419 :     : Tracer(config, default_id_generator, default_clock) {}</span></a>
 <a name="212"><span class="lineNum">     212 </span>            : </a>
-<a name="213"><span class="lineNum">     213 </span><span class="lineCov">        404 : Tracer::Tracer(const FinalizedTracerConfig&amp; config,</span></a>
-<a name="214"><span class="lineNum">     214 </span><span class="lineCov">        404 :                const IDGenerator&amp; generator, const Clock&amp; clock)</span></a>
-<a name="215"><span class="lineNum">     215 </span><span class="lineCov">        404 :     : logger_(config.logger),</span></a>
-<a name="216"><span class="lineNum">     216 </span><span class="lineCov">        404 :       collector_(/* see constructor body */),</span></a>
-<a name="217"><span class="lineNum">     217 </span><span class="lineCov">        404 :       trace_sampler_(</span></a>
-<a name="218"><span class="lineNum">     218 </span><span class="lineCov">        404 :           std::make_shared&lt;TraceSampler&gt;(config.trace_sampler, clock)),</span></a>
-<a name="219"><span class="lineNum">     219 </span><span class="lineCov">        404 :       span_sampler_(std::make_shared&lt;SpanSampler&gt;(config.span_sampler, clock)),</span></a>
-<a name="220"><span class="lineNum">     220 </span><span class="lineCov">        404 :       generator_(generator),</span></a>
-<a name="221"><span class="lineNum">     221 </span><span class="lineCov">        404 :       clock_(clock),</span></a>
-<a name="222"><span class="lineNum">     222 </span><span class="lineCov">        404 :       defaults_(std::make_shared&lt;SpanDefaults&gt;(config.defaults)),</span></a>
-<a name="223"><span class="lineNum">     223 </span><span class="lineCov">        404 :       injection_styles_(config.injection_styles),</span></a>
-<a name="224"><span class="lineNum">     224 </span><span class="lineCov">        404 :       extraction_styles_(config.extraction_styles),</span></a>
-<a name="225"><span class="lineNum">     225 </span><span class="lineCov">        404 :       hostname_(config.report_hostname ? get_hostname() : std::nullopt),</span></a>
-<a name="226"><span class="lineNum">     226 </span><span class="lineCov">        404 :       tags_header_max_size_(config.tags_header_size) {</span></a>
-<a name="227"><span class="lineNum">     227 </span><span class="lineCov">        404 :   if (auto* collector =</span></a>
-<a name="228"><span class="lineNum">     228 </span><span class="lineCov">        404 :           std::get_if&lt;std::shared_ptr&lt;Collector&gt;&gt;(&amp;config.collector)) {</span></a>
-<a name="229"><span class="lineNum">     229 </span><span class="lineCov">         93 :     collector_ = *collector;</span></a>
+<a name="213"><span class="lineNum">     213 </span><span class="lineCov">        425 : Tracer::Tracer(const FinalizedTracerConfig&amp; config,</span></a>
+<a name="214"><span class="lineNum">     214 </span><span class="lineCov">        425 :                const IDGenerator&amp; generator, const Clock&amp; clock)</span></a>
+<a name="215"><span class="lineNum">     215 </span><span class="lineCov">        425 :     : logger_(config.logger),</span></a>
+<a name="216"><span class="lineNum">     216 </span><span class="lineCov">        425 :       collector_(/* see constructor body */),</span></a>
+<a name="217"><span class="lineNum">     217 </span><span class="lineCov">        425 :       trace_sampler_(</span></a>
+<a name="218"><span class="lineNum">     218 </span><span class="lineCov">        425 :           std::make_shared&lt;TraceSampler&gt;(config.trace_sampler, clock)),</span></a>
+<a name="219"><span class="lineNum">     219 </span><span class="lineCov">        425 :       span_sampler_(std::make_shared&lt;SpanSampler&gt;(config.span_sampler, clock)),</span></a>
+<a name="220"><span class="lineNum">     220 </span><span class="lineCov">        425 :       generator_(generator),</span></a>
+<a name="221"><span class="lineNum">     221 </span><span class="lineCov">        425 :       clock_(clock),</span></a>
+<a name="222"><span class="lineNum">     222 </span><span class="lineCov">        425 :       defaults_(std::make_shared&lt;SpanDefaults&gt;(config.defaults)),</span></a>
+<a name="223"><span class="lineNum">     223 </span><span class="lineCov">        425 :       injection_styles_(config.injection_styles),</span></a>
+<a name="224"><span class="lineNum">     224 </span><span class="lineCov">        425 :       extraction_styles_(config.extraction_styles),</span></a>
+<a name="225"><span class="lineNum">     225 </span><span class="lineCov">        425 :       hostname_(config.report_hostname ? get_hostname() : std::nullopt),</span></a>
+<a name="226"><span class="lineNum">     226 </span><span class="lineCov">        425 :       tags_header_max_size_(config.tags_header_size) {</span></a>
+<a name="227"><span class="lineNum">     227 </span><span class="lineCov">        425 :   if (auto* collector =</span></a>
+<a name="228"><span class="lineNum">     228 </span><span class="lineCov">        425 :           std::get_if&lt;std::shared_ptr&lt;Collector&gt;&gt;(&amp;config.collector)) {</span></a>
+<a name="229"><span class="lineNum">     229 </span><span class="lineCov">        103 :     collector_ = *collector;</span></a>
 <a name="230"><span class="lineNum">     230 </span>            :   } else {</a>
 <a name="231"><span class="lineNum">     231 </span>            :     auto&amp; agent_config =</a>
-<a name="232"><span class="lineNum">     232 </span><span class="lineCov">        311 :         std::get&lt;FinalizedDatadogAgentConfig&gt;(config.collector);</span></a>
+<a name="232"><span class="lineNum">     232 </span><span class="lineCov">        322 :         std::get&lt;FinalizedDatadogAgentConfig&gt;(config.collector);</span></a>
 <a name="233"><span class="lineNum">     233 </span>            :     collector_ =</a>
-<a name="234"><span class="lineNum">     234 </span><span class="lineCov">        311 :         std::make_shared&lt;DatadogAgent&gt;(agent_config, clock, config.logger);</span></a>
+<a name="234"><span class="lineNum">     234 </span><span class="lineCov">        322 :         std::make_shared&lt;DatadogAgent&gt;(agent_config, clock, config.logger);</span></a>
 <a name="235"><span class="lineNum">     235 </span>            :   }</a>
 <a name="236"><span class="lineNum">     236 </span>            : </a>
-<a name="237"><span class="lineNum">     237 </span><span class="lineCov">        404 :   if (config.log_on_startup) {</span></a>
-<a name="238"><span class="lineNum">     238 </span><span class="lineCov">        404 :     logger_-&gt;log_startup(</span></a>
-<a name="239"><span class="lineNum">     239 </span><span class="lineCov">        341 :         [](auto&amp; stream) { stream &lt;&lt; &quot;TODO: Here is your startup message.&quot;; });</span></a>
+<a name="237"><span class="lineNum">     237 </span><span class="lineCov">        425 :   if (config.log_on_startup) {</span></a>
+<a name="238"><span class="lineNum">     238 </span><span class="lineCov">        420 :     logger_-&gt;log_startup(</span></a>
+<a name="239"><span class="lineNum">     239 </span><span class="lineCov">        347 :         [](auto&amp; stream) { stream &lt;&lt; &quot;TODO: Here is your startup message.&quot;; });</span></a>
 <a name="240"><span class="lineNum">     240 </span>            :   }</a>
-<a name="241"><span class="lineNum">     241 </span><span class="lineCov">        404 : }</span></a>
+<a name="241"><span class="lineNum">     241 </span><span class="lineCov">        425 : }</span></a>
 <a name="242"><span class="lineNum">     242 </span>            : </a>
-<a name="243"><span class="lineNum">     243 </span><span class="lineCov">     165300 : Span Tracer::create_span() { return create_span(SpanConfig{}); }</span></a>
+<a name="243"><span class="lineNum">     243 </span><span class="lineCov">     165320 : Span Tracer::create_span() { return create_span(SpanConfig{}); }</span></a>
 <a name="244"><span class="lineNum">     244 </span>            : </a>
-<a name="245"><span class="lineNum">     245 </span><span class="lineCov">      82657 : Span Tracer::create_span(const SpanConfig&amp; config) {</span></a>
-<a name="246"><span class="lineNum">     246 </span><span class="lineCov">      82657 :   auto span_data = std::make_unique&lt;SpanData&gt;();</span></a>
-<a name="247"><span class="lineNum">     247 </span><span class="lineCov">      82657 :   span_data-&gt;apply_config(*defaults_, config, clock_);</span></a>
-<a name="248"><span class="lineNum">     248 </span><span class="lineCov">      82657 :   span_data-&gt;span_id = generator_();</span></a>
-<a name="249"><span class="lineNum">     249 </span><span class="lineCov">      82657 :   span_data-&gt;trace_id = span_data-&gt;span_id;</span></a>
-<a name="250"><span class="lineNum">     250 </span><span class="lineCov">      82657 :   span_data-&gt;parent_id = 0;</span></a>
+<a name="245"><span class="lineNum">     245 </span><span class="lineCov">      82667 : Span Tracer::create_span(const SpanConfig&amp; config) {</span></a>
+<a name="246"><span class="lineNum">     246 </span><span class="lineCov">      82667 :   auto span_data = std::make_unique&lt;SpanData&gt;();</span></a>
+<a name="247"><span class="lineNum">     247 </span><span class="lineCov">      82667 :   span_data-&gt;apply_config(*defaults_, config, clock_);</span></a>
+<a name="248"><span class="lineNum">     248 </span><span class="lineCov">      82667 :   span_data-&gt;span_id = generator_();</span></a>
+<a name="249"><span class="lineNum">     249 </span><span class="lineCov">      82667 :   span_data-&gt;trace_id = span_data-&gt;span_id;</span></a>
+<a name="250"><span class="lineNum">     250 </span><span class="lineCov">      82667 :   span_data-&gt;parent_id = 0;</span></a>
 <a name="251"><span class="lineNum">     251 </span>            : </a>
-<a name="252"><span class="lineNum">     252 </span><span class="lineCov">      82657 :   const auto span_data_ptr = span_data.get();</span></a>
+<a name="252"><span class="lineNum">     252 </span><span class="lineCov">      82667 :   const auto span_data_ptr = span_data.get();</span></a>
 <a name="253"><span class="lineNum">     253 </span>            :   const auto segment = std::make_shared&lt;TraceSegment&gt;(</a>
-<a name="254"><span class="lineNum">     254 </span><span class="lineCov">      82657 :       logger_, collector_, trace_sampler_, span_sampler_, defaults_,</span></a>
-<a name="255"><span class="lineNum">     255 </span><span class="lineCov">      82657 :       injection_styles_, hostname_, std::nullopt /* origin */,</span></a>
-<a name="256"><span class="lineNum">     256 </span><span class="lineCov">      82657 :       tags_header_max_size_,</span></a>
-<a name="257"><span class="lineNum">     257 </span><span class="lineCov">      82657 :       std::unordered_map&lt;std::string, std::string&gt;{} /* trace_tags */,</span></a>
-<a name="258"><span class="lineNum">     258 </span><span class="lineCov">     165314 :       std::nullopt /* sampling_decision */, std::move(span_data));</span></a>
-<a name="259"><span class="lineNum">     259 </span><span class="lineCov">      82657 :   Span span{span_data_ptr, segment, generator_, clock_};</span></a>
-<a name="260"><span class="lineNum">     260 </span><span class="lineCov">     165314 :   return span;</span></a>
-<a name="261"><span class="lineNum">     261 </span><span class="lineCov">      82657 : }</span></a>
+<a name="254"><span class="lineNum">     254 </span><span class="lineCov">      82667 :       logger_, collector_, trace_sampler_, span_sampler_, defaults_,</span></a>
+<a name="255"><span class="lineNum">     255 </span><span class="lineCov">      82667 :       injection_styles_, hostname_, std::nullopt /* origin */,</span></a>
+<a name="256"><span class="lineNum">     256 </span><span class="lineCov">      82667 :       tags_header_max_size_,</span></a>
+<a name="257"><span class="lineNum">     257 </span><span class="lineCov">      82667 :       std::unordered_map&lt;std::string, std::string&gt;{} /* trace_tags */,</span></a>
+<a name="258"><span class="lineNum">     258 </span><span class="lineCov">     165334 :       std::nullopt /* sampling_decision */, std::move(span_data));</span></a>
+<a name="259"><span class="lineNum">     259 </span><span class="lineCov">      82667 :   Span span{span_data_ptr, segment, generator_, clock_};</span></a>
+<a name="260"><span class="lineNum">     260 </span><span class="lineCov">     165334 :   return span;</span></a>
+<a name="261"><span class="lineNum">     261 </span><span class="lineCov">      82667 : }</span></a>
 <a name="262"><span class="lineNum">     262 </span>            : </a>
 <a name="263"><span class="lineNum">     263 </span><span class="lineCov">         58 : Expected&lt;Span&gt; Tracer::extract_span(const DictReader&amp; reader) {</span></a>
 <a name="264"><span class="lineNum">     264 </span><span class="lineCov">        116 :   return extract_span(reader, SpanConfig{});</span></a>
