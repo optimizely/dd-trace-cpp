@@ -31,18 +31,18 @@
             <td class="headerValue">filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">105</td>
+            <td class="headerCovTableEntry">148</td>
             <td class="headerCovTableEntry">149</td>
-            <td class="headerCovTableEntryLo">70.5 %</td>
+            <td class="headerCovTableEntryHi">99.3 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-23 03:21:36</td>
+            <td class="headerValue">2022-09-23 10:27:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">9</td>
             <td class="headerCovTableEntry">10</td>
-            <td class="headerCovTableEntryHi">90.0 %</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -80,10 +80,10 @@
 <a name="18"><span class="lineNum">      18 </span>            : namespace tracing {</a>
 <a name="19"><span class="lineNum">      19 </span>            : namespace {</a>
 <a name="20"><span class="lineNum">      20 </span>            : </a>
-<a name="21"><span class="lineNum">      21 </span><span class="lineCov">         17 : void to_lower(std::string &amp;text) {</span></a>
-<a name="22"><span class="lineNum">      22 </span><span class="lineCov">         17 :   std::transform(text.begin(), text.end(), text.begin(),</span></a>
-<a name="23"><span class="lineNum">      23 </span><span class="lineCov">         49 :                  [](unsigned char ch) { return std::tolower(ch); });</span></a>
-<a name="24"><span class="lineNum">      24 </span><span class="lineCov">         17 : }</span></a>
+<a name="21"><span class="lineNum">      21 </span><span class="lineCov">         55 : void to_lower(std::string &amp;text) {</span></a>
+<a name="22"><span class="lineNum">      22 </span><span class="lineCov">         55 :   std::transform(text.begin(), text.end(), text.begin(),</span></a>
+<a name="23"><span class="lineNum">      23 </span><span class="lineCov">        177 :                  [](unsigned char ch) { return std::tolower(ch); });</span></a>
+<a name="24"><span class="lineNum">      24 </span><span class="lineCov">         55 : }</span></a>
 <a name="25"><span class="lineNum">      25 </span>            : </a>
 <a name="26"><span class="lineNum">      26 </span><span class="lineCov">         17 : bool falsy(std::string_view text) {</span></a>
 <a name="27"><span class="lineNum">      27 </span><span class="lineCov">         17 :   auto lower = std::string{text};</span></a>
@@ -94,64 +94,64 @@
 <a name="32"><span class="lineNum">      32 </span>            : // List items are separated by an optional comma (&quot;,&quot;) and any amount of</a>
 <a name="33"><span class="lineNum">      33 </span>            : // whitespace.</a>
 <a name="34"><span class="lineNum">      34 </span>            : // Leading and trailing whitespace is ignored.</a>
-<a name="35"><span class="lineNum">      35 </span><span class="lineCov">          7 : std::vector&lt;std::string_view&gt; parse_list(std::string_view input) {</span></a>
+<a name="35"><span class="lineNum">      35 </span><span class="lineCov">         24 : std::vector&lt;std::string_view&gt; parse_list(std::string_view input) {</span></a>
 <a name="36"><span class="lineNum">      36 </span>            :   using uchar = unsigned char;</a>
 <a name="37"><span class="lineNum">      37 </span>            : </a>
-<a name="38"><span class="lineNum">      38 </span><span class="lineCov">          7 :   input = strip(input);</span></a>
-<a name="39"><span class="lineNum">      39 </span><span class="lineCov">          7 :   std::vector&lt;std::string_view&gt; items;</span></a>
-<a name="40"><span class="lineNum">      40 </span><span class="lineCov">          7 :   if (input.empty()) {</span></a>
+<a name="38"><span class="lineNum">      38 </span><span class="lineCov">         24 :   input = strip(input);</span></a>
+<a name="39"><span class="lineNum">      39 </span><span class="lineCov">         24 :   std::vector&lt;std::string_view&gt; items;</span></a>
+<a name="40"><span class="lineNum">      40 </span><span class="lineCov">         24 :   if (input.empty()) {</span></a>
 <a name="41"><span class="lineNum">      41 </span><span class="lineCov">          1 :     return items;</span></a>
 <a name="42"><span class="lineNum">      42 </span>            :   }</a>
 <a name="43"><span class="lineNum">      43 </span>            : </a>
-<a name="44"><span class="lineNum">      44 </span><span class="lineCov">          6 :   const char *const end = input.end();</span></a>
+<a name="44"><span class="lineNum">      44 </span><span class="lineCov">         23 :   const char *const end = input.end();</span></a>
 <a name="45"><span class="lineNum">      45 </span>            : </a>
-<a name="46"><span class="lineNum">      46 </span><span class="lineCov">          6 :   const char *current = input.begin();</span></a>
+<a name="46"><span class="lineNum">      46 </span><span class="lineCov">         23 :   const char *current = input.begin();</span></a>
 <a name="47"><span class="lineNum">      47 </span>            :   const char *begin_delim;</a>
 <a name="48"><span class="lineNum">      48 </span>            :   do {</a>
 <a name="49"><span class="lineNum">      49 </span>            :     const char *begin_item =</a>
-<a name="50"><span class="lineNum">      50 </span><span class="lineCov">         23 :         std::find_if(current, end, [](uchar ch) { return !std::isspace(ch); });</span></a>
-<a name="51"><span class="lineNum">      51 </span><span class="lineCov">         11 :     begin_delim = std::find_if(begin_item, end, [](uchar ch) {</span></a>
-<a name="52"><span class="lineNum">      52 </span><span class="lineCov">         77 :       return std::isspace(ch) || ch == ',';</span></a>
+<a name="50"><span class="lineNum">      50 </span><span class="lineCov">        122 :         std::find_if(current, end, [](uchar ch) { return !std::isspace(ch); });</span></a>
+<a name="51"><span class="lineNum">      51 </span><span class="lineCov">         51 :     begin_delim = std::find_if(begin_item, end, [](uchar ch) {</span></a>
+<a name="52"><span class="lineNum">      52 </span><span class="lineCov">        242 :       return std::isspace(ch) || ch == ',';</span></a>
 <a name="53"><span class="lineNum">      53 </span>            :     });</a>
 <a name="54"><span class="lineNum">      54 </span>            : </a>
-<a name="55"><span class="lineNum">      55 </span><span class="lineCov">         11 :     items.emplace_back(begin_item, std::size_t(begin_delim - begin_item));</span></a>
+<a name="55"><span class="lineNum">      55 </span><span class="lineCov">         51 :     items.emplace_back(begin_item, std::size_t(begin_delim - begin_item));</span></a>
 <a name="56"><span class="lineNum">      56 </span>            : </a>
-<a name="57"><span class="lineNum">      57 </span><span class="lineCov">         11 :     const char *end_delim = std::find_if(</span></a>
-<a name="58"><span class="lineNum">      58 </span><span class="lineCov">          7 :         begin_delim, end, [](uchar ch) { return !std::isspace(ch); });</span></a>
+<a name="57"><span class="lineNum">      57 </span><span class="lineCov">         51 :     const char *end_delim = std::find_if(</span></a>
+<a name="58"><span class="lineNum">      58 </span><span class="lineCov">         41 :         begin_delim, end, [](uchar ch) { return !std::isspace(ch); });</span></a>
 <a name="59"><span class="lineNum">      59 </span>            : </a>
-<a name="60"><span class="lineNum">      60 </span><span class="lineCov">         11 :     if (end_delim != end &amp;&amp; *end_delim == ',') {</span></a>
-<a name="61"><span class="lineNum">      61 </span><span class="lineCov">          3 :       ++end_delim;</span></a>
+<a name="60"><span class="lineNum">      60 </span><span class="lineCov">         51 :     if (end_delim != end &amp;&amp; *end_delim == ',') {</span></a>
+<a name="61"><span class="lineNum">      61 </span><span class="lineCov">         19 :       ++end_delim;</span></a>
 <a name="62"><span class="lineNum">      62 </span>            :     }</a>
 <a name="63"><span class="lineNum">      63 </span>            : </a>
-<a name="64"><span class="lineNum">      64 </span><span class="lineCov">         11 :     current = end_delim;</span></a>
-<a name="65"><span class="lineNum">      65 </span><span class="lineCov">         11 :   } while (begin_delim != end);</span></a>
+<a name="64"><span class="lineNum">      64 </span><span class="lineCov">         51 :     current = end_delim;</span></a>
+<a name="65"><span class="lineNum">      65 </span><span class="lineCov">         51 :   } while (begin_delim != end);</span></a>
 <a name="66"><span class="lineNum">      66 </span>            : </a>
-<a name="67"><span class="lineNum">      67 </span><span class="lineCov">          6 :   return items;</span></a>
+<a name="67"><span class="lineNum">      67 </span><span class="lineCov">         23 :   return items;</span></a>
 <a name="68"><span class="lineNum">      68 </span><span class="lineNoCov">          0 : }</span></a>
 <a name="69"><span class="lineNum">      69 </span>            : </a>
-<a name="70"><span class="lineNum">      70 </span><span class="lineNoCov">          0 : Expected&lt;PropagationStyles&gt; parse_propagation_styles(std::string_view input) {</span></a>
-<a name="71"><span class="lineNum">      71 </span><span class="lineNoCov">          0 :   PropagationStyles styles{false, false};</span></a>
+<a name="70"><span class="lineNum">      70 </span><span class="lineCov">         17 : Expected&lt;PropagationStyles&gt; parse_propagation_styles(std::string_view input) {</span></a>
+<a name="71"><span class="lineNum">      71 </span><span class="lineCov">         17 :   PropagationStyles styles{false, false};</span></a>
 <a name="72"><span class="lineNum">      72 </span>            : </a>
 <a name="73"><span class="lineNum">      73 </span>            :   // Style names are separated by spaces, or a comma, or some combination.</a>
-<a name="74"><span class="lineNum">      74 </span><span class="lineNoCov">          0 :   for (const std::string_view &amp;item : parse_list(input)) {</span></a>
-<a name="75"><span class="lineNum">      75 </span><span class="lineNoCov">          0 :     auto token = std::string(item);</span></a>
-<a name="76"><span class="lineNum">      76 </span><span class="lineNoCov">          0 :     to_lower(token);</span></a>
-<a name="77"><span class="lineNum">      77 </span><span class="lineNoCov">          0 :     if (token == &quot;datadog&quot;) {</span></a>
-<a name="78"><span class="lineNum">      78 </span><span class="lineNoCov">          0 :       styles.datadog = true;</span></a>
-<a name="79"><span class="lineNum">      79 </span><span class="lineNoCov">          0 :     } else if (token == &quot;b3&quot;) {</span></a>
-<a name="80"><span class="lineNum">      80 </span><span class="lineNoCov">          0 :       styles.b3 = true;</span></a>
+<a name="74"><span class="lineNum">      74 </span><span class="lineCov">         52 :   for (const std::string_view &amp;item : parse_list(input)) {</span></a>
+<a name="75"><span class="lineNum">      75 </span><span class="lineCov">         38 :     auto token = std::string(item);</span></a>
+<a name="76"><span class="lineNum">      76 </span><span class="lineCov">         38 :     to_lower(token);</span></a>
+<a name="77"><span class="lineNum">      77 </span><span class="lineCov">         38 :     if (token == &quot;datadog&quot;) {</span></a>
+<a name="78"><span class="lineNum">      78 </span><span class="lineCov">         11 :       styles.datadog = true;</span></a>
+<a name="79"><span class="lineNum">      79 </span><span class="lineCov">         27 :     } else if (token == &quot;b3&quot;) {</span></a>
+<a name="80"><span class="lineNum">      80 </span><span class="lineCov">         24 :       styles.b3 = true;</span></a>
 <a name="81"><span class="lineNum">      81 </span>            :     } else {</a>
-<a name="82"><span class="lineNum">      82 </span><span class="lineNoCov">          0 :       std::string message;</span></a>
-<a name="83"><span class="lineNum">      83 </span><span class="lineNoCov">          0 :       message += &quot;Unsupported propagation style \&quot;&quot;;</span></a>
-<a name="84"><span class="lineNum">      84 </span><span class="lineNoCov">          0 :       message += token;</span></a>
-<a name="85"><span class="lineNum">      85 </span><span class="lineNoCov">          0 :       message += &quot;\&quot; in list \&quot;&quot;;</span></a>
-<a name="86"><span class="lineNum">      86 </span><span class="lineNoCov">          0 :       message += input;</span></a>
-<a name="87"><span class="lineNum">      87 </span><span class="lineNoCov">          0 :       message += &quot;\&quot;.  The following styles are supported: Datadog, B3.&quot;;</span></a>
-<a name="88"><span class="lineNum">      88 </span><span class="lineNoCov">          0 :       return Error{Error::UNKNOWN_PROPAGATION_STYLE, std::move(message)};</span></a>
-<a name="89"><span class="lineNum">      89 </span><span class="lineNoCov">          0 :     }</span></a>
-<a name="90"><span class="lineNum">      90 </span><span class="lineNoCov">          0 :   }</span></a>
+<a name="82"><span class="lineNum">      82 </span><span class="lineCov">          3 :       std::string message;</span></a>
+<a name="83"><span class="lineNum">      83 </span><span class="lineCov">          3 :       message += &quot;Unsupported propagation style \&quot;&quot;;</span></a>
+<a name="84"><span class="lineNum">      84 </span><span class="lineCov">          3 :       message += token;</span></a>
+<a name="85"><span class="lineNum">      85 </span><span class="lineCov">          3 :       message += &quot;\&quot; in list \&quot;&quot;;</span></a>
+<a name="86"><span class="lineNum">      86 </span><span class="lineCov">          3 :       message += input;</span></a>
+<a name="87"><span class="lineNum">      87 </span><span class="lineCov">          3 :       message += &quot;\&quot;.  The following styles are supported: Datadog, B3.&quot;;</span></a>
+<a name="88"><span class="lineNum">      88 </span><span class="lineCov">          3 :       return Error{Error::UNKNOWN_PROPAGATION_STYLE, std::move(message)};</span></a>
+<a name="89"><span class="lineNum">      89 </span><span class="lineCov">          3 :     }</span></a>
+<a name="90"><span class="lineNum">      90 </span><span class="lineCov">         55 :   }</span></a>
 <a name="91"><span class="lineNum">      91 </span>            : </a>
-<a name="92"><span class="lineNum">      92 </span><span class="lineNoCov">          0 :   return styles;</span></a>
+<a name="92"><span class="lineNum">      92 </span><span class="lineCov">         14 :   return styles;</span></a>
 <a name="93"><span class="lineNum">      93 </span>            : }</a>
 <a name="94"><span class="lineNum">      94 </span>            : </a>
 <a name="95"><span class="lineNum">      95 </span><span class="lineCov">          7 : Expected&lt;std::unordered_map&lt;std::string, std::string&gt;&gt; parse_tags(</span></a>
@@ -183,26 +183,26 @@
 <a name="121"><span class="lineNum">     121 </span>            : </a>
 <a name="122"><span class="lineNum">     122 </span>            : }  // namespace</a>
 <a name="123"><span class="lineNum">     123 </span>            : </a>
-<a name="124"><span class="lineNum">     124 </span><span class="lineCov">        543 : Expected&lt;FinalizedTracerConfig&gt; finalize_config(const TracerConfig &amp;config) {</span></a>
-<a name="125"><span class="lineNum">     125 </span><span class="lineCov">        543 :   FinalizedTracerConfig result;</span></a>
+<a name="124"><span class="lineNum">     124 </span><span class="lineCov">        575 : Expected&lt;FinalizedTracerConfig&gt; finalize_config(const TracerConfig &amp;config) {</span></a>
+<a name="125"><span class="lineNum">     125 </span><span class="lineCov">        575 :   FinalizedTracerConfig result;</span></a>
 <a name="126"><span class="lineNum">     126 </span>            : </a>
-<a name="127"><span class="lineNum">     127 </span><span class="lineCov">        543 :   result.defaults = config.defaults;</span></a>
+<a name="127"><span class="lineNum">     127 </span><span class="lineCov">        575 :   result.defaults = config.defaults;</span></a>
 <a name="128"><span class="lineNum">     128 </span>            : </a>
-<a name="129"><span class="lineNum">     129 </span><span class="lineCov">        543 :   if (auto service_env = lookup(environment::DD_SERVICE)) {</span></a>
+<a name="129"><span class="lineNum">     129 </span><span class="lineCov">        575 :   if (auto service_env = lookup(environment::DD_SERVICE)) {</span></a>
 <a name="130"><span class="lineNum">     130 </span><span class="lineCov">          1 :     result.defaults.service = *service_env;</span></a>
 <a name="131"><span class="lineNum">     131 </span>            :   }</a>
-<a name="132"><span class="lineNum">     132 </span><span class="lineCov">        543 :   if (result.defaults.service.empty()) {</span></a>
+<a name="132"><span class="lineNum">     132 </span><span class="lineCov">        575 :   if (result.defaults.service.empty()) {</span></a>
 <a name="133"><span class="lineNum">     133 </span><span class="lineCov">          1 :     return Error{Error::SERVICE_NAME_REQUIRED, &quot;Service name is required.&quot;};</span></a>
 <a name="134"><span class="lineNum">     134 </span>            :   }</a>
 <a name="135"><span class="lineNum">     135 </span>            : </a>
-<a name="136"><span class="lineNum">     136 </span><span class="lineCov">        542 :   if (auto environment_env = lookup(environment::DD_ENV)) {</span></a>
+<a name="136"><span class="lineNum">     136 </span><span class="lineCov">        574 :   if (auto environment_env = lookup(environment::DD_ENV)) {</span></a>
 <a name="137"><span class="lineNum">     137 </span><span class="lineCov">          1 :     result.defaults.environment = *environment_env;</span></a>
 <a name="138"><span class="lineNum">     138 </span>            :   }</a>
-<a name="139"><span class="lineNum">     139 </span><span class="lineCov">        542 :   if (auto version_env = lookup(environment::DD_VERSION)) {</span></a>
+<a name="139"><span class="lineNum">     139 </span><span class="lineCov">        574 :   if (auto version_env = lookup(environment::DD_VERSION)) {</span></a>
 <a name="140"><span class="lineNum">     140 </span><span class="lineCov">          1 :     result.defaults.version = *version_env;</span></a>
 <a name="141"><span class="lineNum">     141 </span>            :   }</a>
 <a name="142"><span class="lineNum">     142 </span>            : </a>
-<a name="143"><span class="lineNum">     143 </span><span class="lineCov">        542 :   if (auto tags_env = lookup(environment::DD_TAGS)) {</span></a>
+<a name="143"><span class="lineNum">     143 </span><span class="lineCov">        574 :   if (auto tags_env = lookup(environment::DD_TAGS)) {</span></a>
 <a name="144"><span class="lineNum">     144 </span><span class="lineCov">          7 :     auto tags = parse_tags(*tags_env);</span></a>
 <a name="145"><span class="lineNum">     145 </span><span class="lineCov">          7 :     if (auto *error = tags.if_error()) {</span></a>
 <a name="146"><span class="lineNum">     146 </span><span class="lineCov">          2 :       std::string prefix;</span></a>
@@ -214,86 +214,86 @@
 <a name="152"><span class="lineNum">     152 </span><span class="lineCov">          5 :     result.defaults.tags = std::move(*tags);</span></a>
 <a name="153"><span class="lineNum">     153 </span><span class="lineCov">          7 :   }</span></a>
 <a name="154"><span class="lineNum">     154 </span>            : </a>
-<a name="155"><span class="lineNum">     155 </span><span class="lineCov">        540 :   if (config.logger) {</span></a>
-<a name="156"><span class="lineNum">     156 </span><span class="lineCov">        427 :     result.logger = config.logger;</span></a>
+<a name="155"><span class="lineNum">     155 </span><span class="lineCov">        572 :   if (config.logger) {</span></a>
+<a name="156"><span class="lineNum">     156 </span><span class="lineCov">        438 :     result.logger = config.logger;</span></a>
 <a name="157"><span class="lineNum">     157 </span>            :   } else {</a>
-<a name="158"><span class="lineNum">     158 </span><span class="lineCov">        113 :     result.logger = std::make_shared&lt;CerrLogger&gt;();</span></a>
+<a name="158"><span class="lineNum">     158 </span><span class="lineCov">        134 :     result.logger = std::make_shared&lt;CerrLogger&gt;();</span></a>
 <a name="159"><span class="lineNum">     159 </span>            :   }</a>
 <a name="160"><span class="lineNum">     160 </span>            : </a>
-<a name="161"><span class="lineNum">     161 </span><span class="lineCov">        540 :   result.log_on_startup = config.log_on_startup;</span></a>
-<a name="162"><span class="lineNum">     162 </span><span class="lineCov">        540 :   if (auto startup_env = lookup(environment::DD_TRACE_STARTUP_LOGS)) {</span></a>
+<a name="161"><span class="lineNum">     161 </span><span class="lineCov">        572 :   result.log_on_startup = config.log_on_startup;</span></a>
+<a name="162"><span class="lineNum">     162 </span><span class="lineCov">        572 :   if (auto startup_env = lookup(environment::DD_TRACE_STARTUP_LOGS)) {</span></a>
 <a name="163"><span class="lineNum">     163 </span><span class="lineCov">          9 :     result.log_on_startup = !falsy(*startup_env);</span></a>
 <a name="164"><span class="lineNum">     164 </span>            :   }</a>
 <a name="165"><span class="lineNum">     165 </span>            : </a>
-<a name="166"><span class="lineNum">     166 </span><span class="lineCov">        540 :   bool report_traces = config.report_traces;</span></a>
-<a name="167"><span class="lineNum">     167 </span><span class="lineCov">        540 :   if (auto enabled_env = lookup(environment::DD_TRACE_ENABLED)) {</span></a>
+<a name="166"><span class="lineNum">     166 </span><span class="lineCov">        572 :   bool report_traces = config.report_traces;</span></a>
+<a name="167"><span class="lineNum">     167 </span><span class="lineCov">        572 :   if (auto enabled_env = lookup(environment::DD_TRACE_ENABLED)) {</span></a>
 <a name="168"><span class="lineNum">     168 </span><span class="lineCov">          8 :     report_traces = !falsy(*enabled_env);</span></a>
 <a name="169"><span class="lineNum">     169 </span>            :   }</a>
 <a name="170"><span class="lineNum">     170 </span>            : </a>
-<a name="171"><span class="lineNum">     171 </span><span class="lineCov">        540 :   if (!report_traces) {</span></a>
+<a name="171"><span class="lineNum">     171 </span><span class="lineCov">        572 :   if (!report_traces) {</span></a>
 <a name="172"><span class="lineNum">     172 </span><span class="lineCov">          5 :     result.collector = std::make_shared&lt;NullCollector&gt;();</span></a>
-<a name="173"><span class="lineNum">     173 </span><span class="lineCov">        535 :   } else if (!config.collector) {</span></a>
-<a name="174"><span class="lineNum">     174 </span><span class="lineCov">        437 :     auto finalized = finalize_config(config.agent, result.logger);</span></a>
-<a name="175"><span class="lineNum">     175 </span><span class="lineCov">        437 :     if (auto *error = finalized.if_error()) {</span></a>
+<a name="173"><span class="lineNum">     173 </span><span class="lineCov">        567 :   } else if (!config.collector) {</span></a>
+<a name="174"><span class="lineNum">     174 </span><span class="lineCov">        458 :     auto finalized = finalize_config(config.agent, result.logger);</span></a>
+<a name="175"><span class="lineNum">     175 </span><span class="lineCov">        458 :     if (auto *error = finalized.if_error()) {</span></a>
 <a name="176"><span class="lineNum">     176 </span><span class="lineCov">          5 :       return std::move(*error);</span></a>
 <a name="177"><span class="lineNum">     177 </span>            :     }</a>
-<a name="178"><span class="lineNum">     178 </span><span class="lineCov">        432 :     result.collector = *finalized;</span></a>
-<a name="179"><span class="lineNum">     179 </span><span class="lineCov">        437 :   } else {</span></a>
-<a name="180"><span class="lineNum">     180 </span><span class="lineCov">         98 :     result.collector = config.collector;</span></a>
+<a name="178"><span class="lineNum">     178 </span><span class="lineCov">        453 :     result.collector = *finalized;</span></a>
+<a name="179"><span class="lineNum">     179 </span><span class="lineCov">        458 :   } else {</span></a>
+<a name="180"><span class="lineNum">     180 </span><span class="lineCov">        109 :     result.collector = config.collector;</span></a>
 <a name="181"><span class="lineNum">     181 </span>            :   }</a>
 <a name="182"><span class="lineNum">     182 </span>            : </a>
-<a name="183"><span class="lineNum">     183 </span><span class="lineCov">        535 :   if (auto trace_sampler_config = finalize_config(config.trace_sampler)) {</span></a>
-<a name="184"><span class="lineNum">     184 </span><span class="lineCov">        493 :     result.trace_sampler = std::move(*trace_sampler_config);</span></a>
+<a name="183"><span class="lineNum">     183 </span><span class="lineCov">        567 :   if (auto trace_sampler_config = finalize_config(config.trace_sampler)) {</span></a>
+<a name="184"><span class="lineNum">     184 </span><span class="lineCov">        525 :     result.trace_sampler = std::move(*trace_sampler_config);</span></a>
 <a name="185"><span class="lineNum">     185 </span>            :   } else {</a>
 <a name="186"><span class="lineNum">     186 </span><span class="lineCov">         42 :     return std::move(trace_sampler_config.error());</span></a>
-<a name="187"><span class="lineNum">     187 </span><span class="lineCov">        535 :   }</span></a>
+<a name="187"><span class="lineNum">     187 </span><span class="lineCov">        567 :   }</span></a>
 <a name="188"><span class="lineNum">     188 </span>            : </a>
-<a name="189"><span class="lineNum">     189 </span><span class="lineCov">        493 :   if (auto span_sampler_config =</span></a>
-<a name="190"><span class="lineNum">     190 </span><span class="lineCov">        493 :           finalize_config(config.span_sampler, *result.logger)) {</span></a>
-<a name="191"><span class="lineNum">     191 </span><span class="lineCov">        467 :     result.span_sampler = std::move(*span_sampler_config);</span></a>
+<a name="189"><span class="lineNum">     189 </span><span class="lineCov">        525 :   if (auto span_sampler_config =</span></a>
+<a name="190"><span class="lineNum">     190 </span><span class="lineCov">        525 :           finalize_config(config.span_sampler, *result.logger)) {</span></a>
+<a name="191"><span class="lineNum">     191 </span><span class="lineCov">        499 :     result.span_sampler = std::move(*span_sampler_config);</span></a>
 <a name="192"><span class="lineNum">     192 </span>            :   } else {</a>
 <a name="193"><span class="lineNum">     193 </span><span class="lineCov">         26 :     return std::move(span_sampler_config.error());</span></a>
-<a name="194"><span class="lineNum">     194 </span><span class="lineCov">        493 :   }</span></a>
+<a name="194"><span class="lineNum">     194 </span><span class="lineCov">        525 :   }</span></a>
 <a name="195"><span class="lineNum">     195 </span>            : </a>
-<a name="196"><span class="lineNum">     196 </span><span class="lineCov">        467 :   result.extraction_styles = config.extraction_styles;</span></a>
-<a name="197"><span class="lineNum">     197 </span><span class="lineCov">        467 :   if (auto styles_env = lookup(environment::DD_PROPAGATION_STYLE_EXTRACT)) {</span></a>
-<a name="198"><span class="lineNum">     198 </span><span class="lineNoCov">          0 :     auto styles = parse_propagation_styles(*styles_env);</span></a>
-<a name="199"><span class="lineNum">     199 </span><span class="lineNoCov">          0 :     if (auto *error = styles.if_error()) {</span></a>
-<a name="200"><span class="lineNum">     200 </span><span class="lineNoCov">          0 :       std::string prefix;</span></a>
-<a name="201"><span class="lineNum">     201 </span><span class="lineNoCov">          0 :       prefix += &quot;Unable to parse &quot;;</span></a>
-<a name="202"><span class="lineNum">     202 </span><span class="lineNoCov">          0 :       prefix += name(environment::DD_PROPAGATION_STYLE_EXTRACT);</span></a>
-<a name="203"><span class="lineNum">     203 </span><span class="lineNoCov">          0 :       prefix += &quot; environment variable: &quot;;</span></a>
-<a name="204"><span class="lineNum">     204 </span><span class="lineNoCov">          0 :       return error-&gt;with_prefix(prefix);</span></a>
-<a name="205"><span class="lineNum">     205 </span><span class="lineNoCov">          0 :     }</span></a>
-<a name="206"><span class="lineNum">     206 </span><span class="lineNoCov">          0 :     result.extraction_styles = *styles;</span></a>
-<a name="207"><span class="lineNum">     207 </span><span class="lineNoCov">          0 :   }</span></a>
+<a name="196"><span class="lineNum">     196 </span><span class="lineCov">        499 :   result.extraction_styles = config.extraction_styles;</span></a>
+<a name="197"><span class="lineNum">     197 </span><span class="lineCov">        499 :   if (auto styles_env = lookup(environment::DD_PROPAGATION_STYLE_EXTRACT)) {</span></a>
+<a name="198"><span class="lineNum">     198 </span><span class="lineCov">          2 :     auto styles = parse_propagation_styles(*styles_env);</span></a>
+<a name="199"><span class="lineNum">     199 </span><span class="lineCov">          2 :     if (auto *error = styles.if_error()) {</span></a>
+<a name="200"><span class="lineNum">     200 </span><span class="lineCov">          1 :       std::string prefix;</span></a>
+<a name="201"><span class="lineNum">     201 </span><span class="lineCov">          1 :       prefix += &quot;Unable to parse &quot;;</span></a>
+<a name="202"><span class="lineNum">     202 </span><span class="lineCov">          1 :       prefix += name(environment::DD_PROPAGATION_STYLE_EXTRACT);</span></a>
+<a name="203"><span class="lineNum">     203 </span><span class="lineCov">          1 :       prefix += &quot; environment variable: &quot;;</span></a>
+<a name="204"><span class="lineNum">     204 </span><span class="lineCov">          1 :       return error-&gt;with_prefix(prefix);</span></a>
+<a name="205"><span class="lineNum">     205 </span><span class="lineCov">          1 :     }</span></a>
+<a name="206"><span class="lineNum">     206 </span><span class="lineCov">          1 :     result.extraction_styles = *styles;</span></a>
+<a name="207"><span class="lineNum">     207 </span><span class="lineCov">          2 :   }</span></a>
 <a name="208"><span class="lineNum">     208 </span>            : </a>
-<a name="209"><span class="lineNum">     209 </span><span class="lineCov">        467 :   result.injection_styles = config.injection_styles;</span></a>
-<a name="210"><span class="lineNum">     210 </span><span class="lineCov">        467 :   if (auto styles_env = lookup(environment::DD_PROPAGATION_STYLE_INJECT)) {</span></a>
-<a name="211"><span class="lineNum">     211 </span><span class="lineNoCov">          0 :     auto styles = parse_propagation_styles(*styles_env);</span></a>
-<a name="212"><span class="lineNum">     212 </span><span class="lineNoCov">          0 :     if (auto *error = styles.if_error()) {</span></a>
-<a name="213"><span class="lineNum">     213 </span><span class="lineNoCov">          0 :       std::string prefix;</span></a>
-<a name="214"><span class="lineNum">     214 </span><span class="lineNoCov">          0 :       prefix += &quot;Unable to parse &quot;;</span></a>
-<a name="215"><span class="lineNum">     215 </span><span class="lineNoCov">          0 :       prefix += name(environment::DD_PROPAGATION_STYLE_INJECT);</span></a>
-<a name="216"><span class="lineNum">     216 </span><span class="lineNoCov">          0 :       prefix += &quot; environment variable: &quot;;</span></a>
-<a name="217"><span class="lineNum">     217 </span><span class="lineNoCov">          0 :       return error-&gt;with_prefix(prefix);</span></a>
-<a name="218"><span class="lineNum">     218 </span><span class="lineNoCov">          0 :     }</span></a>
-<a name="219"><span class="lineNum">     219 </span><span class="lineNoCov">          0 :     result.injection_styles = *styles;</span></a>
-<a name="220"><span class="lineNum">     220 </span><span class="lineNoCov">          0 :   }</span></a>
+<a name="209"><span class="lineNum">     209 </span><span class="lineCov">        498 :   result.injection_styles = config.injection_styles;</span></a>
+<a name="210"><span class="lineNum">     210 </span><span class="lineCov">        498 :   if (auto styles_env = lookup(environment::DD_PROPAGATION_STYLE_INJECT)) {</span></a>
+<a name="211"><span class="lineNum">     211 </span><span class="lineCov">         15 :     auto styles = parse_propagation_styles(*styles_env);</span></a>
+<a name="212"><span class="lineNum">     212 </span><span class="lineCov">         15 :     if (auto *error = styles.if_error()) {</span></a>
+<a name="213"><span class="lineNum">     213 </span><span class="lineCov">          2 :       std::string prefix;</span></a>
+<a name="214"><span class="lineNum">     214 </span><span class="lineCov">          2 :       prefix += &quot;Unable to parse &quot;;</span></a>
+<a name="215"><span class="lineNum">     215 </span><span class="lineCov">          2 :       prefix += name(environment::DD_PROPAGATION_STYLE_INJECT);</span></a>
+<a name="216"><span class="lineNum">     216 </span><span class="lineCov">          2 :       prefix += &quot; environment variable: &quot;;</span></a>
+<a name="217"><span class="lineNum">     217 </span><span class="lineCov">          2 :       return error-&gt;with_prefix(prefix);</span></a>
+<a name="218"><span class="lineNum">     218 </span><span class="lineCov">          2 :     }</span></a>
+<a name="219"><span class="lineNum">     219 </span><span class="lineCov">         13 :     result.injection_styles = *styles;</span></a>
+<a name="220"><span class="lineNum">     220 </span><span class="lineCov">         15 :   }</span></a>
 <a name="221"><span class="lineNum">     221 </span>            : </a>
-<a name="222"><span class="lineNum">     222 </span><span class="lineCov">        467 :   if (!result.extraction_styles.datadog &amp;&amp; !result.extraction_styles.b3) {</span></a>
-<a name="223"><span class="lineNum">     223 </span><span class="lineNoCov">          0 :     return Error{Error::MISSING_SPAN_EXTRACTION_STYLE,</span></a>
-<a name="224"><span class="lineNum">     224 </span><span class="lineNoCov">          0 :                  &quot;At least one extraction style must be specified.&quot;};</span></a>
-<a name="225"><span class="lineNum">     225 </span><span class="lineCov">        467 :   } else if (!result.injection_styles.datadog &amp;&amp; !result.injection_styles.b3) {</span></a>
-<a name="226"><span class="lineNum">     226 </span><span class="lineNoCov">          0 :     return Error{Error::MISSING_SPAN_INJECTION_STYLE,</span></a>
-<a name="227"><span class="lineNum">     227 </span><span class="lineNoCov">          0 :                  &quot;At least one injection style must be specified.&quot;};</span></a>
+<a name="222"><span class="lineNum">     222 </span><span class="lineCov">        496 :   if (!result.extraction_styles.datadog &amp;&amp; !result.extraction_styles.b3) {</span></a>
+<a name="223"><span class="lineNum">     223 </span><span class="lineCov">          2 :     return Error{Error::MISSING_SPAN_EXTRACTION_STYLE,</span></a>
+<a name="224"><span class="lineNum">     224 </span><span class="lineCov">          1 :                  &quot;At least one extraction style must be specified.&quot;};</span></a>
+<a name="225"><span class="lineNum">     225 </span><span class="lineCov">        495 :   } else if (!result.injection_styles.datadog &amp;&amp; !result.injection_styles.b3) {</span></a>
+<a name="226"><span class="lineNum">     226 </span><span class="lineCov">          2 :     return Error{Error::MISSING_SPAN_INJECTION_STYLE,</span></a>
+<a name="227"><span class="lineNum">     227 </span><span class="lineCov">          1 :                  &quot;At least one injection style must be specified.&quot;};</span></a>
 <a name="228"><span class="lineNum">     228 </span>            :   }</a>
 <a name="229"><span class="lineNum">     229 </span>            : </a>
-<a name="230"><span class="lineNum">     230 </span><span class="lineCov">        467 :   result.report_hostname = config.report_hostname;</span></a>
-<a name="231"><span class="lineNum">     231 </span><span class="lineCov">        467 :   result.tags_header_size = config.tags_header_size;</span></a>
+<a name="230"><span class="lineNum">     230 </span><span class="lineCov">        494 :   result.report_hostname = config.report_hostname;</span></a>
+<a name="231"><span class="lineNum">     231 </span><span class="lineCov">        494 :   result.tags_header_size = config.tags_header_size;</span></a>
 <a name="232"><span class="lineNum">     232 </span>            : </a>
-<a name="233"><span class="lineNum">     233 </span><span class="lineCov">        467 :   return result;</span></a>
-<a name="234"><span class="lineNum">     234 </span><span class="lineCov">        543 : }</span></a>
+<a name="233"><span class="lineNum">     233 </span><span class="lineCov">        494 :   return result;</span></a>
+<a name="234"><span class="lineNum">     234 </span><span class="lineCov">        575 : }</span></a>
 <a name="235"><span class="lineNum">     235 </span>            : </a>
 <a name="236"><span class="lineNum">     236 </span>            : }  // namespace tracing</a>
 <a name="237"><span class="lineNum">     237 </span>            : }  // namespace datadog</a>

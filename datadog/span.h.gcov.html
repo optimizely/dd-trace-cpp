@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-23 03:21:36</td>
+            <td class="headerValue">2022-09-23 10:27:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">2</td>
@@ -137,7 +137,7 @@
 <a name="75"><span class="lineNum">      75 </span>            :   Span(SpanData* data, const std::shared_ptr&lt;TraceSegment&gt;&amp; trace_segment,</a>
 <a name="76"><span class="lineNum">      76 </span>            :        const IDGenerator&amp; generate_span_id, const Clock&amp; clock);</a>
 <a name="77"><span class="lineNum">      77 </span>            :   Span(const Span&amp;) = delete;</a>
-<a name="78"><span class="lineNum">      78 </span><span class="lineCov">         33 :   Span(Span&amp;&amp;) = default;</span></a>
+<a name="78"><span class="lineNum">      78 </span><span class="lineCov">         36 :   Span(Span&amp;&amp;) = default;</span></a>
 <a name="79"><span class="lineNum">      79 </span><span class="lineCov">          7 :   Span&amp; operator=(Span&amp;&amp;) = default;</span></a>
 <a name="80"><span class="lineNum">      80 </span>            : </a>
 <a name="81"><span class="lineNum">      81 </span>            :   // Finish this span and submit it to the associated trace segment.  If</a>
