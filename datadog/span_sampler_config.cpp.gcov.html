@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-23 10:30:50</td>
+            <td class="headerValue">2022-09-26 15:09:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -195,14 +195,14 @@
 <a name="133"><span class="lineNum">     133 </span>            : </a>
 <a name="134"><span class="lineNum">     134 </span><span class="lineCov">         10 : SpanSamplerConfig::Rule::Rule(const SpanMatcher &amp;base) : SpanMatcher(base) {}</span></a>
 <a name="135"><span class="lineNum">     135 </span>            : </a>
-<a name="136"><span class="lineNum">     136 </span><span class="lineCov">        525 : Expected&lt;FinalizedSpanSamplerConfig&gt; finalize_config(</span></a>
+<a name="136"><span class="lineNum">     136 </span><span class="lineCov">        543 : Expected&lt;FinalizedSpanSamplerConfig&gt; finalize_config(</span></a>
 <a name="137"><span class="lineNum">     137 </span>            :     const SpanSamplerConfig &amp;config, Logger &amp;logger) {</a>
-<a name="138"><span class="lineNum">     138 </span><span class="lineCov">        525 :   FinalizedSpanSamplerConfig result;</span></a>
+<a name="138"><span class="lineNum">     138 </span><span class="lineCov">        543 :   FinalizedSpanSamplerConfig result;</span></a>
 <a name="139"><span class="lineNum">     139 </span>            : </a>
-<a name="140"><span class="lineNum">     140 </span><span class="lineCov">        525 :   std::vector&lt;SpanSamplerConfig::Rule&gt; rules = config.rules;</span></a>
+<a name="140"><span class="lineNum">     140 </span><span class="lineCov">        543 :   std::vector&lt;SpanSamplerConfig::Rule&gt; rules = config.rules;</span></a>
 <a name="141"><span class="lineNum">     141 </span>            : </a>
-<a name="142"><span class="lineNum">     142 </span><span class="lineCov">        525 :   auto rules_env = lookup(environment::DD_SPAN_SAMPLING_RULES);</span></a>
-<a name="143"><span class="lineNum">     143 </span><span class="lineCov">        525 :   if (rules_env) {</span></a>
+<a name="142"><span class="lineNum">     142 </span><span class="lineCov">        543 :   auto rules_env = lookup(environment::DD_SPAN_SAMPLING_RULES);</span></a>
+<a name="143"><span class="lineNum">     143 </span><span class="lineCov">        543 :   if (rules_env) {</span></a>
 <a name="144"><span class="lineNum">     144 </span>            :     auto maybe_rules =</a>
 <a name="145"><span class="lineNum">     145 </span><span class="lineCov">         14 :         parse_rules(*rules_env, name(environment::DD_SPAN_SAMPLING_RULES));</span></a>
 <a name="146"><span class="lineNum">     146 </span><span class="lineCov">         14 :     if (auto *error = maybe_rules.if_error()) {</span></a>
@@ -211,7 +211,7 @@
 <a name="149"><span class="lineNum">     149 </span><span class="lineCov">          2 :     rules = std::move(*maybe_rules);</span></a>
 <a name="150"><span class="lineNum">     150 </span><span class="lineCov">         14 :   }</span></a>
 <a name="151"><span class="lineNum">     151 </span>            : </a>
-<a name="152"><span class="lineNum">     152 </span><span class="lineCov">        513 :   if (auto file_env = lookup(environment::DD_SPAN_SAMPLING_RULES_FILE)) {</span></a>
+<a name="152"><span class="lineNum">     152 </span><span class="lineCov">        531 :   if (auto file_env = lookup(environment::DD_SPAN_SAMPLING_RULES_FILE)) {</span></a>
 <a name="153"><span class="lineNum">     153 </span><span class="lineCov">          5 :     if (rules_env) {</span></a>
 <a name="154"><span class="lineNum">     154 </span>            :       const auto rules_file_name =</a>
 <a name="155"><span class="lineNum">     155 </span><span class="lineCov">          1 :           name(environment::DD_SPAN_SAMPLING_RULES_FILE);</span></a>
@@ -268,7 +268,7 @@
 <a name="206"><span class="lineNum">     206 </span><span class="lineCov">          9 :     }</span></a>
 <a name="207"><span class="lineNum">     207 </span>            :   }</a>
 <a name="208"><span class="lineNum">     208 </span>            : </a>
-<a name="209"><span class="lineNum">     209 </span><span class="lineCov">        531 :   for (const auto &amp;rule : rules) {</span></a>
+<a name="209"><span class="lineNum">     209 </span><span class="lineCov">        549 :   for (const auto &amp;rule : rules) {</span></a>
 <a name="210"><span class="lineNum">     210 </span><span class="lineCov">         32 :     auto maybe_rate = Rate::from(rule.sample_rate);</span></a>
 <a name="211"><span class="lineNum">     211 </span><span class="lineCov">         32 :     if (auto *error = maybe_rate.if_error()) {</span></a>
 <a name="212"><span class="lineNum">     212 </span><span class="lineCov">          6 :       std::string prefix;</span></a>
@@ -303,8 +303,8 @@
 <a name="241"><span class="lineNum">     241 </span><span class="lineCov">         21 :     result.rules.push_back(std::move(finalized));</span></a>
 <a name="242"><span class="lineNum">     242 </span><span class="lineCov">         32 :   }</span></a>
 <a name="243"><span class="lineNum">     243 </span>            : </a>
-<a name="244"><span class="lineNum">     244 </span><span class="lineCov">        499 :   return result;</span></a>
-<a name="245"><span class="lineNum">     245 </span><span class="lineCov">        525 : }</span></a>
+<a name="244"><span class="lineNum">     244 </span><span class="lineCov">        517 :   return result;</span></a>
+<a name="245"><span class="lineNum">     245 </span><span class="lineCov">        543 : }</span></a>
 <a name="246"><span class="lineNum">     246 </span>            : </a>
 <a name="247"><span class="lineNum">     247 </span>            : }  // namespace tracing</a>
 <a name="248"><span class="lineNum">     248 </span>            : }  // namespace datadog</a>
