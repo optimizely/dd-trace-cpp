@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-26 15:09:11</td>
+            <td class="headerValue">2022-10-26 19:22:15</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -62,26 +62,34 @@
 <pre class="source">
 <a name="1"><span class="lineNum">       1 </span>            : #pragma once</a>
 <a name="2"><span class="lineNum">       2 </span>            : </a>
-<a name="3"><span class="lineNum">       3 </span>            : #include &lt;functional&gt;</a>
-<a name="4"><span class="lineNum">       4 </span>            : #include &lt;optional&gt;</a>
-<a name="5"><span class="lineNum">       5 </span>            : #include &lt;string_view&gt;</a>
+<a name="3"><span class="lineNum">       3 </span>            : // This component provides an interface, `DictReader`, that represents a</a>
+<a name="4"><span class="lineNum">       4 </span>            : // read-only key/value mapping of strings.  It's used when extracting trace</a>
+<a name="5"><span class="lineNum">       5 </span>            : // context from externalized formats: HTTP headers, gRPC metadata, etc.</a>
 <a name="6"><span class="lineNum">       6 </span>            : </a>
-<a name="7"><span class="lineNum">       7 </span>            : namespace datadog {</a>
-<a name="8"><span class="lineNum">       8 </span>            : namespace tracing {</a>
-<a name="9"><span class="lineNum">       9 </span>            : </a>
-<a name="10"><span class="lineNum">      10 </span>            : class DictReader {</a>
-<a name="11"><span class="lineNum">      11 </span>            :  public:</a>
-<a name="12"><span class="lineNum">      12 </span><span class="lineCov">        358 :   virtual ~DictReader() {}</span></a>
+<a name="7"><span class="lineNum">       7 </span>            : #include &lt;functional&gt;</a>
+<a name="8"><span class="lineNum">       8 </span>            : #include &lt;optional&gt;</a>
+<a name="9"><span class="lineNum">       9 </span>            : #include &lt;string_view&gt;</a>
+<a name="10"><span class="lineNum">      10 </span>            : </a>
+<a name="11"><span class="lineNum">      11 </span>            : namespace datadog {</a>
+<a name="12"><span class="lineNum">      12 </span>            : namespace tracing {</a>
 <a name="13"><span class="lineNum">      13 </span>            : </a>
-<a name="14"><span class="lineNum">      14 </span>            :   virtual std::optional&lt;std::string_view&gt; lookup(</a>
-<a name="15"><span class="lineNum">      15 </span>            :       std::string_view key) const = 0;</a>
-<a name="16"><span class="lineNum">      16 </span>            :   virtual void visit(</a>
-<a name="17"><span class="lineNum">      17 </span>            :       const std::function&lt;void(std::string_view key, std::string_view value)&gt;&amp;</a>
-<a name="18"><span class="lineNum">      18 </span>            :           visitor) const = 0;</a>
-<a name="19"><span class="lineNum">      19 </span>            : };</a>
-<a name="20"><span class="lineNum">      20 </span>            : </a>
-<a name="21"><span class="lineNum">      21 </span>            : }  // namespace tracing</a>
-<a name="22"><span class="lineNum">      22 </span>            : }  // namespace datadog</a>
+<a name="14"><span class="lineNum">      14 </span>            : class DictReader {</a>
+<a name="15"><span class="lineNum">      15 </span>            :  public:</a>
+<a name="16"><span class="lineNum">      16 </span><span class="lineCov">        358 :   virtual ~DictReader() {}</span></a>
+<a name="17"><span class="lineNum">      17 </span>            : </a>
+<a name="18"><span class="lineNum">      18 </span>            :   // Return the value at the specified `key`, or return `std::nullopt` if there</a>
+<a name="19"><span class="lineNum">      19 </span>            :   // is no value at `key`.</a>
+<a name="20"><span class="lineNum">      20 </span>            :   virtual std::optional&lt;std::string_view&gt; lookup(</a>
+<a name="21"><span class="lineNum">      21 </span>            :       std::string_view key) const = 0;</a>
+<a name="22"><span class="lineNum">      22 </span>            : </a>
+<a name="23"><span class="lineNum">      23 </span>            :   // Invoke the specified `visitor` once for each key/value pair in this object.</a>
+<a name="24"><span class="lineNum">      24 </span>            :   virtual void visit(</a>
+<a name="25"><span class="lineNum">      25 </span>            :       const std::function&lt;void(std::string_view key, std::string_view value)&gt;&amp;</a>
+<a name="26"><span class="lineNum">      26 </span>            :           visitor) const = 0;</a>
+<a name="27"><span class="lineNum">      27 </span>            : };</a>
+<a name="28"><span class="lineNum">      28 </span>            : </a>
+<a name="29"><span class="lineNum">      29 </span>            : }  // namespace tracing</a>
+<a name="30"><span class="lineNum">      30 </span>            : }  // namespace datadog</a>
 </pre>
       </td>
     </tr>

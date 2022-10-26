@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-09-26 15:09:11</td>
+            <td class="headerValue">2022-10-26 19:22:15</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -63,16 +63,23 @@
 <a name="1"><span class="lineNum">       1 </span>            : #include &quot;curl.h&quot;</a>
 <a name="2"><span class="lineNum">       2 </span>            : #include &quot;default_http_client.h&quot;</a>
 <a name="3"><span class="lineNum">       3 </span>            : </a>
-<a name="4"><span class="lineNum">       4 </span>            : namespace datadog {</a>
-<a name="5"><span class="lineNum">       5 </span>            : namespace tracing {</a>
-<a name="6"><span class="lineNum">       6 </span>            : </a>
-<a name="7"><span class="lineNum">       7 </span><span class="lineCov">        148 : std::shared_ptr&lt;HTTPClient&gt; default_http_client(</span></a>
-<a name="8"><span class="lineNum">       8 </span>            :     const std::shared_ptr&lt;Logger&gt;&amp; logger) {</a>
-<a name="9"><span class="lineNum">       9 </span><span class="lineCov">        148 :   return std::make_shared&lt;Curl&gt;(logger);</span></a>
-<a name="10"><span class="lineNum">      10 </span>            : }</a>
-<a name="11"><span class="lineNum">      11 </span>            : </a>
-<a name="12"><span class="lineNum">      12 </span>            : }  // namespace tracing</a>
-<a name="13"><span class="lineNum">      13 </span>            : }  // namespace datadog</a>
+<a name="4"><span class="lineNum">       4 </span>            : // This file is included in the build when libcurl is included in the build.</a>
+<a name="5"><span class="lineNum">       5 </span>            : // It provides an implementation of `default_http_client` that returns a</a>
+<a name="6"><span class="lineNum">       6 </span>            : // `Curl` instance.</a>
+<a name="7"><span class="lineNum">       7 </span>            : //</a>
+<a name="8"><span class="lineNum">       8 </span>            : // If libcurl is not included in the build, then `default_http_client_null.cpp`</a>
+<a name="9"><span class="lineNum">       9 </span>            : // will be built instead.</a>
+<a name="10"><span class="lineNum">      10 </span>            : </a>
+<a name="11"><span class="lineNum">      11 </span>            : namespace datadog {</a>
+<a name="12"><span class="lineNum">      12 </span>            : namespace tracing {</a>
+<a name="13"><span class="lineNum">      13 </span>            : </a>
+<a name="14"><span class="lineNum">      14 </span><span class="lineCov">        147 : std::shared_ptr&lt;HTTPClient&gt; default_http_client(</span></a>
+<a name="15"><span class="lineNum">      15 </span>            :     const std::shared_ptr&lt;Logger&gt;&amp; logger) {</a>
+<a name="16"><span class="lineNum">      16 </span><span class="lineCov">        147 :   return std::make_shared&lt;Curl&gt;(logger);</span></a>
+<a name="17"><span class="lineNum">      17 </span>            : }</a>
+<a name="18"><span class="lineNum">      18 </span>            : </a>
+<a name="19"><span class="lineNum">      19 </span>            : }  // namespace tracing</a>
+<a name="20"><span class="lineNum">      20 </span>            : }  // namespace datadog</a>
 </pre>
       </td>
     </tr>
