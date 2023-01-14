@@ -11,13 +11,26 @@ def parse_options():
                     description = 'Print statistics summary for files')
 
     parser.add_argument('--cutoff', type=int)
-
+    parser.add_argument('--no-total', action='store_true')
     parser.add_argument('file', nargs='+')
+
 
     return parser.parse_args()
 
 
+def summary(name, values):
+    print(name)
+    for stat in 'mean median mode pstdev stdev'.split():
+        print(f'\t{stat}\t', getattr(statistics, stat)(values))
+
+    print('\tmin\t', min(values))
+    print('\tmax\t', max(values))
+    print('\tcount\t', len(values))
+    print('\t√c̅o̅u̅n̅t̅\t', math.sqrt(len(values)))
+
+
 options = parse_options()
+all_values = []
 
 for path in options.file:
     values = []
@@ -31,12 +44,10 @@ for path in options.file:
                 continue
             values.append(value)
 
-    print(path)
-    for stat in 'mean median mode pstdev stdev'.split():
-        print(f'\t{stat}\t', getattr(statistics, stat)(values))
+    summary(path, values)
+    if not options.no_total:
+        all_values += values
 
-    print('\tmin\t', min(values))
-    print('\tmax\t', max(values))
-    print('\tcount\t', len(values))
-    print('\t√c̅o̅u̅n̅t̅\t', math.sqrt(len(values)))
+if not options.no_total:
+    summary(f'concatenate({", ".join(f for f in options.file)})', all_values)
 
