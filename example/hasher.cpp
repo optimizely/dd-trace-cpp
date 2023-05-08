@@ -94,8 +94,7 @@ int sha256_traced(Digest &digest, const fs::path &path,
       Digest hash;
       const fs::path &child = entry;
       if (sha256_traced(hash, child, span)) {
-        span.set_tag("error",
-                     "unable to calculate digest of " + child.u8string());
+        span.set_error_message("unable to calculate digest of " + child.u8string());
         return 1;
       }
       children.emplace_back(child, hash);
@@ -115,7 +114,7 @@ int sha256_traced(Digest &digest, const fs::path &path,
     span.set_tag("file_size_bytes", std::to_string(fs::file_size(path)));
     const int rc = sha256(digest, path);
     if (rc) {
-      span.set_tag("error", "Unable to calculate sha256 hash.");
+      span.set_error_message("Unable to calculate sha256 hash.");
     } else {
       span.set_tag("sha256_hex", hex(digest));
     }
@@ -157,14 +156,14 @@ int main() {
 
     if (!fs::exists(path)) {
       std::cerr << "The file " << path << " does not exist.\n";
-      root.set_tag("error", "The file does not exist.");
+      root.set_error_message("The file does not exist.");
       continue;
     }
 
     Digest digest;
     if (sha256_traced(digest, path, root)) {
       std::cerr << "Unable to calculate the sha256 hash of " << path << ".\n";
-      root.set_tag("error", "Unable to calculate sha256 hash.");
+      root.set_error_message("Unable to calculate sha256 hash.");
     } else {
       const std::string hex_digest = hex(digest);
       root.set_tag("sha256_hex", hex_digest);
