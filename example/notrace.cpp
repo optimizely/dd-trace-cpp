@@ -3,17 +3,11 @@
 // If the path does not exist, print an error.
 //
 // If the path exists and is a regular file, print the SHA256 digest of the
-// file's contents.  Produce a single tracing span indicating the calculation.
+// file's contents.
 //
 // If the path exists and is a directory, calculate the SHA256 digest of the
 // directory from the names and digests of its children, combined in some
-// canonical format.  Produce a trace whose structure reflects the directory
-// structure.
-
-#include <datadog/span_config.h>
-#include <datadog/tags.h>
-#include <datadog/tracer.h>
-#include <datadog/tracer_config.h>
+// canonical format.
 
 #include <algorithm>
 #include <array>
@@ -28,7 +22,6 @@
 #include "picosha2.h"
 
 namespace fs = std::filesystem;
-namespace dd = datadog::tracing;
 
 using Digest = std::array<char, picosha2::k_digest_size>;
 
@@ -74,17 +67,9 @@ Digest sha256(std::vector<std::pair<fs::path, Digest>> &children) {
   return digest;
 }
 
-int sha256_traced(Digest &digest, const fs::path &path,
-                  const dd::Span &active_span) try {
+int sha256_traced(Digest &digest, const fs::path &path) try {
   if (fs::is_directory(path)) {
     // Directory: Calculate hash of children, and then combine them.
-    dd::SpanConfig config;
-    config.name = "sha256.directory";
-    auto span = active_span.create_child(config);
-    span.set_tag("path", path.u8string());
-    span.set_tag("file_name", path.u8string());
-    span.set_tag("directory_name", path.u8string());
-
     std::vector<std::pair<fs::path, Digest>> children;
     const auto options = fs::directory_options::skip_permission_denied;
     for (const auto &entry : fs::directory_iterator(path, options)) {
@@ -93,33 +78,16 @@ int sha256_traced(Digest &digest, const fs::path &path,
       }
       Digest hash;
       const fs::path &child = entry;
-      if (sha256_traced(hash, child, span)) {
-        span.set_tag("error",
-                     "unable to calculate digest of " + child.u8string());
+      if (sha256_traced(hash, child)) {
         return 1;
       }
       children.emplace_back(child, hash);
     }
-    span.set_tag("number_of_children_included",
-                 std::to_string(children.size()));
     digest = sha256(children);
-    span.set_tag("sha256_hex", hex(digest));
     return 0;
   } else if (fs::is_regular_file(path)) {
     // Regular file: Calculate hash of file contents.
-    dd::SpanConfig config;
-    config.name = "sha256.file";
-    auto span = active_span.create_child(config);
-    span.set_tag("path", path.u8string());
-    span.set_tag("file_name", path.u8string());
-    span.set_tag("file_size_bytes", std::to_string(fs::file_size(path)));
-    const int rc = sha256(digest, path);
-    if (rc) {
-      span.set_tag("error", "Unable to calculate sha256 hash.");
-    } else {
-      span.set_tag("sha256_hex", hex(digest));
-    }
-    return rc;
+    return sha256(digest, path);
   } else {
     // Other kind of file (neither directory nor regular file): Ignore.
     return 1;
@@ -131,43 +99,22 @@ int sha256_traced(Digest &digest, const fs::path &path,
 }
 
 int main() {
-  dd::TracerConfig config;
-  config.defaults.service = "dd-trace-cpp-example";
-  config.defaults.environment = "dev";
-
-  auto validated = dd::finalize_config(config);
-  if (auto *error = validated.if_error()) {
-    std::cerr << "Invalid config: " << *error << '\n';
-    return 1;
-  }
-
-  dd::Tracer tracer{*validated};
-
   const std::string prompt = "enter a file or directory (ctrl+d to quit): ";
   std::string input_path;
   while (std::cout << prompt << std::flush,
          std::getline(std::cin, input_path)) {
     const fs::path path(input_path);
 
-    // Create a root span for the current request.
-    dd::SpanConfig config;
-    config.name = "sha256.request";
-    auto root = tracer.create_span(config);
-    root.set_tag("path", path.u8string());
-
     if (!fs::exists(path)) {
       std::cerr << "The file " << path << " does not exist.\n";
-      root.set_tag("error", "The file does not exist.");
       continue;
     }
 
     Digest digest;
-    if (sha256_traced(digest, path, root)) {
+    if (sha256_traced(digest, path)) {
       std::cerr << "Unable to calculate the sha256 hash of " << path << ".\n";
-      root.set_tag("error", "Unable to calculate sha256 hash.");
     } else {
       const std::string hex_digest = hex(digest);
-      root.set_tag("sha256_hex", hex_digest);
       std::cout << "sha256(" << path << "): " << hex_digest << std::endl;
     }
   }

@@ -8,6 +8,6 @@ services:
     environment:
       - DD_API_KEY
       - DD_APM_ENABLED=true
-      - DD_LOG_LEVEL=ERROR
+      - DD_LOG_LEVEL=DEBUG
     ports:
       - 8126:8126
