@@ -141,7 +141,10 @@ target_sources(dd_trace_cpp-objects PUBLIC
   src/datadog/clock.h
   src/datadog/collector.h
   src/datadog/collector_response.h
-  # src/datadog/curl.h except for curl.h
+  # Omit curl.h so that, after installation, including our headers never
+  # requires libcurl headers. libcurl is an implementation detail of this
+  # library.
+  # src/datadog/curl.h
   src/datadog/datadog_agent_config.h
   src/datadog/datadog_agent.h
   src/datadog/default_http_client.h
@@ -213,10 +216,17 @@ set_target_properties(dd_trace_cpp-static PROPERTIES OUTPUT_NAME "dd_trace_cpp")
 add_dependencies(dd_trace_cpp-static dd_trace_cpp-objects)
 target_link_libraries(dd_trace_cpp-static dd_trace_cpp-objects)
 
-# When installing, install the static library, the shared library, and the
-# public headers.
+# When installing, install the static library, the shared library, the public
+# headers.
 install(TARGETS dd_trace_cpp-static dd_trace_cpp-shared dd_trace_cpp-objects
   FILE_SET public_headers)
+# Additionally, install libraries built by libcurl.
+# libcurl isn't needed in the installation if clients are linking using
+# libdd_trace_cpp.so. However, if they're linking using libdd_trace_cpp.a, they
+# need also -lcurl, and so libcurl.a.
+install(DIRECTORY  ${CMAKE_BINARY_DIR}/lib
+    DESTINATION "."
+    USE_SOURCE_PERMISSIONS)
 
 if(BUILD_TESTING)
   add_subdirectory(test)
