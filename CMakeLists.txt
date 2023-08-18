@@ -219,6 +219,7 @@ target_link_libraries(dd_trace_cpp-static dd_trace_cpp-objects)
 # When installing, install the static library, the shared library, the public
 # headers.
 install(TARGETS dd_trace_cpp-static dd_trace_cpp-shared dd_trace_cpp-objects
+  EXPORT "${PROJECT_NAME}-targets"
   FILE_SET public_headers)
 # Additionally, install libraries built by libcurl.
 # libcurl isn't needed in the installation if clients are linking using
@@ -227,6 +228,14 @@ install(TARGETS dd_trace_cpp-static dd_trace_cpp-shared dd_trace_cpp-objects
 install(DIRECTORY  ${CMAKE_BINARY_DIR}/lib
     DESTINATION "."
     USE_SOURCE_PERMISSIONS)
+# Finally, generate and/or install *.cmake files so that other CMake-based builds
+# can refer to targets defined here.
+install(
+  EXPORT "${PROJECT_NAME}-targets"
+  NAMESPACE "${PROJECT_NAME}::"
+  DESTINATION "lib/cmake/${PROJECT_NAME}")
+install(FILES "${PROJECT_NAME}-config.cmake"
+  DESTINATION "lib/cmake/${PROJECT_NAME}")
 
 if(BUILD_TESTING)
   add_subdirectory(test)
