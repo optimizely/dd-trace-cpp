@@ -5,14 +5,16 @@
 #include "json.hpp"
 #include "logger.h"
 #include "platform_util.h"
+#include "span_defaults.h"
 #include "version.h"
 
 namespace datadog {
 namespace tracing {
 
-TracerTelemetry::TracerTelemetry(const Clock& clock,
-                                 const FinalizedTracerConfig& config)
-    : clock_(clock), config_(config) {
+TracerTelemetry::TracerTelemetry(
+    const Clock& clock, const std::shared_ptr<Logger>& logger,
+    const std::shared_ptr<const SpanDefaults>& span_defaults)
+    : clock_(clock), logger_(logger), span_defaults_(span_defaults) {
   metrics_snapshots_.emplace_back(metrics_.tracer.spans_created,
                                   MetricSnapshot{});
   metrics_snapshots_.emplace_back(metrics_.tracer.spans_finished,
@@ -43,15 +45,10 @@ TracerTelemetry::TracerTelemetry(const Clock& clock,
                                   MetricSnapshot{});
 }
 
-std::string TracerTelemetry::app_started() {
+std::string TracerTelemetry::app_started(nlohmann::json&& tracer_config) {
   time_t tracer_time = std::chrono::duration_cast<std::chrono::seconds>(
                            clock_().wall.time_since_epoch())
                            .count();
-  std::string hostname = get_hostname().value_or("hostname-unavailable");
-  config_.logger->log_error([&](auto& stream) {
-    stream << "app-started: hostname=" << hostname << " seq_id=" << seq_id;
-  });
-
   seq_id++;
   auto payload =
       nlohmann::json::object(
@@ -64,15 +61,16 @@ std::string TracerTelemetry::app_started() {
               {"debug", true},
               {"application",
                nlohmann::json::object({
-                   {"service_name", config_.defaults.service},
-                   {"env", config_.defaults.environment},
+                   {"service_name", span_defaults_->service},
+                   {"env", span_defaults_->environment},
                    {"tracer_version", tracer_version_string},
                    {"language_name", "cpp"},
                    {"language_version", std::to_string(__cplusplus)},
                })},
-              // TODO: host information (hostname, os, os_version, kernel, etc)
+              // TODO: host information (os, os_version, kernel, etc)
               {"host", nlohmann::json::object({
-                           {"hostname", hostname},
+                           {"hostname",
+                            get_hostname().value_or("hostname-unavailable")},
                        })},
               {"payload",
                nlohmann::json::object({
@@ -82,6 +80,13 @@ std::string TracerTelemetry::app_started() {
                                      })},
 
                })},
+              // TODO: Until we figure out "configuration", above, include a
+              // JSON dump of the tracer configuration as "additional_payload".
+              {"additional_payload",
+               nlohmann::json::array({nlohmann::json::object({
+                   {"name", "tracer_config_json"},
+                   {"value", tracer_config.dump()},
+               })})},
           })
           .dump();
 
@@ -156,8 +161,8 @@ std::string TracerTelemetry::heartbeat_and_telemetry() {
               {"debug", true},
               {"application",
                nlohmann::json::object({
-                   {"service_name", config_.defaults.service},
-                   {"env", config_.defaults.environment},
+                   {"service_name", span_defaults_->service},
+                   {"env", span_defaults_->environment},
                    {"tracer_version", tracer_version_string},
                    {"language_name", "cpp"},
                    {"language_version", std::to_string(__cplusplus)},
@@ -172,7 +177,7 @@ std::string TracerTelemetry::heartbeat_and_telemetry() {
                           })},
           })
           .dump();
-  config_.logger->log_error(
+  logger_->log_error(
       [&](auto& stream) { stream << "telemetry payload: " << payload; });
   return payload;
 }
