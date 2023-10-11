@@ -33,7 +33,6 @@ CurlLibrary libcurl;
 
 // The following is for multi-threaded race debugging.
 struct EventLog {
-  static const int process_id;
   static int next_thread_id;
   static std::mutex mutex;
 
@@ -57,6 +56,7 @@ struct EventLog {
   }
 
   ~EventLog() {
+    const int process_id = get_process_id();
     std::lock_guard<std::mutex> lock{mutex};
     std::ofstream stream{"/tmp/race-debug.log", std::ios::app};
     for (const auto &event : events) {
@@ -84,7 +84,6 @@ struct EventLog {
   }
 };
 
-const int EventLog::process_id = get_process_id();
 int EventLog::next_thread_id = 1;
 std::mutex EventLog::mutex;
 
