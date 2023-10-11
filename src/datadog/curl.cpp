@@ -49,8 +49,11 @@ struct EventLog {
 
   EventLog() {
     events.reserve(1024 * 1024);  // big but arbitrary
-    std::lock_guard<std::mutex> lock{mutex};
-    id = next_thread_id++;
+    {
+      std::lock_guard<std::mutex> lock{mutex};
+      id = next_thread_id++;
+    }
+    log(__FILE__, __LINE__, "spawn");
   }
 
   ~EventLog() {
@@ -67,19 +70,16 @@ struct EventLog {
   }
 
   void log(const char *file, int line, const char *type) {
-    const char *last_slash = "";
+    auto now = std::chrono::steady_clock::now();
+
+    // Keep only the file name, not its whole path.
+    const char *short_name = file;
     for (const char *p = file; *p; ++p) {
       if (*p == '/') {
-        last_slash = p;
+        short_name = p + 1;
       }
     }
-    const char *short_name;
-    if (*last_slash) {
-      short_name = last_slash + 1;
-    } else {
-      short_name = file;
-    }
-    auto now = std::chrono::steady_clock::now();
+
     events.push_back({now, type, short_name, line});
   }
 };
@@ -463,11 +463,16 @@ void CurlImpl::drain(std::chrono::steady_clock::time_point deadline) {
   LOG_EVENT("drain_before_lock");
   std::unique_lock<std::mutex> lock(mutex_);
   LOG_EVENT("drain_in_lock");
-  no_requests_.wait_until(lock, deadline, [this]() {
+  const bool done = no_requests_.wait_until(lock, deadline, [this]() {
     LOG_EVENT("drain_check_condition");
     return num_active_handles_ == 0 && new_handles_.empty();
   });
-  LOG_EVENT("drain_after_wait");
+
+  if (done) {
+    LOG_EVENT("drain_after_wait_done");
+  } else {
+    LOG_EVENT("drain_after_wait_not_done");
+  }
 }
 
 std::size_t CurlImpl::on_read_header(char *data, std::size_t,
@@ -553,7 +558,9 @@ void CurlImpl::run() {
     // us to handle.  Handle any pending messages.
     while ((message = curl_.multi_info_read(multi_handle_,
                                             &num_messages_remaining))) {
+      LOG_EVENT("run_before_handle_message");
       handle_message(*message);
+      LOG_EVENT("run_after_handle_message");
     }
     LOG_EVENT("run_after_reads");
 
@@ -568,6 +575,7 @@ void CurlImpl::run() {
 
     // New requests might have been added while we were sleeping.
     for (; !new_handles_.empty(); new_handles_.pop_front()) {
+      LOG_EVENT("run_adding_handle");
       CURL *const handle = new_handles_.front();
       log_on_error(curl_.multi_add_handle(multi_handle_, handle));
       request_handles_.insert(handle);
@@ -575,6 +583,7 @@ void CurlImpl::run() {
     LOG_EVENT("run_after_new_handles_before_check");
 
     if (shutting_down_) {
+      LOG_EVENT("run_break_due_to_shutdown");
       break;
     }
   }
