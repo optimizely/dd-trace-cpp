@@ -472,10 +472,6 @@ void CurlImpl::run() {
       no_requests_.notify_all();
     }
 
-    if (shutting_down_) {
-      break;
-    }
-
     // If a request is done or errored out, curl will enqueue a "message" for
     // us to handle.  Handle any pending messages.
     while ((message = curl_.multi_info_read(multi_handle_,
@@ -495,6 +491,10 @@ void CurlImpl::run() {
       log_on_error(curl_.multi_add_handle(multi_handle_, handle));
       request_handles_.insert(handle);
     }
+
+    if (shutting_down_) {
+      break;
+    }
   }
 
   // We're shutting down.  Clean up any remaining request handles.
@@ -504,19 +504,12 @@ void CurlImpl::run() {
         CURLE_OK) {
       delete reinterpret_cast<Request *>(user_data);
     }
+
     log_on_error(curl_.multi_remove_handle(multi_handle_, handle));
     curl_.easy_cleanup(handle);
   }
-  // Same as above, but without needing to call `multi_remove_handle`.
-  for (const auto &handle : new_handles_) {
-    char *user_data;
-    if (log_on_error(curl_.easy_getinfo_private(handle, &user_data)) ==
-        CURLE_OK) {
-      delete reinterpret_cast<Request *>(user_data);
-    }
-    curl_.easy_cleanup(handle);
-  }
 
+  request_handles_.clear();
   log_on_error(curl_.multi_cleanup(multi_handle_));
   curl_.global_cleanup();
 }
