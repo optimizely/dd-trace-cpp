@@ -5,6 +5,7 @@
 #include <chrono>
 #include <condition_variable>
 #include <cstddef>
+#include <fstream>
 #include <iterator>
 #include <list>
 #include <memory>
@@ -19,6 +20,7 @@
 #include "json.hpp"
 #include "logger.h"
 #include "parse_util.h"
+#include "platform_util.h"
 #include "string_view.h"
 
 namespace datadog {
@@ -28,6 +30,67 @@ namespace {
 // `libcurl` is the default implementation: it calls `curl_*` functions under
 // the hood.
 CurlLibrary libcurl;
+
+// The following is for multi-threaded race debugging.
+struct EventLog {
+  static const int process_id;
+  static int next_thread_id;
+  static std::mutex mutex;
+
+  struct Event {
+    std::chrono::steady_clock::time_point when;
+    const char *type;
+    const char *source_file;
+    int source_line;
+  };
+
+  int id;
+  std::vector<Event> events;
+
+  EventLog() {
+    events.reserve(1024 * 1024);  // big but arbitrary
+    std::lock_guard<std::mutex> lock{mutex};
+    id = next_thread_id++;
+  }
+
+  ~EventLog() {
+    std::lock_guard<std::mutex> lock{mutex};
+    std::ofstream stream{"/tmp/race-debug.log", std::ios::app};
+    for (const auto &event : events) {
+      const auto &[when, type, file, line] = event;
+      const auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(
+                          when.time_since_epoch())
+                          .count();
+      stream << ns << ' ' << process_id << ' ' << id << ' ' << type << ' '
+             << file << ':' << line << '\n';
+    }
+  }
+
+  void log(const char *file, int line, const char *type) {
+    const char *last_slash = "";
+    for (const char *p = file; *p; ++p) {
+      if (*p == '/') {
+        last_slash = p;
+      }
+    }
+    const char *short_name;
+    if (*last_slash) {
+      short_name = last_slash + 1;
+    } else {
+      short_name = file;
+    }
+    auto now = std::chrono::steady_clock::now();
+    events.push_back({now, type, short_name, line});
+  }
+};
+
+const int EventLog::process_id = get_process_id();
+int EventLog::next_thread_id = 1;
+std::mutex EventLog::mutex;
+
+thread_local EventLog event_log;
+
+#define LOG_EVENT(TYPE) event_log.log(__FILE__, __LINE__, TYPE)
 
 }  // namespace
 
@@ -305,12 +368,17 @@ CurlImpl::~CurlImpl() {
     return;
   }
 
+  LOG_EVENT("destructor_before_lock");
   {
     std::lock_guard<std::mutex> lock(mutex_);
+    LOG_EVENT("destructor_in_lock");
     shutting_down_ = true;
   }
+  LOG_EVENT("destructor_after_lock_before_wakeup");
   log_on_error(curl_.multi_wakeup(multi_handle_));
+  LOG_EVENT("destructor_after_wakeup_before_join");
   event_loop_.join();
+  LOG_EVENT("destructor_after_join");
 }
 
 Expected<void> CurlImpl::post(const HTTPClient::URL &url,
@@ -392,10 +460,14 @@ Expected<void> CurlImpl::post(const HTTPClient::URL &url,
 }
 
 void CurlImpl::drain(std::chrono::steady_clock::time_point deadline) {
+  LOG_EVENT("drain_before_lock");
   std::unique_lock<std::mutex> lock(mutex_);
+  LOG_EVENT("drain_in_lock");
   no_requests_.wait_until(lock, deadline, [this]() {
+    LOG_EVENT("drain_check_condition");
     return num_active_handles_ == 0 && new_handles_.empty();
   });
+  LOG_EVENT("drain_after_wait");
 }
 
 std::size_t CurlImpl::on_read_header(char *data, std::size_t,
@@ -467,23 +539,32 @@ void CurlImpl::run() {
   std::unique_lock<std::mutex> lock(mutex_);
 
   for (;;) {
+    LOG_EVENT("run_loop_top");
     log_on_error(curl_.multi_perform(multi_handle_, &num_active_handles_));
+    LOG_EVENT("run_after_perform");
     if (num_active_handles_ == 0) {
+      LOG_EVENT("run_before_notify");
       no_requests_.notify_all();
+      LOG_EVENT("run_after_notify");
     }
 
+    LOG_EVENT("run_before_reads");
     // If a request is done or errored out, curl will enqueue a "message" for
     // us to handle.  Handle any pending messages.
     while ((message = curl_.multi_info_read(multi_handle_,
                                             &num_messages_remaining))) {
       handle_message(*message);
     }
+    LOG_EVENT("run_after_reads");
 
     const int max_wait_milliseconds = 10 * 1000;
     lock.unlock();
+    LOG_EVENT("run_unlocked_before_poll");
     log_on_error(curl_.multi_poll(multi_handle_, nullptr, 0,
                                   max_wait_milliseconds, nullptr));
+    LOG_EVENT("run_unlocked_after_poll");
     lock.lock();
+    LOG_EVENT("run_relock");
 
     // New requests might have been added while we were sleeping.
     for (; !new_handles_.empty(); new_handles_.pop_front()) {
@@ -491,12 +572,14 @@ void CurlImpl::run() {
       log_on_error(curl_.multi_add_handle(multi_handle_, handle));
       request_handles_.insert(handle);
     }
+    LOG_EVENT("run_after_new_handles_before_check");
 
     if (shutting_down_) {
       break;
     }
   }
 
+  LOG_EVENT("run_after_loop");
   // We're shutting down.  Clean up any remaining request handles.
   for (const auto &handle : request_handles_) {
     char *user_data;
