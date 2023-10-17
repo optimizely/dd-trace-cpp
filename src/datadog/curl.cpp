@@ -91,6 +91,51 @@ thread_local EventLog event_log;
 
 #define LOG_EVENT(TYPE) event_log.log(__FILE__, __LINE__, TYPE)
 
+struct Timings {
+  curl_off_t namelookup = -1;
+  curl_off_t connect = -1;
+  curl_off_t pretransfer = -1;
+  curl_off_t starttransfer = -1;
+  curl_off_t total = -1;
+  curl_off_t redirect = -1;
+};
+
+struct TimingsLog {
+  std::vector<Timings> timings;
+  static std::mutex mutex;
+
+  TimingsLog() {
+    timings.reserve(1024); // large but arbitrary
+  }
+
+  void add_entry(CurlLibrary& curl, CURL *handle) {
+    timings.emplace_back();
+    Timings& entry = timings.back();
+    (void)curl.easy_getinfo_namelookup_time_t(handle, &entry.namelookup);
+    (void)curl.easy_getinfo_connect_time_t(handle, &entry.connect);
+    (void)curl.easy_getinfo_pretransfer_time_t(handle, &entry.pretransfer);
+    (void)curl.easy_getinfo_starttransfer_time_t(handle, &entry.starttransfer);
+    (void)curl.easy_getinfo_total_time_t(handle, &entry.total);
+    (void)curl.easy_getinfo_redirect_time_t(handle, &entry.redirect);
+  }
+
+  ~TimingsLog() {
+    std::lock_guard<std::mutex> guard{mutex};
+    std::ofstream log{"/tmp/timings.log", std::ios::app};
+    for (const Timings& times : timings) {
+      log << times.namelookup << ' '
+          << times.connect << ' '
+          << times.pretransfer << ' '
+          << times.starttransfer << ' '
+          << times.total << ' '
+          << times.redirect << '\n';
+    }
+  }
+};
+
+std::mutex TimingsLog::mutex;
+thread_local TimingsLog timings_log;
+
 }  // namespace
 
 CURL *CurlLibrary::easy_init() { return curl_easy_init(); }
@@ -103,6 +148,30 @@ CURLcode CurlLibrary::easy_getinfo_private(CURL *curl, char **user_data) {
 
 CURLcode CurlLibrary::easy_getinfo_response_code(CURL *curl, long *code) {
   return curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, code);
+}
+
+CURLcode CurlLibrary::easy_getinfo_namelookup_time_t(CURL *curl, curl_off_t *microseconds) {
+  return curl_easy_getinfo(curl, CURLINFO_NAMELOOKUP_TIME_T, microseconds);
+}
+
+CURLcode CurlLibrary::easy_getinfo_connect_time_t(CURL *curl, curl_off_t *microseconds) {
+  return curl_easy_getinfo(curl, CURLINFO_CONNECT_TIME_T, microseconds);
+}
+
+CURLcode CurlLibrary::easy_getinfo_pretransfer_time_t(CURL *curl, curl_off_t *microseconds) {
+  return curl_easy_getinfo(curl, CURLINFO_PRETRANSFER_TIME_T, microseconds);
+}
+
+CURLcode CurlLibrary::easy_getinfo_starttransfer_time_t(CURL *curl, curl_off_t *microseconds) {
+  return curl_easy_getinfo(curl, CURLINFO_STARTTRANSFER_TIME_T, microseconds);
+}
+
+CURLcode CurlLibrary::easy_getinfo_total_time_t(CURL *curl, curl_off_t *microseconds) {
+  return curl_easy_getinfo(curl, CURLINFO_TOTAL_TIME_T, microseconds);
+}
+
+CURLcode CurlLibrary::easy_getinfo_redirect_time_t(CURL *curl, curl_off_t *microseconds) {
+  return curl_easy_getinfo(curl, CURLINFO_REDIRECT_TIME_T, microseconds);
 }
 
 CURLcode CurlLibrary::easy_setopt_errorbuffer(CURL *handle, char *buffer) {
@@ -608,6 +677,10 @@ void CurlImpl::handle_message(const CURLMsg &message) {
   if (message.msg != CURLMSG_DONE) {
     return;
   }
+
+  // TODO
+  timings_log.add_entry(curl_, message.easy_handle);
+  // end TODO
 
   auto *const request_handle = message.easy_handle;
   char *user_data;

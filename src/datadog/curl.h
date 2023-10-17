@@ -47,6 +47,12 @@ class CurlLibrary {
   virtual CURL *easy_init();
   virtual CURLcode easy_getinfo_private(CURL *curl, char **user_data);
   virtual CURLcode easy_getinfo_response_code(CURL *curl, long *code);
+  virtual CURLcode easy_getinfo_namelookup_time_t(CURL *curl, curl_off_t *microseconds);
+  virtual CURLcode easy_getinfo_connect_time_t(CURL *curl, curl_off_t *microseconds);
+  virtual CURLcode easy_getinfo_pretransfer_time_t(CURL *curl, curl_off_t *microseconds);
+  virtual CURLcode easy_getinfo_starttransfer_time_t(CURL *curl, curl_off_t *microseconds);
+  virtual CURLcode easy_getinfo_total_time_t(CURL *curl, curl_off_t *microseconds);
+  virtual CURLcode easy_getinfo_redirect_time_t(CURL *curl, curl_off_t *microseconds);
   virtual CURLcode easy_setopt_errorbuffer(CURL *handle, char *buffer);
   virtual CURLcode easy_setopt_headerdata(CURL *handle, void *data);
   virtual CURLcode easy_setopt_headerfunction(CURL *handle, HeaderCallback);
