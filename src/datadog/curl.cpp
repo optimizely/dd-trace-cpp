@@ -23,6 +23,8 @@
 #include "platform_util.h"
 #include "string_view.h"
 
+#include <sys/utsname.h>
+
 namespace datadog {
 namespace tracing {
 namespace {
@@ -100,11 +102,18 @@ struct Timings {
   curl_off_t redirect = -1;
 };
 
+std::string uname_machine() {
+  utsname info = {};
+  uname(&info);
+  return info.machine;
+}
+
 struct TimingsLog {
   std::vector<Timings> timings;
+  const std::string machine;
   static std::mutex mutex;
 
-  TimingsLog() {
+  TimingsLog() : machine(uname_machine()) {
     timings.reserve(1024); // large but arbitrary
   }
 
@@ -123,7 +132,8 @@ struct TimingsLog {
     std::lock_guard<std::mutex> guard{mutex};
     std::ofstream log{"/tmp/timings.log", std::ios::app};
     for (const Timings& times : timings) {
-      log << times.namelookup << ' '
+      log << machine << ' '
+          << times.namelookup << ' '
           << times.connect << ' '
           << times.pretransfer << ' '
           << times.starttransfer << ' '
