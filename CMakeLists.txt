@@ -66,8 +66,8 @@ endif()
 
 include (ExternalProject)
 ExternalProject_Add(curl
-  URL "https://github.com/curl/curl/releases/download/curl-7_85_0/curl-7.85.0.tar.gz"
-  URL_MD5 "4e9eb4f434e9be889e510f038754d3de"
+  URL "https://github.com/curl/curl/releases/download/curl-8_4_0/curl-8.4.0.tar.gz"
+  URL_MD5 "533e8a3b1228d5945a6a512537bea4c7"
   BUILD_IN_SOURCE 1
   DOWNLOAD_EXTRACT_TIMESTAMP 0
   SOURCE_DIR ${CMAKE_BINARY_DIR}/curl
@@ -205,12 +205,12 @@ include_directories(${CMAKE_BINARY_DIR}/include)
 
 # Linking this library requires libcurl and threads.
 find_package(Threads REQUIRED)
-target_link_libraries(dd_trace_cpp-objects 
-  PUBLIC 
-    ${CMAKE_BINARY_DIR}/lib/libcurl.a 
-  PUBLIC 
-    Threads::Threads 
-    ${COVERAGE_LIBRARIES} 
+target_link_libraries(dd_trace_cpp-objects
+  PUBLIC
+    ${CMAKE_BINARY_DIR}/lib/libcurl.a
+  PUBLIC
+    Threads::Threads
+    ${COVERAGE_LIBRARIES}
     ${COREFOUNDATION_LIBRARY}
     ${SYSTEMCONFIGURATION_LIBRARY}
 )
