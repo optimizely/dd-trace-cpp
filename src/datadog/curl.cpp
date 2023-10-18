@@ -94,6 +94,7 @@ thread_local EventLog event_log;
 #define LOG_EVENT(TYPE) event_log.log(__FILE__, __LINE__, TYPE)
 
 struct Timings {
+  std::chrono::system_clock::time_point report;
   curl_off_t namelookup = -1;
   curl_off_t connect = -1;
   curl_off_t pretransfer = -1;
@@ -118,8 +119,10 @@ struct TimingsLog {
   }
 
   void add_entry(CurlLibrary& curl, CURL *handle) {
+    const auto now = std::chrono::system_clock::now();
     timings.emplace_back();
     Timings& entry = timings.back();
+    entry.report = now;
     (void)curl.easy_getinfo_namelookup_time_t(handle, &entry.namelookup);
     (void)curl.easy_getinfo_connect_time_t(handle, &entry.connect);
     (void)curl.easy_getinfo_pretransfer_time_t(handle, &entry.pretransfer);
@@ -132,7 +135,11 @@ struct TimingsLog {
     std::lock_guard<std::mutex> guard{mutex};
     std::ofstream log{"/tmp/timings.log", std::ios::app};
     for (const Timings& times : timings) {
-      log << machine << ' '
+      std::time_t unix_time = std::chrono::system_clock::to_time_t(times.report);
+      char iso_time[sizeof "2011-10-08T07:07:09Z"];
+      strftime(iso_time, sizeof iso_time, "%FT%TZ", gmtime(&unix_time));
+      log << iso_time << ' '
+          << machine << ' '
           << times.namelookup << ' '
           << times.connect << ' '
           << times.pretransfer << ' '
