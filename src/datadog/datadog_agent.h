@@ -52,6 +52,10 @@ class DatadogAgent : public Collector {
       std::vector<std::unique_ptr<SpanData>>&& spans,
       const std::shared_ptr<TraceSampler>& response_handler) override;
 
+  // Flush any pending traces and wait until either the HTTP client has finished
+  // processing any pending requests, or until the specified `deadline`.
+  void drain(std::chrono::steady_clock::time_point deadline);
+
   nlohmann::json config_json() const override;
 };
 

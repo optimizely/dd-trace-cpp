@@ -75,6 +75,9 @@ class Tracer {
   Expected<Span> extract_or_create_span(const DictReader& reader,
                                         const SpanConfig& config);
 
+  // Return this tracer's collector.
+  Collector& collector();
+
   // Return a JSON object describing this Tracer's configuration. It is the same
   // JSON object that was logged when this Tracer was created.
   nlohmann::json config_json() const;

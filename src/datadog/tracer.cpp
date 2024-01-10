@@ -271,6 +271,8 @@ Tracer::Tracer(const FinalizedTracerConfig& config,
   }
 }
 
+Collector& Tracer::collector() { return *collector_; }
+
 nlohmann::json Tracer::config_json() const {
   return make_config_json(tracer_version_string, *collector_, *defaults_,
                           *trace_sampler_, *span_sampler_, injection_styles_,

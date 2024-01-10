@@ -138,11 +138,15 @@ DatadogAgent::DatadogAgent(const FinalizedDatadogAgentConfig& config,
   assert(logger_);
 }
 
+void DatadogAgent::drain(std::chrono::steady_clock::time_point deadline) {
+  flush();
+  http_client_->drain(deadline);
+}
+
 DatadogAgent::~DatadogAgent() {
   const auto deadline = clock_().tick + std::chrono::seconds(2);
   cancel_scheduled_flush_();
-  flush();
-  http_client_->drain(deadline);
+  drain(deadline);
 }
 
 Expected<void> DatadogAgent::send(
