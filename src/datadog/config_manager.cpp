@@ -63,6 +63,16 @@ std::vector<ConfigMetadata> ConfigManager::update(const ConfigUpdate& conf) {
     metadata.emplace_back(std::move(trace_sampling_metadata));
   }
 
+  if (!conf.trace_sample_rules) {
+  } else {
+    auto maybe_rules = parse_rules(*conf.trace_sample_rules);
+    if (auto error = maybe_rules.if_error()) {
+      // TBD
+    }
+
+    // trace_sampler_cfg.rules = std::move(*maybe_rules);
+  }
+
   if (!conf.tags) {
     reset_config(ConfigName::TAGS, span_defaults_, metadata);
   } else {

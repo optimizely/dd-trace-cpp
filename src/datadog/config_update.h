@@ -2,7 +2,8 @@
 
 #include <unordered_map>
 
-#include "optional"
+#include "json_fwd.hpp"
+#include "optional.h"
 #include "trace_sampler_config.h"
 
 namespace datadog {
@@ -17,6 +18,7 @@ struct ConfigUpdate {
   Optional<bool> report_traces;
   Optional<double> trace_sampling_rate;
   Optional<std::vector<StringView>> tags;
+  const nlohmann::json* trace_sample_rules;
 };
 
 }  // namespace tracing

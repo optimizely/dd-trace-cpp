@@ -7,7 +7,9 @@
 #include <vector>
 
 #include "expected.h"
+#include "json_fwd.hpp"
 #include "string_view.h"
+#include "trace_sampler_config.h"
 
 namespace datadog {
 namespace tracing {
@@ -40,6 +42,9 @@ Expected<std::unordered_map<std::string, std::string>> parse_tags(
 
 Expected<std::unordered_map<std::string, std::string>> parse_tags(
     StringView input);
+
+Expected<std::vector<TraceSamplerConfig::Rule>> parse_rules(
+    const nlohmann::json &json_rules);
 
 }  // namespace tracing
 }  // namespace datadog

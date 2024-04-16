@@ -31,77 +31,13 @@ Expected<TraceSamplerConfig> load_trace_sampler_env_config() {
                    std::move(message)};
     }
 
-    std::string type = json_rules.type_name();
-    if (type != "array") {
-      std::string message;
-      message += "Trace sampling rules must be an array, but ";
-      append(message, name(environment::DD_TRACE_SAMPLING_RULES));
-      message += " has JSON type \"";
-      message += type;
-      message += "\": ";
-      append(message, *rules_env);
-      return Error{Error::TRACE_SAMPLING_RULES_WRONG_TYPE, std::move(message)};
+    auto parsed_rules = parse_rules(json_rules);
+    if (auto error = parsed_rules.if_error()) {
+      return *error;
     }
 
-    const std::unordered_set<std::string> allowed_properties{
-        "service", "name", "resource", "tags", "sample_rate"};
-
-    for (const auto &json_rule : json_rules) {
-      auto matcher = SpanMatcher::from_json(json_rule);
-      if (auto *error = matcher.if_error()) {
-        std::string prefix;
-        prefix += "Unable to create a rule from ";
-        append(prefix, name(environment::DD_TRACE_SAMPLING_RULES));
-        prefix += " value ";
-        append(prefix, *rules_env);
-        prefix += ": ";
-        return error->with_prefix(prefix);
-      }
-
-      TraceSamplerConfig::Rule rule{*matcher};
-
-      auto sample_rate = json_rule.find("sample_rate");
-      if (sample_rate != json_rule.end()) {
-        type = sample_rate->type_name();
-        if (type != "number") {
-          std::string message;
-          message += "Unable to parse a rule from ";
-          append(message, name(environment::DD_TRACE_SAMPLING_RULES));
-          message += " value ";
-          append(message, *rules_env);
-          message += ".  The \"sample_rate\" property of the rule ";
-          message += json_rule.dump();
-          message += " is not a number, but instead has type \"";
-          message += type;
-          message += "\".";
-          return Error{Error::TRACE_SAMPLING_RULES_SAMPLE_RATE_WRONG_TYPE,
-                       std::move(message)};
-        }
-        rule.sample_rate = *sample_rate;
-      }
-
-      // Look for unexpected properties.
-      for (const auto &[key, value] : json_rule.items()) {
-        if (allowed_properties.count(key)) {
-          continue;
-        }
-        std::string message;
-        message += "Unexpected property \"";
-        message += key;
-        message += "\" having value ";
-        message += value.dump();
-        message += " in trace sampling rule ";
-        message += json_rule.dump();
-        message += ".  Error occurred while parsing ";
-        append(message, name(environment::DD_TRACE_SAMPLING_RULES));
-        message += ": ";
-        append(message, *rules_env);
-        return Error{Error::TRACE_SAMPLING_RULES_UNKNOWN_PROPERTY,
-                     std::move(message)};
-      }
-
-      env_config.rules.emplace_back(std::move(rule));
-    }
+    env_config.rules.insert(env_config.rules.end(), parsed_rules->begin(),
+                            parsed_rules->end());
   }
 
   if (auto sample_rate_env = lookup(environment::DD_TRACE_SAMPLE_RATE)) {
