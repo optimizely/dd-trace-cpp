@@ -57,6 +57,8 @@ class ConfigManager {
   std::shared_ptr<TraceSampler> trace_sampler_;
   Optional<Rate> sampling_rate_;
 
+  std::unordered_map<SpanMatcher, SamplingResult, SpanMatcher::Hash>
+      trace_sampling_rules_;
   DynamicConfig<std::shared_ptr<const SpanDefaults>> span_defaults_;
   DynamicConfig<bool> report_traces_;
 

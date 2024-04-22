@@ -16,7 +16,7 @@ ConfigManager::ConfigManager(const FinalizedTracerConfig& config)
       report_traces_(config.report_traces) {
   auto found = config.trace_sampler.rules.find(catch_all);
   if (found != config.trace_sampler.rules.cend()) {
-    sampling_rate_ = found->second;
+    sampling_rate_ = found->second.rate;
   }
 }
 
@@ -40,13 +40,10 @@ std::vector<ConfigMetadata> ConfigManager::update(const ConfigUpdate& conf) {
 
   std::lock_guard<std::mutex> lock(mutex_);
 
-  if (!conf.trace_sampling_rate) {
-    if (!sampling_rate_) {
-      trace_sampler_->remove_rule(catch_all);
-    } else {
-      trace_sampler_->insert_or_assign_rule(catch_all, *sampling_rate_);
-      metadata.emplace_back(default_metadata_[ConfigName::TRACE_SAMPLING_RATE]);
-    }
+  auto trace_sampling_rules = trace_sampling_rules_;
+
+  if (!conf.trace_sampling_rate && sampling_rate_) {
+    metadata.emplace_back(default_metadata_[ConfigName::TRACE_SAMPLING_RATE]);
   } else {
     ConfigMetadata trace_sampling_metadata(
         ConfigName::TRACE_SAMPLING_RATE,
@@ -57,21 +54,41 @@ std::vector<ConfigMetadata> ConfigManager::update(const ConfigUpdate& conf) {
     if (auto error = maybe_rate.if_error()) {
       trace_sampling_metadata.error = *error;
     } else {
-      trace_sampler_->insert_or_assign_rule(catch_all, *maybe_rate);
+      trace_sampling_rules[catch_all] =
+          SamplingResult{*maybe_rate, SamplingMechanism::RULE};
     }
 
     metadata.emplace_back(std::move(trace_sampling_metadata));
   }
 
   if (!conf.trace_sample_rules) {
+    auto found = default_metadata_.find(ConfigName::TRACE_SAMPLING_RULES);
+    if (found != default_metadata_.cend()) {
+      metadata.emplace_back(found->second);
+    }
   } else {
+    // ConfigMetadata trace_sampling_metadata(
+    //     ConfigName::TRACE_SAMPLING_RULES,
+    //     to_string(*conf.trace_sampling_rate, 1),
+    //     ConfigMetadata::Origin::REMOTE_CONFIG);
+
     auto maybe_rules = parse_rules(*conf.trace_sample_rules);
     if (auto error = maybe_rules.if_error()) {
       // TBD
     }
 
-    // trace_sampler_cfg.rules = std::move(*maybe_rules);
+    for (auto& cfg_rule : *maybe_rules) {
+      SpanMatcher matcher = (SpanMatcher)cfg_rule;
+      auto maybe_rate = Rate::from(cfg_rule.sample_rate);
+      trace_sampling_rules_.emplace(
+          std::move(matcher),
+          SamplingResult{*maybe_rate, SamplingMechanism::REMOTE_USER_RULE});
+    }
+
+    // metadata.emplace_back(std::move(tbd)):
   }
+
+  trace_sampler_->set_rules(trace_sampling_rules_);
 
   if (!conf.tags) {
     reset_config(ConfigName::TAGS, span_defaults_, metadata);

@@ -618,7 +618,7 @@ TEST_CASE("TracerConfig::trace_sampler") {
       REQUIRE(finalized);
       REQUIRE(finalized->trace_sampler.rules.size() == 1);
       // and the default sample_rate is 100%
-      REQUIRE(finalized->trace_sampler.rules[catch_all] == 1.0);
+      REQUIRE(finalized->trace_sampler.rules[catch_all].rate == 1.0);
     }
 
     SECTION("has to have a valid sample_rate") {
@@ -638,7 +638,7 @@ TEST_CASE("TracerConfig::trace_sampler") {
     REQUIRE(finalized);
     REQUIRE(finalized->trace_sampler.rules.count(catch_all));
     const auto& [rule, rate] = *finalized->trace_sampler.rules.find(catch_all);
-    REQUIRE(rate == 0.25);
+    REQUIRE(rate.rate == 0.25);
     REQUIRE(rule.service == "*");
     REQUIRE(rule.name == "*");
     REQUIRE(rule.resource == "*");
@@ -651,7 +651,7 @@ TEST_CASE("TracerConfig::trace_sampler") {
       auto finalized = finalize_config(config);
       REQUIRE(finalized);
       REQUIRE(finalized->trace_sampler.rules.count(catch_all));
-      REQUIRE(finalized->trace_sampler.rules[catch_all] == 0.5);
+      REQUIRE(finalized->trace_sampler.rules[catch_all].rate == 0.5);
     }
 
     SECTION("overrides TraceSamplerConfig::sample_rate") {
@@ -660,7 +660,7 @@ TEST_CASE("TracerConfig::trace_sampler") {
       auto finalized = finalize_config(config);
       REQUIRE(finalized);
       REQUIRE(finalized->trace_sampler.rules.count(catch_all));
-      REQUIRE(finalized->trace_sampler.rules[catch_all] == 0.5);
+      REQUIRE(finalized->trace_sampler.rules[catch_all].rate == 0.5);
     }
 
     SECTION("has to have a valid value") {
@@ -799,7 +799,7 @@ TEST_CASE("TracerConfig::trace_sampler") {
       rule0.service = "poohbear";
       rule0.name = "get.honey";
       REQUIRE(rules.count(rule0));
-      CHECK(rules[rule0] == 0);
+      CHECK(rules[rule0].rate == 0);
 
       SpanMatcher rule1;
       rule1.service = "*";
@@ -807,7 +807,7 @@ TEST_CASE("TracerConfig::trace_sampler") {
       rule1.tags.emplace("error", "*");
       rule1.resource = "/admin/*";
       REQUIRE(rules.count(rule1));
-      CHECK(rules[rule1] == 1);
+      CHECK(rules[rule1].rate == 1);
     }
 
     SECTION("must be valid") {

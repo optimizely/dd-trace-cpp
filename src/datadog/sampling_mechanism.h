@@ -58,6 +58,11 @@ enum class SamplingMechanism {
   // Individual span kept by a matching span sampling rule when the enclosing
   // trace was dropped.
   SPAN_RULE = 8,
+  // Sampling rule configured by user via remote configuration
+  REMOTE_USER_RULE = 10,
+  // Adaptive sampling rule automatically computed by Datadog backend and sent
+  // via remote configuration
+  REMOTE_DYNAMIC_RULE = 11
 };
 
 }  // namespace tracing

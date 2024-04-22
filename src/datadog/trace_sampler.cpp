@@ -21,12 +21,10 @@ TraceSampler::TraceSampler(const FinalizedTraceSamplerConfig& config,
       limiter_(clock, config.max_per_second),
       limiter_max_per_second_(config.max_per_second) {}
 
-bool TraceSampler::remove_rule(const SpanMatcher& rule) {
-  return rules_.erase(rule) != 0;
-}
-
-void TraceSampler::insert_or_assign_rule(SpanMatcher rule, Rate rate) {
-  rules_.insert_or_assign(rule, rate);
+void TraceSampler::set_rules(
+    std::unordered_map<SpanMatcher, SamplingResult, SpanMatcher::Hash> rules) {
+  std::lock_guard lock(mutex_);
+  rules_ = std::move(rules);
 }
 
 SamplingDecision TraceSampler::decide(const SpanData& span) {
@@ -46,8 +44,8 @@ SamplingDecision TraceSampler::decide(const SpanData& span) {
     const auto& [rule, sample_rate] = *found_rule;
     decision.mechanism = int(SamplingMechanism::RULE);
     decision.limiter_max_per_second = limiter_max_per_second_;
-    decision.configured_rate = sample_rate;
-    const std::uint64_t threshold = max_id_from_rate(sample_rate);
+    decision.configured_rate = sample_rate.rate;
+    const std::uint64_t threshold = max_id_from_rate(sample_rate.rate);
     if (knuth_hash(span.trace_id.low) < threshold) {
       const auto result = limiter_.allow();
       if (result.allowed) {
@@ -109,7 +107,9 @@ nlohmann::json TraceSampler::config_json() const {
   std::vector<nlohmann::json> rules;
   for (const auto& [rule, rate] : rules_) {
     auto j = rule.to_json();
-    j["sampling_rate"] = rate.value();
+    j["sampling_rate"] = rate.rate.value();
+    // TODO: print real provenance
+    j["provenance"] = rate.mechanism;
     rules.push_back(j);
   }
 

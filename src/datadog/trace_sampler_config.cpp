@@ -115,7 +115,7 @@ Expected<FinalizedTraceSamplerConfig> finalize_config(
       return error->with_prefix(prefix);
     }
 
-    result.rules[rule] = *maybe_rate;
+    result.rules[rule] = SamplingResult{*maybe_rate, SamplingMechanism::RULE};
   }
 
   Optional<double> sample_rate;
@@ -141,7 +141,8 @@ Expected<FinalizedTraceSamplerConfig> finalize_config(
           "Unable to parse overall sample_rate for trace sampling: ");
     }
 
-    result.rules[catch_all] = *maybe_rate;
+    result.rules[catch_all] =
+        SamplingResult{*maybe_rate, SamplingMechanism::RULE};
   }
 
   const auto [origin, max_per_second] =
