@@ -3,12 +3,14 @@
 #include <algorithm>
 #include <cassert>
 
+#include "config_manager.h"
 #include "datadog_agent.h"
 #include "dict_reader.h"
 #include "environment.h"
 #include "extracted_data.h"
 #include "extraction_util.h"
 #include "hex.h"
+#include "id_generator.h"
 #include "json.hpp"
 #include "logger.h"
 #include "parse_util.h"
@@ -24,11 +26,14 @@
 #include "trace_sampler_config.h"
 #include "trace_segment.h"
 #include "tracer_signature.h"
+#include "tracer_telemetry.h"
 #include "version.h"
 #include "w3c_propagation.h"
 
 namespace datadog {
 namespace tracing {
+
+static const TracerSignature g_sig{RuntimeID::generate(), "", ""};
 
 Tracer::Tracer(const FinalizedTracerConfig& config)
     : Tracer(config, default_id_generator(config.generate_128bit_trace_ids)) {}
@@ -38,10 +43,10 @@ Tracer::Tracer(const FinalizedTracerConfig& config,
     : logger_(config.logger),
       runtime_id_(config.runtime_id ? *config.runtime_id
                                     : RuntimeID::generate()),
-      signature_{runtime_id_, config.defaults.service,
-                 config.defaults.environment},
+      /*signature_{runtime_id_, config.defaults.service,*/
+      /*           config.defaults.environment},*/
       tracer_telemetry_(std::make_shared<TracerTelemetry>(
-          config.report_telemetry, config.clock, logger_, signature_,
+          config.report_telemetry, config.clock, logger_, g_sig,
           config.integration_name, config.integration_version)),
       config_manager_(
           std::make_shared<ConfigManager>(config, tracer_telemetry_)),
@@ -66,9 +71,8 @@ Tracer::Tracer(const FinalizedTracerConfig& config,
 
     auto rc_listeners = agent_config.remote_configuration_listeners;
     rc_listeners.emplace_back(config_manager_);
-    auto agent =
-        std::make_shared<DatadogAgent>(agent_config, tracer_telemetry_,
-                                       config.logger, signature_, rc_listeners);
+    auto agent = std::make_shared<DatadogAgent>(
+        agent_config, tracer_telemetry_, config.logger, g_sig, rc_listeners);
     collector_ = agent;
 
     if (tracer_telemetry_->enabled()) {
@@ -90,8 +94,8 @@ std::string Tracer::config() const {
     {"runtime_id", runtime_id_.string()},
     {"collector", collector_->config()},
     {"span_sampler", span_sampler_->config_json()},
-    {"injection_styles", to_json(injection_styles_)},
-    {"extraction_styles", to_json(extraction_styles_)},
+    /*{"injection_styles", to_json(injection_styles_)},*/
+    /*{"extraction_styles", to_json(extraction_styles_)},*/
     {"tags_header_size", tags_header_max_size_},
     {"environment_variables", environment::to_json()},
   });

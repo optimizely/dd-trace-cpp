@@ -18,7 +18,6 @@
 #include <variant>
 
 #include "clock.h"
-#include "config.h"
 #include "expected.h"
 #include "http_client.h"
 #include "remote_config/listener.h"

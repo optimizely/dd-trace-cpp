@@ -36,7 +36,7 @@ Expected<std::vector<PropagationStyle>> parse_propagation_styles(
 
     std::string message;
     message += "The propagation style ";
-    message += to_json(styles.back()).dump();
+    /*message += to_json(styles.back()).dump();*/
     message += " is duplicated in: ";
     append(message, input);
     return Error{Error::DUPLICATE_PROPAGATION_STYLE, std::move(message)};

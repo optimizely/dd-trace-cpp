@@ -10,9 +10,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "config.h"
 #include "expected.h"
-#include "json_fwd.hpp"
 #include "optional.h"
 #include "rate.h"
 #include "sampling_mechanism.h"
