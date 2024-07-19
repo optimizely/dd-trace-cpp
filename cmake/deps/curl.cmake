@@ -19,6 +19,9 @@ SET(CURL_DISABLE_HSTS ON)
 set(CURL_CA_PATH "none")
 set(CURL_CA_PATH_SET FALSE)
 
+# Ensure Position Independent Code (PIC) is enabled for libcurl
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 FetchContent_Declare(
   curl
   URL "https://github.com/curl/curl/releases/download/curl-7_85_0/curl-7.85.0.tar.gz"
